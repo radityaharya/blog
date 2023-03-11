@@ -5,9 +5,9 @@ module.exports = {
   images: {
     domains: [
       "user-images.githubusercontent.com",
-      "og.railway.app",
       "s3.us-west-2.amazonaws.com",
       "res.cloudinary.com",
+      "r2.radityaharya.me"
     ],
   },
 }

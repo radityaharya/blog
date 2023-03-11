@@ -9,9 +9,9 @@ export interface Props extends NextSeoProps {
   author?: string
 }
 
-const title = "Railway Blog"
-export const url = "https://blog.railway.app"
-const description = "Blog posts from the Railway team"
+const title = "Raditya Harya"
+export const url = "https://radityaharya.me"
+const description = "Blog posts by Raditya Harya"
 const image =
   "https://og.railway.app/api/image?fileType=png&layoutName=docs&Page=Railway+Blog&Url=blog.railway.app"
 

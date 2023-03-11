@@ -1,6 +1,5 @@
 import React from "react"
 import Link from "@components/Link"
-import Logo from "@components/Logo"
 import { Moon, Sun } from "react-feather"
 import { useTheme } from "next-themes"
 import { useIsMounted } from "../hooks/useIsMounted"
@@ -23,17 +22,10 @@ const Nav: React.FC = () => {
         )}
       >
         <Link href="/" className="flex items-center space-x-4">
-          <Logo />
-          <span className="text-xl font-bold">Blog</span>
+          <span className="text-xl font-bold">radityaharya</span>
         </Link>
 
         <div className="text-gray-600 flex items-center space-x-6">
-          <Link
-            className="text-sm hover:text-pink-600"
-            href="https://railway.app"
-          >
-            Go to Homepage
-          </Link>
 
           {isMounted && (
             <button

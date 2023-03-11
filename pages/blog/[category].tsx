@@ -2,8 +2,8 @@ import Page from "@layouts/Page"
 import { getDatabase } from "@lib/notion"
 import { PostProps } from "@lib/types"
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
-import { PostList } from "../components/PostList"
-import { CATEGORIES } from "../constants"
+import { PostList } from "../../components/PostList"
+import { CATEGORIES } from "../../constants"
 
 export interface Props {
   posts: PostProps[]
@@ -42,7 +42,7 @@ export const getStaticProps: GetStaticProps = async (props) => {
 
 export const getStaticPaths: GetStaticPaths = () => {
   return {
-    paths: CATEGORIES.map((c) => `/${c}`),
+    paths: CATEGORIES.map((c) => `/blog/${c}`),
     fallback: true,
   }
 }

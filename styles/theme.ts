@@ -131,7 +131,7 @@ const darkTheme = {
   ...invertTheme(lightTheme),
 
   foreground: "hsl(0, 0%, 100%)",
-  background: "hsl(250, 24%, 9%)",
+  background: "hsl(0, 0%, 4%)",
   secondaryBg: "hsl(250, 21%, 11%)",
 }
 
