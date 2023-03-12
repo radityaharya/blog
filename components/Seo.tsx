@@ -13,7 +13,7 @@ const title = "Raditya Harya"
 export const url = "https://radityaharya.me"
 const description = "Blog posts by Raditya Harya"
 const image =
-  "https://og.railway.app/api/image?fileType=png&layoutName=docs&Page=Railway+Blog&Url=blog.railway.app"
+  ""
 
 const config: DefaultSeoProps = {
   title,
@@ -28,7 +28,6 @@ const config: DefaultSeoProps = {
     },
   },
   twitter: {
-    handle: "@Railway_App",
     cardType: "summary_large_image",
   },
 }

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { SpotifyService } from 'spotify-now-playing'
+import { SpotifyService } from '../../lib/spotify-now-playing/service/spotify'
 import cacheData from "memory-cache";
 
 export default async function(req: NextApiRequest, res: NextApiResponse) {

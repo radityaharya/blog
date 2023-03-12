@@ -24,6 +24,7 @@ const Home: NextPage<Props> = () => {
             data.title,
             data.artists.name[0],
             data.url,
+            data.preview
           ];
           setNowPlaying(np);
         } else {
@@ -35,16 +36,33 @@ const Home: NextPage<Props> = () => {
       });
   }, []);
 
+  
+
+  const playPreview = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    if (nowPlaying) {
+      const audio = new Audio(nowPlaying[3]);
+      audio.volume = 0.5;
+      audio.play();
+
+      e.currentTarget.onmouseleave = () => {
+        audio.pause();
+        // audio.currentTime = 0;
+      }
+
+    }
+  };
+
   const nowPlayingText = nowPlaying ? `${nowPlaying[0]} - ${nowPlaying[1]}` : null;
   const spNowPlaying = nowPlaying ? (
-    <div className="now-playing flex flex-row gap-2 items-center mb-4">
-      <div className="now-playing-icon">
-        <i className="fab fa-spotify text-white"></i>
+    <Link className="now-playing-text" href={nowPlaying[2]}>
+      <div className="now-playing flex flex-row gap-2 items-center mb-4">
+        <div className="now-playing-icon">
+          <i className="fab fa-spotify text-white"></i>
+        </div>
+        <span className="text-white text-sm font-mono font-normal" onMouseEnter={playPreview}
+        >{nowPlayingText}</span>
       </div>
-      <Link className="now-playing-text" href={nowPlaying[2]}>
-        <span className="text-white text-sm font-mono font-normal">{nowPlayingText}</span>
-      </Link>
-    </div>
+    </Link>
   ) : null;
 
   return (
@@ -64,7 +82,7 @@ const Home: NextPage<Props> = () => {
             autoPlay
             playsInline
             poster="https://r2.radityaharya.me/herovid.jpg"
-            ></video>
+          ></video>
           <div className="hero-content z-10 max-w-screen-xl w-full flex flex-col items-start justify-center">
             <div className="header-container flex flex-col gap-1.5 items-start justify-center">
               <div className="header flex flex-col">

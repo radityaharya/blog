@@ -1,4 +1,3 @@
-import useFathom from "@hooks/useFathom"
 import "@styles/globals.css"
 import { ThemeProvider } from "next-themes"
 import type { AppProps } from "next/app"
@@ -13,7 +12,6 @@ import { GoogleAnalytics } from "nextjs-google-analytics";
 const open_sans = Open_Sans({ subsets: ["latin"] })
 
 const RailwayBlog = ({ Component, pageProps }: AppProps) => {
-  useFathom(process.env.NEXT_PUBLIC_FATHOM_CODE ?? "", "radityaharya.me")
 
   const { bodyCSS } = useMemo(
     () =>
@@ -39,7 +37,6 @@ const RailwayBlog = ({ Component, pageProps }: AppProps) => {
           }
         `}</style>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-YRE5ZKX5QG"></script>
-
         <Script>{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
