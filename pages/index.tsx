@@ -48,7 +48,7 @@ const Home: NextPage<Props> = () => {
   ) : null;
 
   return (
-    <Page nav={false}>
+    <Page nav={false} seo={{ title: "Home" }}>
       <link rel="stylesheet" href="/home.css" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />

@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
         <div className="gap-5 w-full flex items-start pt-5 border-t border-gray-800 flex-col pb-5">
           <div className="gap-x-24 w-full flex items-start flex-row justify-start">
             <div className="gap-2 w-96 flex items-start flex-col">
-              <h1 className="text-white pt-2 font-mono text-lg">radityaharya</h1>
+              <h1 className="pt-2 font-mono text-lg">radityaharya</h1>
               <div className="gap-2 flex items-start flex-row">
                 <Link href="https://github.com/radityaharya" className="hover:text-foreground">
                   github
