@@ -22,7 +22,7 @@ const Nav: React.FC = () => {
         )}
       >
         <Link href="/" className="flex items-center space-x-4">
-          <span className="text-xl font-bold">radityaharya</span>
+          <span className="text-xl font-bold font-mono">radityaharya</span>
         </Link>
 
         <div className="text-gray-600 flex items-center space-x-6">

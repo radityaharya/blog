@@ -13,7 +13,7 @@ const Page: React.FC<Props> = (props) => {
   return (
     <>
       <SEO {...props.seo} />
-      
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" crossOrigin="anonymous"></link>
       
       {props.nav !== false && <Nav />}
 

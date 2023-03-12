@@ -42,6 +42,7 @@
     "fathom-client": "^3.5.0",
     "feed": "^4.2.2",
     "github-slugger": "^2.0.0",
+    "memory-cache": "^0.2.0",
     "next": "13.1.2",
     "next-google-fonts": "^2.2.0",
     "next-seo": "^5.15.0",
@@ -52,6 +53,7 @@
     "react-twitter-embed": "^4.0.4",
     "sharp": "^0.31.3",
     "shiki": "^0.12.1",
+    "spotify-now-playing": "^1.1.4",
     "tailwind-merge": "^1.8.1",
     "theme-custom-properties": "^1.0.0",
     "typewriter-effect": "^2.19.0"
