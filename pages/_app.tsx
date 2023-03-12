@@ -26,7 +26,7 @@ const RailwayBlog = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="light"
+      defaultTheme="dark"
       disableTransitionOnChange={true}
       enableSystem
     >
