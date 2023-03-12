@@ -6,21 +6,15 @@ import { useIsMounted } from "../hooks/useIsMounted"
 import { useRouter } from "next/router"
 import { cn } from "../utils"
 
-const Nav: React.FC<{ float?: boolean }> = ({ float }) => {
+const Nav: React.FC = () => {
   const { theme, setTheme } = useTheme()
   const isMounted = useIsMounted()
   const { asPath } = useRouter()
 
   const isBlogPage = asPath.includes("/p/")
-  const floatClass = float ? "fixed top-0 left-0 w-full" : ""
+
   return (
-    <div className={
-      cn(
-        "w-full",
-        !isBlogPage ? "" : "bg-transparent",
-        floatClass
-      )
-    }>
+    <div className="px-5 md:px-8">
       <nav
         className={cn(
           "max-w-6xl mx-auto py-6 flex justify-between items-center border-b border-transparent",
