@@ -48,7 +48,7 @@ const RelatedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
 
   return (
     <Link
-      href={`/p/${post.properties.Slug.rich_text[0].plain_text}`}
+      href={`/blog/p/${post.properties.Slug.rich_text[0].plain_text}`}
       className="flex flex-col bg-secondaryBg p-6 rounded-lg hover:bg-gray-100 group"
     >
       {category != null && <PostCategory category={category} />}

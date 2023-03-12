@@ -29,6 +29,7 @@
     ]
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@next/font": "^13.1.2",
     "@nextui-org/react": "^1.0.0-beta.12",
     "@notionhq/client": "^0.3.3",

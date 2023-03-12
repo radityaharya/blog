@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next"
 
 import { getDatabase, getBlogLink } from "@lib/notion"
 
-const ROOT_URL = "https://blog.railway.app"
+const ROOT_URL = "https://radityaharya.me"
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const posts = await getDatabase(process.env.POSTS_TABLE_ID)

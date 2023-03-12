@@ -26,7 +26,7 @@ export const generateRssFeed = (posts: PostProps[]) => {
   })
 
   posts.forEach((post) => {
-    const url = baseUrl + "/p/" + post.properties.Slug.rich_text[0].plain_text
+    const url = baseUrl + "/blog/p/" + post.properties.Slug.rich_text[0].plain_text
     feed.addItem({
       title: post.properties.Page.title[0].plain_text,
       description: post.properties.Description.rich_text[0].plain_text,

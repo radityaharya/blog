@@ -22,7 +22,7 @@ const PostItem: React.FC<Props> = ({ post }) => {
 
   return (
     <Link
-      href={`/p/${post.properties.Slug.rich_text[0].plain_text}`}
+      href={`/blog/p/${post.properties.Slug.rich_text[0].plain_text}`}
       className="flex flex-col border-b border-gray-100 group"
     >
       {category != null && <PostCategory category={category} />}

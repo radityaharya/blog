@@ -97,7 +97,7 @@ export const getMediaProperties = (
 }
 
 export const getBlogLink = (slug: string) => {
-  return `/p/${slug}`
+  return `/blog/p/${slug}`
 }
 
 export const getChangelogImageSrc = async (blockId: string) => {

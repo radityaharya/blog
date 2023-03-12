@@ -3,10 +3,8 @@ import React from "react"
 const categoryToStyle = {
   News: "text-blue-500 bg-blue-50",
   Guide: "text-green-500 bg-green-50",
-  Company: "text-pink-500 bg-pink-50",
-  Engineering: "text-pink-500 bg-pink-50",
-  "User Stories": "text-pink-500 bg-pink-50",
-  "Scaling Railway": "text-green-500 bg-green-50",
+  Personal: "text-pink-500 bg-pink-50",
+  Others: "text-pink-500 bg-pink-50",
 }
 
 export const PostCategory: React.FC<{

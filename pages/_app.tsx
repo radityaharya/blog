@@ -6,12 +6,13 @@ import Head from "next/head"
 import { useMemo } from "react"
 import { transformThemeToCustomProperties } from "theme-custom-properties"
 import { colorThemes, defaultColorMode } from "../styles/theme"
-import { Inter } from "@next/font/google"
+import { Open_Sans } from "@next/font/google"
 
-const inter = Inter({ subsets: ["latin"] })
+
+const open_sans = Open_Sans({ subsets: ["latin"] })
 
 const RailwayBlog = ({ Component, pageProps }: AppProps) => {
-  useFathom(process.env.NEXT_PUBLIC_FATHOM_CODE ?? "", "blog.railway.app")
+  useFathom(process.env.NEXT_PUBLIC_FATHOM_CODE ?? "", "radityaharya.me")
 
   const { bodyCSS } = useMemo(
     () =>
@@ -33,7 +34,7 @@ const RailwayBlog = ({ Component, pageProps }: AppProps) => {
         <style>{bodyCSS}</style>
         <style jsx global>{`
           html {
-            font-family: ${inter.style.fontFamily};
+            font-family: ${open_sans.style.fontFamily};
           }
         `}</style>
       </Head>

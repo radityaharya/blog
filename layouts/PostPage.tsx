@@ -3,7 +3,6 @@ import Page from "@layouts/Page"
 import { PostProps } from "@lib/types"
 import dayjs from "dayjs"
 import React, { useMemo } from "react"
-import { BottomCTA } from "../components/BottomCTA"
 import { ContinueReading } from "../components/ContinueReading"
 import { Divider } from "../components/Divider"
 import { useOgImage } from "../hooks/useOGImage"
@@ -79,7 +78,6 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
             <ContinueReading category={category} posts={relatedPosts} />
           )}
 
-          <BottomCTA />
         </div>
       </div>
     </Page>

@@ -14,7 +14,7 @@ import {
 
 import { RenderBlock } from "@components/RenderBlock"
 import { FullLoading } from "@components/Loading"
-import { NotionList } from "../../components/NotionText"
+import { NotionList } from "../../../components/NotionText"
 
 export interface Props {
   page: PostProps
