@@ -4,17 +4,16 @@ import { writeFileSync } from "fs"
 import { PostProps } from "@lib/types"
 
 export const generateRssFeed = (posts: PostProps[]) => {
-  const baseUrl = "https://blog.railway.app"
+  const baseUrl = "https://radityaharya.me"
   const author = {
-    name: "Railway",
-    email: "contact@railway.app",
-    link: "https://twitter.com/Railway",
+    name: "radityaharya",
+    email: "contact@radityaharya.me",
   }
 
   const feed = new Feed({
-    title: "Railway Blog",
+    title: "Raditya's Blog",
     description:
-      "A series of posts ranging from deployment tutorials to deep engineering adventures to how the team works and builds Railway.",
+      "A blog about my journey as a software engineer, and my thoughts about technology.",
     id: baseUrl,
     link: baseUrl,
     language: "en",
@@ -22,7 +21,7 @@ export const generateRssFeed = (posts: PostProps[]) => {
       rss2: `${baseUrl}/rss.xml`,
     },
     author,
-    copyright: "Copyright © 2022 Railway Corp.",
+    copyright: "Copyright © 2023 Raditya Harya.",
   })
 
   posts.forEach((post) => {
