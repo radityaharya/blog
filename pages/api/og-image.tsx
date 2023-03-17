@@ -18,7 +18,7 @@ export default async function handler(req: NextRequest) {
     const title = searchParams.get('title') || 'Post Title';
     const author = searchParams.get('author') || 'radityaharya';
     const subtext = searchParams.get('subtext') || 'Blog by Raditya Harya';
-    const url = searchParams.get('url').slice(0, 60) || 'https://radityaharya.com';
+    const url = searchParams.get('url') || 'https://radityaharya.com';
     const theme = searchParams.get('theme') || 'dark';
     
     const gradient = theme === 'dark' ? 'linear-gradient(254.59deg, #29323C 0%, #000000 100%)' : 'linear-gradient(74.59deg, #FEA2C3 0%, #8AC4FD 100%)';
@@ -72,7 +72,7 @@ export default async function handler(req: NextRequest) {
       },
     );
   } catch (e: any) {
-    return new Response(`Failed to generate the image`, {
+    return new Response(`Failed to generate the image error: ${e.message}`, {
       status: 500,
     });
   }
