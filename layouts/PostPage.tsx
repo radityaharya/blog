@@ -26,7 +26,7 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
     authorName: author?.name,
     image: post.properties?.Image?.url,
     formatedDate: formattedDate,
-    url: post.url,
+      url: new URL(`/blog/p/${post.properties.Slug.rich_text[0].plain_text}`, "https://radityaharya.me").href,
   })
 
   const category = post.properties.Category?.select?.name
