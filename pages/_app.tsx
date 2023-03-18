@@ -7,7 +7,7 @@ import { useMemo } from "react"
 import { transformThemeToCustomProperties } from "theme-custom-properties"
 import { colorThemes, defaultColorMode } from "../styles/theme"
 import { Open_Sans } from "@next/font/google"
-import { GoogleAnalytics } from "nextjs-google-analytics";
+import { Analytics } from '@vercel/analytics/react';
 
 const open_sans = Open_Sans({ subsets: ["latin"] })
 
@@ -29,6 +29,7 @@ const RailwayBlog = ({ Component, pageProps }: AppProps) => {
       disableTransitionOnChange={true}
       enableSystem
     >
+
       <Head>
         <style>{bodyCSS}</style>
         <style jsx global>{`
@@ -47,6 +48,7 @@ const RailwayBlog = ({ Component, pageProps }: AppProps) => {
       </Head>
 
       <Component {...pageProps} />
+      <Analytics />
     </ThemeProvider>
   )
 }
