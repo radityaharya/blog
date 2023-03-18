@@ -17,12 +17,12 @@ export const useOgImage = ({
 
   const encodedTitle = encodeURIComponent(title)
   const encodedAuthorName = encodeURIComponent(authorName)
-
+  const encodedDate = encodeURIComponent(formatedDate ?? "")
 
   return (
     image ??
     `https://www.radityaharya.me/api/og-image?theme=${
       theme === "light" ? "Light" : "Dark"
-    }&title=${encodedTitle}&author=${encodedAuthorName}&subtext=${formatedDate}&url=${url}`
+    }&title=${encodedTitle}&author=${encodedAuthorName}&subtext=${encodedDate}&url=${url}`
   )
 }
