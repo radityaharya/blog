@@ -25,6 +25,8 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
     title: post.properties.Page.title[0].plain_text,
     authorName: author?.name,
     image: post.properties?.Image?.url,
+    formatedDate: formattedDate,
+    url: post.url,
   })
 
   const category = post.properties.Category?.select?.name

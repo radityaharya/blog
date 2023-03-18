@@ -4,20 +4,25 @@ export const useOgImage = ({
   title,
   authorName,
   image,
+  formatedDate,
+  url
 }: {
   title: string
   authorName: string
   image?: string
+  formatedDate?: string
+  url?: string
 }): string => {
   const { theme } = useTheme()
 
   const encodedTitle = encodeURIComponent(title)
   const encodedAuthorName = encodeURIComponent(authorName)
 
+
   return (
     image ??
-    `https://og.railway.app/api/image?fileType=png&layoutName=Blog&Theme=${
+    `https://www.radityaharya.me/api/og-image?theme=${
       theme === "light" ? "Light" : "Dark"
-    }&Title=${encodedTitle}&Author=${encodedAuthorName}`
+    }&title=${encodedTitle}&author=${encodedAuthorName}&subtext=${formatedDate}&url=${url}`
   )
 }

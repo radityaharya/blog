@@ -39,11 +39,11 @@ export default async function handler(req: NextRequest) {
         fontFamily: "JetBrains Mono",
         color: textColor,
       }}>
-        <div tw=" flex flex-col justify-between items-start  gap-[124px] w-[100%] h-[100%] box-border">
+        <div tw=" flex flex-col justify-between items-start gap-[124px] w-[100%] h-[100%] box-border">
           <p tw="  border-[#040404ff] text-2xl leading-6 font-mono font-[300]">
             root@local /h/{author}
           </p>
-          <div tw=" flex flex-col justify-start items-start  gap-[27px] w-[undefinedundefined] box-border">
+          <div tw=" flex flex-col justify-start items-start gap-[27px] box-border">
             <p tw="  border-[#040404ff] text-8xl  leading-[104%] font-mono font-[700]">
               {title}
             </p>
