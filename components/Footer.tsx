@@ -11,13 +11,13 @@ const Footer: React.FC = () => {
             <div className="gap-2 w-96 flex items-start flex-col">
               <h1 className="pt-2 font-mono text-lg">radityaharya</h1>
               <div className="gap-2 flex items-start flex-row">
-                <Link href="https://github.com/radityaharya" className="hover:text-foreground">
+                <Link href="https://github.com/radityaharya" className="hover:text-foreground font-mono">
                   github
                 </Link>
-                <Link href="mailto:contact@radityaharya.me" className="hover:text-foreground">
+                <Link href="mailto:contact@radityaharya.me" className="hover:text-foreground font-mono">
                   email
                 </Link>
-                <Link href="https://linkedin.com/in/radityaharya" className="hover:text-foreground">
+                <Link href="https://linkedin.com/in/radityaharya" className="hover:text-foreground font-mono">
                   linkedin
                 </Link>
 
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
             <span className="text-gray-500 text-sm leading-5">
               <Copyright />
             </span>
-            <button className="flex pr-5 pl-5 pb-1 pt-1 flex-row items-center" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+            <button className="flex pr-5 pl-5 pb-1 pt-1 flex-row items-center" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Scroll to top">
               <i className="fas fa-arrow-up"></i>
             </button>
           </div>
