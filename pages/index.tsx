@@ -75,13 +75,13 @@ const Home: NextPage<Props> = () => {
 
       <div className="">
         <div className="hero relative flex justify-start items-center w-full h-screen px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 mb-12">
-          <video className="video absolute top-0 left-0 w-full h-full object-cover opacity-60" src="https://r2.radityaharya.me/herovid.mp4"
+          <video className="video absolute top-0 left-0 w-full h-full object-cover opacity-60" src="/assets/herovid.mp4"
             loop
             muted
             preload="auto"
             autoPlay
             playsInline
-            poster="https://r2.radityaharya.me/herovid.jpg"
+            poster="/assets/herovid.jpg"
           ></video>
           <div className="hero-content z-10 max-w-screen-xl w-full flex flex-col items-start justify-center">
             <div className="header-container flex flex-col gap-1.5 items-start justify-center">
