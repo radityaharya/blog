@@ -37,14 +37,6 @@ const RailwayBlog = ({ Component, pageProps }: AppProps) => {
             font-family: ${open_sans.style.fontFamily};
           }
         `}</style>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-YRE5ZKX5QG"></script>
-        <Script>{`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-YRE5ZKX5QG');
-        `}</Script>
       </Head>
 
       <Component {...pageProps} />
