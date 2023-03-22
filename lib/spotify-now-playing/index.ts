@@ -1,1 +1,1 @@
-export * from './service/spotify'
+export * from "./service/spotify"

@@ -5,7 +5,11 @@ import Link from "./Link"
 export const Categories: React.FC = () => {
   return (
     <ul className="flex flex-wrap gap-4 md:gap-8 mt-4 mb-8">
-      <CategoryItem item="Everything" slug="/blog" className="hidden md:block" />
+      <CategoryItem
+        item="Everything"
+        slug="/blog"
+        className="hidden md:block"
+      />
 
       {CATEGORIES.map((c) => (
         <CategoryItem key={c} item={c} slug={`/blog/${c.toLowerCase()}`} />

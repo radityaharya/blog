@@ -5,7 +5,7 @@ export const useOgImage = ({
   authorName,
   image,
   formatedDate,
-  url
+  url,
 }: {
   title: string
   authorName: string

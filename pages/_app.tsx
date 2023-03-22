@@ -7,12 +7,11 @@ import { useMemo } from "react"
 import { transformThemeToCustomProperties } from "theme-custom-properties"
 import { colorThemes, defaultColorMode } from "../styles/theme"
 import { Open_Sans } from "@next/font/google"
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from "@vercel/analytics/react"
 
 const open_sans = Open_Sans({ subsets: ["latin"] })
 
 const RailwayBlog = ({ Component, pageProps }: AppProps) => {
-
   const { bodyCSS } = useMemo(
     () =>
       transformThemeToCustomProperties(colorThemes, {
@@ -29,7 +28,6 @@ const RailwayBlog = ({ Component, pageProps }: AppProps) => {
       disableTransitionOnChange={true}
       enableSystem
     >
-
       <Head>
         <style>{bodyCSS}</style>
         <style jsx global>{`

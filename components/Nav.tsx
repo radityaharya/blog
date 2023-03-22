@@ -26,7 +26,6 @@ const Nav: React.FC = () => {
         </Link>
 
         <div className="text-gray-600 flex items-center space-x-6">
-
           {isMounted && (
             <button
               className="hover:text-pink-600"

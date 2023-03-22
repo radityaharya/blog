@@ -12,7 +12,7 @@ export interface Props {
 const Page: React.FC<Props> = (props) => {
   return (
     <>
-      <SEO {...props.seo} />      
+      <SEO {...props.seo} />
       {props.nav !== false && <Nav />}
 
       <div className="min-h-screen overflow-x-hidden relative">
@@ -21,7 +21,7 @@ const Page: React.FC<Props> = (props) => {
 
       <Footer />
     </>
-  ) 
+  )
 }
 
 export default Page

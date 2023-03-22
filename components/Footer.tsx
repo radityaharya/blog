@@ -16,9 +16,15 @@ const Footer: React.FC = () => {
             <div className="gap-2 w-96 flex items-start flex-col">
               <h1 className="pt-2 font-mono text-lg">radityaharya</h1>
               <div className="gap-2 flex items-start flex-row">
-                <FooterListLink href="https://github.com/radityaharya">github</FooterListLink>
-                <FooterListLink href="mailto:contact@radityaharya.me">email</FooterListLink>
-                <FooterListLink href="https://linkedin.com/in/radityaharya">linkedin</FooterListLink>
+                <FooterListLink href="https://github.com/radityaharya">
+                  github
+                </FooterListLink>
+                <FooterListLink href="mailto:contact@radityaharya.me">
+                  email
+                </FooterListLink>
+                <FooterListLink href="https://linkedin.com/in/radityaharya">
+                  linkedin
+                </FooterListLink>
               </div>
             </div>
           </div>
@@ -35,8 +41,15 @@ const Footer: React.FC = () => {
                   {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
                 </button>
               )}
-              <button className="flex pr-5 pl-5 pb-1 pt-1 flex-row items-center" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Scroll to top">
-                <svg className="w-4 h-4 fill-current text-gray-500" viewBox="0 0 20 20">
+              <button
+                className="flex pr-5 pl-5 pb-1 pt-1 flex-row items-center"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                aria-label="Scroll to top"
+              >
+                <svg
+                  className="w-4 h-4 fill-current text-gray-500"
+                  viewBox="0 0 20 20"
+                >
                   <path d="M10 0 L0 20 L20 20 Z" />
                 </svg>
               </button>

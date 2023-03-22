@@ -12,8 +12,7 @@ export interface Props extends NextSeoProps {
 const title = "Raditya Harya"
 export const url = "https://radityaharya.me"
 const description = "Blog posts by Raditya Harya"
-const image =
-  ""
+const image = ""
 
 const config: DefaultSeoProps = {
   title,

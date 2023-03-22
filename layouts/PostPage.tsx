@@ -26,7 +26,10 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
     authorName: author?.name,
     image: post.properties?.Image?.url,
     formatedDate: formattedDate,
-      url: new URL(`/blog/p/${post.properties.Slug.rich_text[0].plain_text}`, "https://radityaharya.me").href,
+    url: new URL(
+      `/blog/p/${post.properties.Slug.rich_text[0].plain_text}`,
+      "https://radityaharya.me"
+    ).href,
   })
 
   const category = post.properties.Category?.select?.name
@@ -79,7 +82,6 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
           {category != null && relatedPosts.length >= 2 && (
             <ContinueReading category={category} posts={relatedPosts} />
           )}
-
         </div>
       </div>
     </Page>

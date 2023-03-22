@@ -11,7 +11,7 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 export const PostList: React.FC<{
   posts: PostProps[]
   category?: string
-}> = ({ posts, category}) => {
+}> = ({ posts, category }) => {
   const featuredPosts = posts.filter((p) => p.properties.Featured.checkbox)
   const otherPosts = posts.filter((p) => !p.properties.Featured.checkbox)
 
