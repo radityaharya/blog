@@ -63,7 +63,9 @@ const Home: NextPage<Props> = () => {
         >{nowPlayingText}</span>
       </div>
     </Link>
-  ) : null;
+  ) : (
+    <div className="now-playing-empty mb-4" style={{ height: "21px" }}></div>
+  )
 
   return (
     <Page nav={false} seo={{ title: "Home" }}>
@@ -81,7 +83,7 @@ const Home: NextPage<Props> = () => {
             <div className="header-container flex flex-col gap-1.5 items-start justify-center">
               <div className="header flex flex-col">
                 {spNowPlaying}
-                <h1 className="home-heading heading text-white text-5xl md:text-6xl font-mono font-medium max-w-5xl leading-tight mb-4">
+                <h1 className="home-heading heading text-white text-5xl md:text-6xl font-mono font-medium max-w-5xl leading-tight mb-4" style={{ height: "min-content" }}>
                   <span className="">
                     <Typewriter
                       onInit={(typewriter) => {

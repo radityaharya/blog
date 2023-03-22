@@ -1,8 +1,13 @@
 import Link from "@components/Link"
 import React from "react"
-
+import { Moon, Sun } from "react-feather"
+import { useTheme } from "next-themes"
+import { useIsMounted } from "../hooks/useIsMounted"
 
 const Footer: React.FC = () => {
+  const { theme, setTheme } = useTheme()
+  const isMounted = useIsMounted()
+
   return (
     <footer className="max-w-6xl mx-auto py-6 flex justify-between items-center border-b border-transparent">
       <div className="w-full flex relative max-w-size-maxwidth items-start pl-5 pr-5 flex-col">
@@ -11,16 +16,9 @@ const Footer: React.FC = () => {
             <div className="gap-2 w-96 flex items-start flex-col">
               <h1 className="pt-2 font-mono text-lg">radityaharya</h1>
               <div className="gap-2 flex items-start flex-row">
-                <Link href="https://github.com/radityaharya" className="hover:text-foreground font-mono">
-                  github
-                </Link>
-                <Link href="mailto:contact@radityaharya.me" className="hover:text-foreground font-mono">
-                  email
-                </Link>
-                <Link href="https://linkedin.com/in/radityaharya" className="hover:text-foreground font-mono">
-                  linkedin
-                </Link>
-
+                <FooterListLink href="https://github.com/radityaharya">github</FooterListLink>
+                <FooterListLink href="mailto:contact@radityaharya.me">email</FooterListLink>
+                <FooterListLink href="https://linkedin.com/in/radityaharya">linkedin</FooterListLink>
               </div>
             </div>
           </div>
@@ -28,11 +26,21 @@ const Footer: React.FC = () => {
             <span className="text-gray-500 text-sm leading-5">
               <Copyright />
             </span>
-            <button className="flex pr-5 pl-5 pb-1 pt-1 flex-row items-center" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Scroll to top">
-              <svg className="w-4 h-4 fill-current text-gray-500" viewBox="0 0 20 20">
-                <path d="M10 0 L0 20 L20 20 Z" />
-              </svg>
-            </button>
+            <div className="text-gray-600 flex items-center space-x-6">
+              {isMounted && (
+                <button
+                  className="hover:text-pink-600"
+                  onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                >
+                  {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
+                </button>
+              )}
+              <button className="flex pr-5 pl-5 pb-1 pt-1 flex-row items-center" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Scroll to top">
+                <svg className="w-4 h-4 fill-current text-gray-500" viewBox="0 0 20 20">
+                  <path d="M10 0 L0 20 L20 20 Z" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -46,11 +54,9 @@ const FooterListLink: React.FC<{
   href: string
   children?: React.ReactNode
 }> = ({ children, href }) => (
-  <li>
-    <Link href={href} className="hover:text-foreground">
-      {children}
-    </Link>
-  </li>
+  <Link href={href} className="font-mono text-gray-500 hover:text-gray-800">
+    {children}
+  </Link>
 )
 
 const Copyright: React.FC = () => (
