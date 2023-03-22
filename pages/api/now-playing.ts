@@ -1,10 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { SpotifyService } from "../../lib/spotify-now-playing/service/spotify"
 
-export const config = {
-  runtime: "edge",
-}
-
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const spotify = new SpotifyService(
     process.env.SPOTIFY_CLIENT_ID,
@@ -14,8 +10,12 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   const song = await spotify.getCurrentSong()
 
   if (song) {
-    res.setHeader("Cache-Control", `public, max-age=10, s-maxage=10`)
+    res.setHeader(
+      "Cache-Control",
+      `public, s-maxage=10, stale-while-revalidate=10`
+    )
     return res.status(200).json(song)
   }
-  return res.status(204).end()
+
+  return res.status(200).json({})
 }
