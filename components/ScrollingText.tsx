@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 
-export const ScrollingText = ({ text, ...props }) =>{
+export const ScrollingText = ({ text, ...props }) => {
   const [offset, setOffset] = useState(0)
   const [direction, setDirection] = useState("left")
   const containerRef = useRef(null)
@@ -37,7 +37,12 @@ export const ScrollingText = ({ text, ...props }) =>{
       style={{ overflow: "hidden", whiteSpace: "nowrap" }}
       ref={containerRef}
     >
-      <div style={{ transform: `translateX(${offset}px)`, width: "min-content" }} {...props}>{text}</div>
+      <div
+        style={{ transform: `translateX(${offset}px)`, width: "min-content" }}
+        {...props}
+      >
+        {text}
+      </div>
     </div>
   )
 }

@@ -19,22 +19,22 @@ const Home: NextPage<Props> = () => {
       <div className="select-none">
         <div className="hero relative flex justify-start items-center w-full h-screen px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 mb-12">
           <div className="video-container w-full h-full absolute top-0 left-0 z-0">
-          <video
-            className="video top-0 left-0 w-full h-full object-cover opacity-60"
-            src="/assets/herovid.mp4"
-            loop
-            muted
-            preload="auto"
-            autoPlay
-            playsInline
-            poster="/assets/herovid.jpg"
-          ></video>
+            <video
+              className="video top-0 left-0 w-full h-full object-cover opacity-60"
+              src="/assets/herovid.mp4"
+              loop
+              muted
+              preload="auto"
+              autoPlay
+              playsInline
+              poster="/assets/herovid.jpg"
+            ></video>
           </div>
           <div className="hero-content z-10 max-w-screen-xl w-full flex flex-col items-start justify-center">
             <div className="header-container flex flex-col gap-1.5 items-start justify-center">
               <div className="header flex flex-col">
                 <div className="opacity-100">
-                <NowPlaying />
+                  <NowPlaying />
                 </div>
                 <h1
                   className="home-heading heading text-5xl md:text-6xl font-mono font-medium max-w-5xl leading-tight mb-4"
@@ -96,5 +96,3 @@ const Home: NextPage<Props> = () => {
 }
 
 export default Home
- 
-
