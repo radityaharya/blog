@@ -19,7 +19,7 @@ export const ScrollingText = ({ text, ...props }) =>{
         setDirection("left")
       }
       setOffset(direction === "left" ? offset - 1 : offset + 1)
-    }, 100)
+    }, 40)
     return () => clearInterval(intervalId)
   }, [offset, direction, text.length])
 

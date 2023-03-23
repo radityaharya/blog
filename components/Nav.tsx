@@ -30,6 +30,7 @@ const Nav: React.FC = () => {
             <button
               className="hover:text-pink-600"
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              aria-label="Toggle Theme"
             >
               {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
             </button>

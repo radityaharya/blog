@@ -58,6 +58,7 @@ export const PostList: React.FC<{
                 <button
                   className="md:col-span-2 w-full text-center text-pink-700 border border-pink-200 rounded-md px-4 py-2 hover:text-pink-800 hover:border-pink-500 transition-colors duration-100"
                   onClick={() => setShowMore(true)}
+                  aria-label="Load more posts"
                 >
                   Load more posts...
                 </button>
