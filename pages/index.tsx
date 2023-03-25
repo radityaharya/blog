@@ -4,6 +4,7 @@ import { NextPage } from "next"
 import Typewriter from "typewriter-effect"
 import Link from "@components/Link"
 import { NowPlaying } from "@components/NowPlaying"
+import { useRef, useEffect } from "react"
 
 export interface Props {
   posts: PostProps[]
@@ -12,14 +13,22 @@ export interface Props {
 }
 
 const Home: NextPage<Props> = () => {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {null})
+    }
+  }, [])
+
   return (
     <Page nav={false} seo={{ title: "Home" }} footerDivider={false}>
       <div className="select-none">
-        <div className="hero relative flex justify-center items-center w-full h-screen px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-20 mb-12">
+        <div className="hero relative flex justify-center items-center w-full h-screen px-auto mb-12">
           <div className="video-container w-full h-full absolute top-0 left-0 z-0">
             <video
               className="video top-0 left-0 w-full h-full object-cover opacity-60"
-              src="/assets/herovid.mp4"
+              src="/assets/herovid-low.webm"
               loop
               muted
               preload="auto"
@@ -28,7 +37,7 @@ const Home: NextPage<Props> = () => {
               poster="/assets/herovid.jpg"
             ></video>
           </div>
-          <div className="hero-content max-w-6xl z-10 w-full mt-10 sm:mt-0 flex flex-col items-start justify-center">
+          <div className="hero-content max-w-6xl z-10 w-full mt-10 sm:mt-0 flex flex-col items-start justify-center px-5">
             <div className="header-container flex flex-col gap-1.5 items-start justify-center">
               <div className="header flex flex-col">
                 <div className="opacity-100">

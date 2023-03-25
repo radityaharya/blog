@@ -32,6 +32,7 @@ body {
     var(--background) 100%
   );
   z-index: 1;
+  transform: translate(0, 1px);
 }
 
 .video-container .video {
