@@ -3624,6 +3624,11 @@ get-intrinsic@^1.1.3:
     has "^1.0.3"
     has-symbols "^1.0.3"
 
+get-options@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/get-options/-/get-options-1.2.0.tgz#8b60a6506fbf03301127ef6c2104bf7b4690cd0e"
+  integrity sha512-nxIq5hGry1j9OEzJ0sbvN/A+mO9U0l2BFMeGdsOPl5DPvP51I7mBFN0PMsbM0TDvIDV2mEUPpJqn0Jt/hq05lg==
+
 get-package-type@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/get-package-type/-/get-package-type-0.1.0.tgz"
@@ -3859,6 +3864,11 @@ ignore@^5.2.0:
   version "5.2.0"
   resolved "https://registry.npmjs.org/ignore/-/ignore-5.2.0.tgz"
   integrity sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==
+
+immutable@^4.0.0-rc.12:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.3.0.tgz#eb1738f14ffb39fd068b1dbe1296117484dd34be"
+  integrity sha512-0AOCmOip+xgJwEVTQj1EfiDDOkPmuyllDuTuEX+DDXUgapLAsBIfkg3sxCYyCEA8mQqZrrxPUGjcOQ2JS3WLkg==
 
 import-fresh@^3.0.0, import-fresh@^3.2.1:
   version "3.3.0"
@@ -4206,6 +4216,16 @@ istanbul-reports@^3.1.3:
   dependencies:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
+
+javascript-terminal@^1.0.3:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/javascript-terminal/-/javascript-terminal-1.1.1.tgz#7d2393f94a9fd6b13a7e4c3bb22e41da95364fde"
+  integrity sha512-Wm0cHZLEEWGECocJP15Vch6jfnJUT0cpRqUKEi6oQHMPe8aJ+++BSVJNINdFF02U2LNLadW6MH96tnc6VsD2mw==
+  dependencies:
+    get-options "^1.2.0"
+    immutable "^4.0.0-rc.12"
+    minimatch "^3.0.4"
+    minimatch-capture "^1.1.0"
 
 jest-changed-files@^27.5.1:
   version "27.5.1"
@@ -5035,6 +5055,13 @@ mimic-response@^3.1.0:
   resolved "https://registry.npmjs.org/mimic-response/-/mimic-response-3.1.0.tgz"
   integrity sha512-z0yWI+4FDrrweS8Zmt4Ej5HdJmky15+L2e6Wgn3+iK5fWzb6T3fhNFq2+MeTRb064c6Wr4N/wv0DzQTjNzHNGQ==
 
+minimatch-capture@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/minimatch-capture/-/minimatch-capture-1.1.0.tgz#d6c8c2acdba92dc2f66921d8007ed0e42b2f9855"
+  integrity sha512-M7hx1tb2k11eNNc3Qq40Oql6Zpu47O7gYFtrE3KO6TyvdDVNiJ1x1pGY4S+3YylxiOetPUD1U1xyL8pXKz1QIw==
+  dependencies:
+    minimatch "^3.0.4"
+
 minimatch@^3.0.4, minimatch@^3.0.5, minimatch@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.1.2.tgz#19cd194bfd3e428f049a70817c038d89ab4be35b"
@@ -5728,6 +5755,14 @@ react-is@^18.0.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
+
+react-terminal-component@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/react-terminal-component/-/react-terminal-component-1.5.0.tgz#bcbcb75070751cbed3a1764a9f019ea865c26d27"
+  integrity sha512-1axWQjZ+p91PgDaumVMD+juazApXs5M7hcvlS2wUQyhRJS7Q0//YL7cixZQsWdcL7n/f+VPWbsxuxg9H9TeC5g==
+  dependencies:
+    javascript-terminal "^1.0.3"
+    prop-types "^15.7.2"
 
 react-twitter-embed@^4.0.4:
   version "4.0.4"

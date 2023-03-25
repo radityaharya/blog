@@ -23,7 +23,6 @@ export const ScrollingText = ({ text, ...props }) => {
     return () => clearInterval(intervalId)
   }, [offset, direction, text.length])
 
-  // update containerRef width on resize
   useEffect(() => {
     const handleResize = () => {
       setOffset(0)

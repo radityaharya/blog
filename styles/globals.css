@@ -14,6 +14,31 @@ body {
   min-height: 100vh;
 }
 
+/* home video */
+.video-container {
+  position: absolute;
+}
+
+.video-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    var(--background) 100%
+  );
+  z-index: 1;
+}
+
+.video-container .video {
+  position: relative;
+  z-index: 0;
+}
+
 /* Start purging... */
 @tailwind utilities;
 /* Stop purging. */
@@ -49,6 +74,11 @@ body {
   height: unset !important;
 }
 
+.h-screen {
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
 ::-webkit-scrollbar {
   width: 0.5rem;
   height: 0.5rem;
@@ -71,31 +101,6 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--foreground);
-}
-
-/* home video */
-.video-container {
-  position: absolute;
-}
-
-.video-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,
-    var(--background) 100%
-  );
-  z-index: 1;
-}
-
-.video-container .video {
-  position: relative;
-  z-index: 0;
 }
 
 pre {

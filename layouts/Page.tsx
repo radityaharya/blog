@@ -7,6 +7,7 @@ export interface Props {
   seo?: SEOProps
   children?: React.ReactNode
   nav?: boolean // show nav or not (default: true)
+  footerDivider?: boolean // show nav divider or not (default: true)
 }
 
 const Page: React.FC<Props> = (props) => {
@@ -19,7 +20,7 @@ const Page: React.FC<Props> = (props) => {
         {props.children}
       </div>
 
-      <Footer />
+      <Footer divider={props.footerDivider} />
     </>
   )
 }
