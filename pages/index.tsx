@@ -17,7 +17,9 @@ const Home: NextPage<Props> = () => {
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.play().catch(() => {null})
+      videoRef.current.play().catch(() => {
+        null
+      })
     }
   }, [])
 
@@ -43,10 +45,7 @@ const Home: NextPage<Props> = () => {
                 <div className="opacity-100">
                   <NowPlaying />
                 </div>
-                <h1
-                  className="home-heading heading text-4xl md:text-6xl font-mono font-medium max-w-5xl leading-tight mb-4"
-                  style={{ height: "min-content" }}
-                >
+                <h1 className="home-heading heading text-4xl md:text-6xl font-mono font-medium max-w-5xl leading-tight mb-4 min-h-[2.5rem]">
                   <span className="">
                     <Typewriter
                       onInit={(typewriter) => {
@@ -62,7 +61,7 @@ const Home: NextPage<Props> = () => {
                   </span>
                 </h1>
               </div>
-              <div className="slide-titles flex flex-wrap gap-5 sm:gap justify-start">
+              <ul className="slide-titles flex flex-wrap gap-5 sm:gap justify-start">
                 <Links href="/blog">blog</Links>
                 <Links href="mailto:contact@radityaharya.me">mail</Links>
                 <Links href="https://linkedin.com/in/radityaharya" external>
@@ -77,7 +76,7 @@ const Home: NextPage<Props> = () => {
                 >
                   spotify
                 </Links>
-              </div>
+              </ul>
             </div>
           </div>
         </div>
@@ -91,12 +90,14 @@ const Links: React.FC<{
   children?: React.ReactNode
   external?: boolean
 }> = ({ children, href }) => (
-  <Link
-    href={href}
-    className="home-subtext slide-titles text text-foreground text-sm sm:text-lg font-mono font-light opacity-60 hover:underline hover:text-foreground hover:opacity-100"
-  >
-    {children}
-  </Link>
+  <li>
+    <Link
+      href={href}
+      className="home-subtext slide-titles text text-foreground text-sm sm:text-lg font-mono font-light opacity-60 hover:underline hover:text-foreground hover:opacity-100"
+    >
+      {children}
+    </Link>
+  </li>
 )
 
 export default Home

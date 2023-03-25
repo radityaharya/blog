@@ -20,7 +20,7 @@ const Footer = ({ divider = true }: props) => {
           <div className="gap-x-24 flex items-start flex-row justify-start">
             <div className="gap-2 flex items-start flex-col">
               <h1 className="font-mono text-lg">radityaharya</h1>
-              <div className="gap-2 flex items-start flex-row">
+              <ul className="gap-2 flex items-start flex-row">
                 <FooterListLink href="https://github.com/radityaharya">
                   github
                 </FooterListLink>
@@ -30,7 +30,7 @@ const Footer = ({ divider = true }: props) => {
                 <FooterListLink href="https://linkedin.com/in/radityaharya">
                   linkedin
                 </FooterListLink>
-              </div>
+              </ul>
             </div>
           </div>
           <FooterButtons />
@@ -74,7 +74,9 @@ const FooterListLink: React.FC<{
   href: string
   children?: React.ReactNode
 }> = ({ children, href }) => (
-  <Link href={href} className="font-mono text-gray-500 hover:text-gray-800">
-    {children}
-  </Link>
+  <li>
+    <Link href={href} className="font-mono text-gray-500 hover:text-gray-800">
+      {children}
+    </Link>
+  </li>
 )
