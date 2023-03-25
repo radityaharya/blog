@@ -5,6 +5,8 @@ import Typewriter from "typewriter-effect"
 import Link from "@components/Link"
 import { NowPlaying } from "@components/NowPlaying"
 import { useFullScreen } from "@hooks/useFullScreen"
+import Image from "next/image"
+import herovid from "../public/assets/herovid.gif"
 export interface Props {
   posts: PostProps[]
   preview: boolean
@@ -20,17 +22,8 @@ const Home: NextPage<Props> = () => {
           className="hero relative flex justify-center items-center w-full h-screen px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-20 mb-12"
           ref={ref}
         >
-          <div className="video-container w-full h-full absolute top-0 left-0 z-0">
-            <video
-              className="video top-0 left-0 w-full h-full object-cover opacity-60"
-              src="/assets/herovid.mp4"
-              loop
-              muted
-              preload="auto"
-              autoPlay
-              playsInline
-              poster="/assets/herovid.jpg"
-            ></video>
+          <div className="video-container w-full h-full absolute top-0 left-0 z-0 overflow-clip">
+            <Image src={herovid} alt="hero" style={{ objectFit: "cover", objectPosition: "center", height: "100%", width: "100%" }} className="video" />
           </div>
           <div className="hero-content max-w-6xl z-10 w-full mt-10 sm:mt-0 flex flex-col items-start justify-center">
             <div className="header-container flex flex-col gap-1.5 items-start justify-center">
