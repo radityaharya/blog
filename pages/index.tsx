@@ -4,7 +4,7 @@ import { NextPage } from "next"
 import Typewriter from "typewriter-effect"
 import Link from "@components/Link"
 import { NowPlaying } from "@components/NowPlaying"
-import { useFullScreen } from "@hooks/useFullScreen"
+
 export interface Props {
   posts: PostProps[]
   preview: boolean
@@ -12,15 +12,10 @@ export interface Props {
 }
 
 const Home: NextPage<Props> = () => {
-  const ref = useFullScreen()
-
   return (
     <Page nav={false} seo={{ title: "Home" }} footerDivider={false}>
       <div className="select-none">
-        <div
-          className="hero relative flex justify-center items-center w-full h-screen px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-20 mb-12"
-          ref={ref}
-        >
+        <div className="hero relative flex justify-center items-center w-full h-screen px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-20 mb-12">
           <div className="video-container w-full h-full absolute top-0 left-0 z-0">
             <video
               className="video top-0 left-0 w-full h-full object-cover opacity-60"
