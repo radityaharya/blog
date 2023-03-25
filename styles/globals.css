@@ -37,9 +37,6 @@ body {
 .video-container .video {
   position: relative;
   z-index: 0;
-  filter: blur(5px);
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
 }
 
 /* Start purging... */
