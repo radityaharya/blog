@@ -16,7 +16,13 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
 
   const author = post.properties.Authors.people[0]
   const category = post.properties.Category.select?.name
-  const featuredImage = post.properties.FeaturedImage.url
+  const featuredImage = post.properties.FeaturedImage.files?.[0]
+  const featuredImageUrl =
+    featuredImage?.type === "file"
+      ? featuredImage?.file?.url
+      : featuredImage?.type === "external"
+      ? featuredImage?.external?.url
+      : null
 
   return (
     <Link
@@ -26,7 +32,7 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
       {featuredImage != null ? (
         <div className="w-full aspect-[2.25/1] relative border border-black border-opacity-10 rounded-xl overflow-hidden">
           <Image
-            src={featuredImage}
+            src={featuredImageUrl}
             fill
             priority
             alt={post.properties.Page.title[0].plain_text}
