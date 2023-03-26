@@ -75,9 +75,19 @@ body {
   height: unset !important;
 }
 
+.no-tap-highlight {
+  -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+
 .h-screen {
   height: 100vh; /* Fallback for browsers that do not support Custom Properties */
   height: calc(var(--vh, 1vh) * 100);
+}
+
+.font-mono {
+  font-family: "JetBrains Mono", monospace;
 }
 
 ::-webkit-scrollbar {

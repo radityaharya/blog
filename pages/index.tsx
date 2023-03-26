@@ -1,10 +1,12 @@
 import Page from "@layouts/Page"
 import { PostProps } from "@lib/types"
-import { NextPage } from "next"
+import { GetStaticProps, NextPage } from "next"
 import Typewriter from "typewriter-effect"
 import Link from "@components/Link"
 import { NowPlaying } from "@components/NowPlaying"
 import { useRef, useEffect } from "react"
+import { HomepagePostList } from "../components/HomepagePostList"
+import { getDatabase } from "@lib/notion"
 
 export interface Props {
   posts: PostProps[]
@@ -12,7 +14,7 @@ export interface Props {
   nowPlaying: string[]
 }
 
-const Home: NextPage<Props> = () => {
+const Home: NextPage<Props> = ({ posts = [] }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -51,11 +53,10 @@ const Home: NextPage<Props> = () => {
                       onInit={(typewriter) => {
                         typewriter
                           .typeString("Hi, I'm Raditya Harya")
-                          .pauseFor(2500)
                           .start()
                       }}
                       options={{
-                        delay: 50,
+                        delay: 20,
                       }}
                     />
                   </span>
@@ -81,6 +82,11 @@ const Home: NextPage<Props> = () => {
           </div>
         </div>
       </div>
+      <div className="relative flex justify-center items-center w-full px-auto mb-12">
+        <div className="content max-w-6xl z-10 w-full flex flex-col items-start justify-center px-5">
+                  <HomepagePostList posts={posts} />
+        </div>
+      </div>
     </Page>
   )
 }
@@ -99,5 +105,21 @@ const Links: React.FC<{
     </Link>
   </li>
 )
+
+export const getStaticProps: GetStaticProps = async () => {
+  if (process.env.POSTS_TABLE_ID == null) {
+    return {
+      notFound: true,
+    }
+  }
+
+  const posts = await getDatabase(process.env.POSTS_TABLE_ID)
+  posts.splice(3)
+
+  return {
+    props: { posts },
+    revalidate: 900, // 15 minutes
+  }
+}
 
 export default Home
