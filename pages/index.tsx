@@ -51,9 +51,7 @@ const Home: NextPage<Props> = ({ posts = [] }) => {
                   <span className="">
                     <Typewriter
                       onInit={(typewriter) => {
-                        typewriter
-                          .typeString("Hi, I'm Raditya Harya")
-                          .start()
+                        typewriter.typeString("Hi, I'm Raditya Harya").start()
                       }}
                       options={{
                         delay: 20,
@@ -84,7 +82,7 @@ const Home: NextPage<Props> = ({ posts = [] }) => {
       </div>
       <div className="relative flex justify-center items-center w-full px-auto mb-12">
         <div className="content max-w-6xl z-10 w-full flex flex-col items-start justify-center px-5">
-                  <HomepagePostList posts={posts} />
+          <HomepagePostList posts={posts} />
         </div>
       </div>
     </Page>
