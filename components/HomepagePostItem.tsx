@@ -21,9 +21,9 @@ const HomepagePostItem: React.FC<Props> = ({ post }) => {
       className="flex flex-col group no-tap-highlight"
     >
       <div className="flex-grow">
-        <h4 className="font-mono text-lg mt-2 mb-1 group-hover:opacity-60 tracking-tight">
+        <span className="font-mono text-lg mt-2 mb-1 group-hover:opacity-60 tracking-tight">
           <NotionText text={post.properties.Page.title} noLinks />
-        </h4>
+        </span>
 
         <p className="text-base font-mono text-gray-700 line-clamp-2">
           <NotionText text={post.properties.Description.rich_text} noLinks />

@@ -10,7 +10,7 @@ export const HomepagePostList: React.FC<{
   return (
     <>
       <div className="w-full mx-auto select-none">
-        <h2 className="font-mono text-2xl md:text-3xl font-medium leading-tight mb-10 min-h-[2rem]">
+        <h2 className="font-mono text-2xl md:text-3xl font-medium leading-tight mb-10 sm:mb-20 min-h-[2rem]">
           systemd-journald
         </h2>
         <div className="max-w-6xl w-full mx-auto">
