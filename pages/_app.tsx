@@ -5,7 +5,6 @@ import Head from "next/head"
 import { useMemo } from "react"
 import { transformThemeToCustomProperties } from "theme-custom-properties"
 import { colorThemes, defaultColorMode } from "../styles/theme"
-import "@fontsource/jetbrains-mono"
 import { Analytics } from "@vercel/analytics/react"
 
 const RailwayBlog = ({ Component, pageProps }: AppProps) => {

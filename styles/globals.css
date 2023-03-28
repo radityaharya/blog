@@ -86,10 +86,6 @@ body {
   height: calc(var(--vh, 1vh) * 100);
 }
 
-.font-mono {
-  font-family: "JetBrains Mono", monospace;
-}
-
 ::-webkit-scrollbar {
   width: 0.5rem;
   height: 0.5rem;
