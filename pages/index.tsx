@@ -26,7 +26,7 @@ const Home: NextPage<Props> = ({ posts = [] }) => {
   }, [])
 
   return (
-    <Page nav={false} seo={{ title: "Home" }} footerDivider={false}>
+    <Page nav={false} footerDivider={false}>
       <div className="select-none">
         <div className="hero relative flex justify-center items-center w-full h-screen px-auto mb-12">
           <div className="video-container w-full h-full absolute top-0 left-0 z-0">
