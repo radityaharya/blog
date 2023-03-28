@@ -6,6 +6,7 @@ import { useMemo } from "react"
 import { transformThemeToCustomProperties } from "theme-custom-properties"
 import { colorThemes, defaultColorMode } from "../styles/theme"
 import { Analytics } from "@vercel/analytics/react"
+import Script from "next/script"
 
 const RailwayBlog = ({ Component, pageProps }: AppProps) => {
   const { bodyCSS } = useMemo(
@@ -25,9 +26,26 @@ const RailwayBlog = ({ Component, pageProps }: AppProps) => {
       enableSystem
     >
       <Head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-2X3FM6B0RW', {
+            page_path: window.location.pathname,
+          });
+        `,
+          }}
+        />
         <style>{bodyCSS}</style>
       </Head>
 
+      {/* Global Site Tag (gtag.js) - Google Analytics */}
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=$G-2X3FM6B0RW`}
+      />
       <Component {...pageProps} />
       <Analytics />
     </ThemeProvider>

@@ -27,7 +27,7 @@ export const HomepagePostList: React.FC<{
             href="/blog"
             className="font-mono text-sm mb-1 hover:opacity-60 tracking-tight"
           >
-            See all posts &rarr;
+            See all posts;
           </Link>
         </div>
       </div>
