@@ -21,7 +21,7 @@ export const useOgImage = ({
 
   return (
     image ??
-    `https://www.radityaharya.me/api/og-image?theme=${
+    `https://www.radityaharya.com/api/og-image?theme=${
       theme === "light" ? "Light" : "Dark"
     }&title=${encodedTitle}&author=${encodedAuthorName}&subtext=${encodedDate}&url=${url}`
   )

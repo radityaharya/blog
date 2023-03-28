@@ -7,9 +7,9 @@ module.exports = {
       "user-images.githubusercontent.com",
       "s3.us-west-2.amazonaws.com",
       "res.cloudinary.com",
-      "r2.radityaharya.me",
-      "www.radityaharya.me",
-      "radityaharya.me",
+      "r2.radityaharya.com",
+      "www.radityaharya.com",
+      "radityaharya.com",
     ],
   },
   i18n: {

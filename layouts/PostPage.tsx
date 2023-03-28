@@ -28,7 +28,7 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
     formatedDate: formattedDate,
     url: new URL(
       `/blog/p/${post.properties.Slug.rich_text[0].plain_text}`,
-      "https://radityaharya.me"
+      "https://radityaharya.com"
     ).href,
   })
 

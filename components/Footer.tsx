@@ -24,7 +24,7 @@ const Footer = ({ divider = true }: props) => {
                 <FooterListLink href="https://github.com/radityaharya">
                   github
                 </FooterListLink>
-                <FooterListLink href="mailto:contact@radityaharya.me">
+                <FooterListLink href="mailto:contact@radityaharya.com">
                   email
                 </FooterListLink>
                 <FooterListLink href="https://linkedin.com/in/radityaharya">

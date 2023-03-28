@@ -62,7 +62,7 @@ const Home: NextPage<Props> = ({ posts = [] }) => {
               </div>
               <ul className="slide-titles flex flex-wrap gap-5 sm:gap justify-start">
                 <Links href="/blog">blog</Links>
-                <Links href="mailto:contact@radityaharya.me">mail</Links>
+                <Links href="mailto:contact@radityaharya.com">mail</Links>
                 <Links href="https://linkedin.com/in/radityaharya" external>
                   linkedin
                 </Links>
