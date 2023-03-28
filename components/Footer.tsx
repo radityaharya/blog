@@ -19,7 +19,7 @@ const Footer = ({ divider = true }: props) => {
         <div className={dividerClass}>
           <div className="gap-x-24 flex items-start flex-row justify-start">
             <div className="gap-2 flex items-start flex-col">
-              <h1 className="font-mono text-lg">radityaharya</h1>
+              <span className="font-mono text-lg">radityaharya</span>
               <ul className="gap-2 flex items-start flex-row">
                 <FooterListLink href="https://github.com/radityaharya">
                   github
@@ -75,7 +75,10 @@ const FooterListLink: React.FC<{
   children?: React.ReactNode
 }> = ({ children, href }) => (
   <li>
-    <Link href={href} className="font-mono text-gray-500 hover:text-gray-800">
+    <Link
+      href={href}
+      className="font-mono text-gray-500 hover:text-gray-800 no-tap-highlight"
+    >
       {children}
     </Link>
   </li>

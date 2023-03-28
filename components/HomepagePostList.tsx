@@ -25,7 +25,7 @@ export const HomepagePostList: React.FC<{
         <div className="max-w-6xl w-full mx-auto">
           <Link
             href="/blog"
-            className="font-mono text-sm mb-1 hover:opacity-60 tracking-tight"
+            className="font-mono text-sm mb-1 hover:opacity-60 tracking-tight no-tap-highlight"
           >
             See all posts;
           </Link>

@@ -97,7 +97,7 @@ const Links: React.FC<{
   <li>
     <Link
       href={href}
-      className="home-subtext slide-titles text text-foreground text-sm sm:text-lg font-mono font-light opacity-60 hover:underline hover:text-foreground hover:opacity-100"
+      className="home-subtext slide-titles text text-foreground text-sm sm:text-lg font-mono font-light opacity-60 hover:underline hover:text-foreground hover:opacity-100 no-tap-highlight"
     >
       {children}
     </Link>

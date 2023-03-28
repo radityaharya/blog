@@ -37,7 +37,7 @@ export const NowPlaying = () => {
     ? `${nowPlaying[0]} - ${nowPlaying[1]}`
     : null
   const spNowPlaying = nowPlaying ? (
-    <Link className="now-playing-text" href={nowPlaying[2]}>
+    <Link className="now-playing-text no-tap-highlight" href={nowPlaying[2]}>
       <div className="now-playing flex flex-row gap-2 items-center mb-4">
         <div className="now-playing-icon">
           <svg

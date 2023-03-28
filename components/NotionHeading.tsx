@@ -16,7 +16,7 @@ interface HeadingConfig {
 }
 const headingConfig: Record<HeadingTypes, HeadingConfig> = {
   heading_1: {
-    classes: "text-4xl font-bold leading-snug mt-16 mb-8",
+    classes: "text-4xl font-bold leading-snug mt-16 mb-8 ",
     as: "h1",
   },
   heading_2: {

@@ -27,7 +27,7 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
   return (
     <Link
       href={`/blog/p/${post.properties.Slug.rich_text[0].plain_text}`}
-      className="group"
+      className="group no-tap-highlight"
     >
       {featuredImage != null ? (
         <div className="w-full aspect-[2.25/1] relative border border-black border-opacity-10 rounded-xl overflow-hidden">

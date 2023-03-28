@@ -21,7 +21,7 @@ const Nav: React.FC = () => {
           !isBlogPage ? "" : "border-gray-100"
         )}
       >
-        <Link href="/" className="flex items-center space-x-4">
+        <Link href="/" className="flex items-center space-x-4 no-tap-highlight">
           <span className="text-xl font-bold font-mono">radityaharya</span>
         </Link>
 

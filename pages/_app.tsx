@@ -34,7 +34,9 @@ const RailwayBlog = ({ Component, pageProps }: AppProps) => {
           gtag('js', new Date());
           gtag('config', 'G-2X3FM6B0RW', {
             page_path: window.location.pathname,
-            debug_mode: ${process.env.NODE_ENV === "development" ? "true" : "false"},
+            debug_mode: ${
+              process.env.NODE_ENV === "development" ? "true" : "false"
+            },
           });
         `,
           }}
