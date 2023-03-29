@@ -1,9 +1,8 @@
 import Link from "@components/Link"
 import { PostProps } from "@lib/types"
 import dayjs from "dayjs"
-import React, { useMemo } from "react"
+import React, { Suspense, useMemo } from "react"
 import { NotionText } from "./NotionText"
-
 export interface Props {
   post: PostProps
 }
@@ -32,7 +31,9 @@ const HomepagePostItem: React.FC<Props> = ({ post }) => {
 
       <div className="flex font-mono items-center gap-3 mt-5 mb-5">
         <span className="font-medium text-sm text-gray-500">
-          {formattedDate}
+          <time>
+          <Suspense fallback={"..."}>{formattedDate}</Suspense>
+          </time>
         </span>
       </div>
     </Link>

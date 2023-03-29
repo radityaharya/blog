@@ -26,7 +26,7 @@ const RailwayBlog = ({ Component, pageProps }: AppProps) => {
       enableSystem
     >
       <Head>
-        <script
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
           window.dataLayer = window.dataLayer || [];

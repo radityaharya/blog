@@ -10,24 +10,6 @@ import {
   FilesPropertyValue,
 } from "@notionhq/client/build/src/api-types"
 
-interface FileObject {
-  name: string
-  type: string
-  file?: {
-    url: string
-    expiry_time: string
-  }
-  external?: {
-    url: string
-  }
-}
-
-interface FilesResponse {
-  id: string
-  type: "files"
-  files: FileObject[]
-}
-
 export interface PostItem {
   Page: TitlePropertyValue
   Slug: RichTextPropertyValue
@@ -36,7 +18,7 @@ export interface PostItem {
   Date: DatePropertyValue
   Authors: { people: PersonUser[] }
   Image: URLPropertyValue
-  FeaturedImage: FilesResponse
+  FeaturedImage: FilesPropertyValue
   Description: RichTextPropertyValue
   Category: SelectPropertyValue
 }

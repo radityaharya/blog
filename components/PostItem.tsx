@@ -1,7 +1,7 @@
 import Link from "@components/Link"
 import { PostProps } from "@lib/types"
 import dayjs from "dayjs"
-import React, { useMemo } from "react"
+import React, { Suspense, useMemo } from "react"
 import { Divider } from "./Divider"
 import { NotionText } from "./NotionText"
 import { PostCategory } from "./PostCategory"
@@ -46,7 +46,7 @@ const PostItem: React.FC<Props> = ({ post }) => {
         <span className="font-medium text-sm text-gray-500">{author.name}</span>
         <Divider />
         <span className="font-medium text-sm text-gray-500">
-          {formattedDate}
+        <Suspense fallback={"..."}>{formattedDate}</Suspense>
         </span>
       </div>
     </Link>
