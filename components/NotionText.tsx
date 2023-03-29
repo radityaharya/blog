@@ -1,7 +1,6 @@
 import Link from "@components/Link"
 import React, { Fragment } from "react"
 
-
 interface TextProps {
   annotations: {
     bold: boolean
@@ -67,16 +66,16 @@ export const NotionText: React.FC<{
           <Fragment key={idx}>
             {text.link != null && !noLinks ? (
               <>
-                  <Link
-                    href={text.link.url}
-                    className="underline hover:text-pink-600"
-                  >
-                    <RenderTextContent
-                      isCode={code}
-                      content={text.content}
-                      className={classes}
-                    />
-                  </Link>
+                <Link
+                  href={text.link.url}
+                  className="underline hover:text-pink-600"
+                >
+                  <RenderTextContent
+                    isCode={code}
+                    content={text.content}
+                    className={classes}
+                  />
+                </Link>
               </>
             ) : (
               <RenderTextContent

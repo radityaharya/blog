@@ -32,7 +32,7 @@ const HomepagePostItem: React.FC<Props> = ({ post }) => {
       <div className="flex font-mono items-center gap-3 mt-5 mb-5">
         <span className="font-medium text-sm text-gray-500">
           <time>
-          <Suspense fallback={"..."}>{formattedDate}</Suspense>
+            <Suspense fallback={"..."}>{formattedDate}</Suspense>
           </time>
         </span>
       </div>

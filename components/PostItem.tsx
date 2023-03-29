@@ -46,7 +46,7 @@ const PostItem: React.FC<Props> = ({ post }) => {
         <span className="font-medium text-sm text-gray-500">{author.name}</span>
         <Divider />
         <span className="font-medium text-sm text-gray-500">
-        <Suspense fallback={"..."}>{formattedDate}</Suspense>
+          <Suspense fallback={"..."}>{formattedDate}</Suspense>
         </span>
       </div>
     </Link>
