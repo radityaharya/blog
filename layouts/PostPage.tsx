@@ -46,7 +46,7 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
       <div className="mt-10 mb-5 px-5 md:px-8 mx-auto">
         <article
           className={cn(
-            "max-w-6xl mx-auto mt-24 mb-12",
+            "max-w-6xl mx-auto mt-18 mb-12",
             relatedPosts.length >= 2
               ? "border-b border-gray-100 pb-32"
               : "pb-12"

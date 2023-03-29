@@ -1,13 +1,7 @@
 import Link from "@components/Link"
 import React, { Fragment } from "react"
-import Image from "next/image"
 
-const TEMPLATE_PATH = "https://railway.app/new/template"
 
-/**
- * This type is harcoded here as I couldn't really find anything
- * in the Notion API that corresponds to the actual data
- */
 interface TextProps {
   annotations: {
     bold: boolean
@@ -63,7 +57,7 @@ export const NotionText: React.FC<{
           return null
         }
 
-        let classes = ""
+        let classes = "font-mono"
         if (bold) classes += "font-semibold"
         if (italic) classes += " italic"
         if (strikethrough) classes += " line-through"
@@ -73,12 +67,6 @@ export const NotionText: React.FC<{
           <Fragment key={idx}>
             {text.link != null && !noLinks ? (
               <>
-                {text.link.url.includes(TEMPLATE_PATH) &&
-                text.content === text.link.url ? (
-                  <Link href={text.link.url} className="flex justify-center">
-                    <Image src="/button.svg" height={48} width={240} alt="" />
-                  </Link>
-                ) : (
                   <Link
                     href={text.link.url}
                     className="underline hover:text-pink-600"
@@ -89,7 +77,6 @@ export const NotionText: React.FC<{
                       className={classes}
                     />
                   </Link>
-                )}
               </>
             ) : (
               <RenderTextContent
