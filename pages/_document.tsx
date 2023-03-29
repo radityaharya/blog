@@ -9,6 +9,19 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
+        {/* Google Tag Manager */}
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html: `
+          <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-MHCBMHW"
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        ></iframe>
+        `,
+          }}
+        />
       </body>
     </Html>
   )
