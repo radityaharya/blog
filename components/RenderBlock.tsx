@@ -30,7 +30,7 @@ export const RenderBlock: React.FC<Props> = ({ block }) => {
   switch (type) {
     case "paragraph": {
       return (
-        <p className="leading-8 mb-6 text-gray-800">
+        <p className="leading-8 mb-6 text-gray-800 text-justify">
           <NotionText text={value.text} />
         </p>
       )
