@@ -66,6 +66,7 @@ export const RenderBlock: React.FC<Props> = ({ block }) => {
         </li>
       )
     }
+
     case "image": {
       const { source, caption } = getMediaProperties(value)
       return (
@@ -101,31 +102,28 @@ export const RenderBlock: React.FC<Props> = ({ block }) => {
     }
     case "embed": {
       const url = block.embed.url
-      if (!url.includes("twitter.com")) {
-        return null
+      if (url.includes("twitter.com")) {
+        const regex = /status\/(\d+)/gm
+        const matches = regex.exec(url)
+        const tweetId = matches[1]
+
+        if (tweetId == null) return null
+        return <TwitterTweetEmbed tweetId={`${tweetId}`} />
       }
-
-      // const tweetId = url.split("/").pop()
-      const regex = /status\/(\d+)/gm
-      const matches = regex.exec(url)
-      const tweetId = matches[1]
-
-      if (tweetId == null) return null
 
       return (
         <div className="mb-6">
-          <TwitterTweetEmbed tweetId={`${tweetId}`} />
+          <iframe src={url} width="100%" height="400px" allowFullScreen />
         </div>
       )
     }
     default: {
-      return null
-      // return (
-      //   <p>
-      //     ❌ Unsupported block{" "}
-      //     {type === "unsupported" ? "unsupported by Notion API" : type})
-      //   </p>
-      // )
+      return (
+        <p>
+          ❌ Unsupported block type: {type} (
+          {type === "unsupported" ? "unsupported by Notion API" : type})
+        </p>
+      )
     }
   }
 }
