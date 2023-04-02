@@ -32,11 +32,10 @@ export const getStaticProps: GetStaticProps = async (props) => {
 
   const category = props.params?.category as string
 
-  // Special case for "Guides"
   const posts = (await getDatabase(process.env.POSTS_TABLE_ID)).filter(
     (p) =>
       p.properties.Category.select?.name?.toLowerCase() ===
-      (category === "guides" ? "guide" : category)
+      (category as string).toLowerCase()
   )
 
   return {
