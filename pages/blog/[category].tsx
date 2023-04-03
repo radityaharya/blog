@@ -15,7 +15,7 @@ const CategoryPage: NextPage<Props> = ({ posts = [], category }) => {
     <Page
       seo={{
         title: `Blog - ${category}`,
-        description: `Blog posts about ${category}`,
+        description: `Blog posts about ${category} on Raditya Harya's personal website.`,
       }}
     >
       <PostList posts={posts} category={category} />

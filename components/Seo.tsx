@@ -33,7 +33,6 @@ const config: DefaultSeoProps = {
 
 const SEO: React.FC<Props> = ({ image, author, ...props }) => {
   const title = props.title ?? config.title
-  const description = props.description || config.description
 
   return (
     <>
@@ -55,8 +54,6 @@ const SEO: React.FC<Props> = ({ image, author, ...props }) => {
 
       <Head>
         <title>{title}</title>
-
-        <meta name="description" content={description} />
       </Head>
     </>
   )

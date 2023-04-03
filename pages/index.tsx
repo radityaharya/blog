@@ -26,7 +26,7 @@ const Home: NextPage<Props> = ({ posts = [] }) => {
   }, [])
 
   return (
-    <Page nav={false} footerDivider={false}>
+    <Page nav={false} footerDivider={false} seo={{ title: "Raditya Harya", description: "Raditya Harya's personal website. I Write blog posts about software development, and other things I find interesting." }}>
       <div className="select-none">
         <div className="hero relative flex justify-center items-center w-full h-screen px-auto mb-12">
           <div className="video-container w-full h-full absolute top-0 left-0 z-0">
