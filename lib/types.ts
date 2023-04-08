@@ -10,6 +10,11 @@ import {
   FilesPropertyValue,
 } from "@notionhq/client/build/src/api-types"
 
+export interface checkboxValue {
+  type: "checkbox"
+  checkbox: boolean
+}
+
 export interface PostItem {
   Page: TitlePropertyValue
   Slug: RichTextPropertyValue
@@ -21,6 +26,7 @@ export interface PostItem {
   FeaturedImage: FilesPropertyValue
   Description: RichTextPropertyValue
   Category: SelectPropertyValue
+  Mailed: checkboxValue
 }
 
 export interface PostProps extends Omit<Page, "properties"> {

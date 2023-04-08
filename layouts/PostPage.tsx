@@ -4,6 +4,7 @@ import { PostProps } from "@lib/types"
 import dayjs from "dayjs"
 import React, { useMemo } from "react"
 import { ContinueReading } from "../components/ContinueReading"
+import { SubscribeToNewsletter } from "@components/SubscribeToNewsletter"
 import { Divider } from "../components/Divider"
 import { useOgImage } from "../hooks/useOGImage"
 import { cn } from "../utils"
@@ -43,10 +44,10 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
         author: author?.name,
       }}
     >
-      <div className="mt-10 mb-5 px-5 md:px-8 mx-auto">
+      <div className="mt-10 mb-20 px-5 md:px-8 mx-auto">
         <article
           className={cn(
-            "max-w-6xl mx-auto mt-18 mb-12",
+            "max-w-6xl mx-auto mt-18 mb-5",
             relatedPosts.length >= 2
               ? "border-b border-gray-100 pb-32"
               : "pb-12"
@@ -77,7 +78,9 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
             {children}
           </section>
         </article>
-
+        <div className="max-w-[736px] mx-auto">
+          <SubscribeToNewsletter />
+        </div>
         <div className="max-w-6xl mx-auto">
           {category != null && relatedPosts.length >= 2 && (
             <ContinueReading category={category} posts={relatedPosts} />

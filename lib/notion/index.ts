@@ -5,7 +5,7 @@ import {
 import { Client } from "@notionhq/client"
 import { PostProps } from "@lib/types"
 
-const notion = new Client({
+export const notion = new Client({
   auth: process.env.NOTION_API_TOKEN,
 })
 

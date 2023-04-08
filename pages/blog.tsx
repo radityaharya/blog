@@ -12,7 +12,12 @@ export interface Props {
 
 const Home: NextPage<Props> = ({ posts = [] }) => {
   return (
-    <Page seo={{ title: "Blog", description: "Blog posts on Raditya Harya's personal website." }}>
+    <Page
+      seo={{
+        title: "Blog",
+        description: "Blog posts on Raditya Harya's personal website.",
+      }}
+    >
       <PostList posts={posts} />
     </Page>
   )

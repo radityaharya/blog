@@ -12,7 +12,7 @@ const font = fetch(
 
 export default async function handler(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url)
+    const { searchParams } = new URL(req.nextUrl)
     const fontData = await font
 
     const title = searchParams.get("title") || "Post Title"
