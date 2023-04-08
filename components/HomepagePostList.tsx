@@ -6,7 +6,7 @@ export const HomepagePostList: React.FC<{
   posts: PostProps[]
   category?: string
 }> = ({ posts }) => {
-  const featuredPosts = posts.filter((p) => p.properties.Featured.checkbox)
+  const featuredPosts = posts
   return (
     <>
       <div className="w-full mx-auto select-none">

@@ -14,7 +14,7 @@ const Footer = ({ divider = true }: props) => {
     : "w-full flex items-start gap-5 pt-5 flex-col-reverse pb-5 mb-2 justify-between sm:flex-row sm:items-end"
 
   return (
-    <footer className="max-w-6xl mx-auto py-6 flex justify-between items-center border-b border-transparent sm:mb-10">
+    <footer className="max-w-6xl mx-auto py-6 flex justify-between items-center border-b border-transparent sm:mb-10 select-none">
       <div className="w-full flex relative max-w-size-maxwidth items-start pl-5 pr-5 flex-col">
         <div className={dividerClass}>
           <div className="gap-x-24 flex items-start flex-row justify-start">

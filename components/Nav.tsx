@@ -14,7 +14,7 @@ const Nav: React.FC = () => {
   const isBlogPage = asPath.includes("/p/")
 
   return (
-    <div className="px-5 md:px-8">
+    <div className="px-5 md:px-8 select-none">
       <nav
         className={cn(
           "max-w-6xl mx-auto py-6 flex justify-between items-center border-b border-transparent",

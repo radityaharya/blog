@@ -29,9 +29,8 @@ const CategoryItem: React.FC<{
   return (
     <li className={className}>
       <Link
-        className={`text-base font-medium no-tap-highlight ${
-          isActive ? "text-foreground" : "text-gray-500"
-        } hover:text-foreground`}
+        className={`text-base font-medium no-tap-highlight ${isActive ? "text-foreground" : "text-gray-500"
+          } hover:text-foreground`}
         href={`${slug}`}
       >
         {item}
