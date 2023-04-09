@@ -7,7 +7,6 @@ export const SubscribeToNewsletter: React.FC<{
   const [email, setEmail] = useState("")
   const [isSubscribed, setIsSubscribed] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [isError, setIsError] = useState(false)
   const [turnstileToken, setTurnstileToken] = useState("")
 
   useEffect(() => {
@@ -36,7 +35,6 @@ export const SubscribeToNewsletter: React.FC<{
       setIsLoading(false)
     }
     if (res.status === 500) {
-      setIsError(true)
       setIsLoading(false)
     }
   }
@@ -52,14 +50,14 @@ export const SubscribeToNewsletter: React.FC<{
         }}
       >
         <div className="flex flex-col">
-          <h3 className="text-2xl font-bold text-gray-900">
+          <h3 className="text-2xl font-bold text-gray-900 text-center md:text-left">
             Subscribe to my newsletter
           </h3>
-          <p className="text-gray-600">
+          <p className="text-gray-600 text-center md:text-left">
             Get notified when I publish new articles.
           </p>
         </div>
-        <div className="flex flex-row items-center justify-center mt-6 gap-4">
+        <div className="flex flex-col md:flex-row items-center justify-center mt-6 gap-4">
           <input
             type="email"
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
@@ -94,11 +92,11 @@ export const SubscribeToNewsletter: React.FC<{
                 ></path>
               </svg>
             ) : // default state
-            isSubscribed ? (
-              <span>Subscribed</span>
-            ) : (
-              <span>Subscribe</span>
-            )}
+              isSubscribed ? (
+                <span>Subscribed</span>
+              ) : (
+                <span>Subscribe</span>
+              )}
           </button>
           <Turnstile
             sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
