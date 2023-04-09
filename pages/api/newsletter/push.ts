@@ -5,13 +5,12 @@ import { getDatabase } from "@lib/notion"
 import { useSendMail } from "@hooks/useSendMail"
 import { notion } from "@lib/notion"
 import { NewsletterNewPostEmail } from "../../../mail_templates/newsletter_newpost"
+import { log } from "next-axiom"
 
 export default verifySignature(handler)
 
 export const config = {
-  api: {
-    bodyParser: false,
-  },
+  runtime: "edge",
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -36,15 +35,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     const emails = data.map((address: any) => address.address)
 
-    await useSendMail({
-      from: "newsletter@radityaharya.com",
-      to: emails,
-      subject: "New blog post from Raditya Harya",
-      content: NewsletterNewPostEmail({
-        address: emails,
-        post: unMailedPosts[0],
-      }),
-    })
+    for (const email of emails) {
+      await useSendMail({
+        from: "newsletter@radityaharya.com",
+        to: email,
+        subject: "New blog post from Raditya Harya",
+        content: NewsletterNewPostEmail({
+          address: email,
+          post: unMailedPosts[0],
+        }),
+      })
+    }
 
     await notion.request({
       path: `pages/${unMailedPosts[0].id}`,
@@ -58,8 +59,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       },
     })
 
+    log.info("Sent new posts to subscribers")
     res.status(200).json({ success: true })
   } else {
+    log.info("No new posts to send")
     res.status(200).json({ success: true })
   }
 }

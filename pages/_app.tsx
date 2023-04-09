@@ -8,6 +8,8 @@ import { colorThemes, defaultColorMode } from "../styles/theme"
 import { Analytics } from "@vercel/analytics/react"
 import TagManager from "react-gtm-module"
 
+export { reportWebVitals } from 'next-axiom';
+
 const tagManagerArgs = {
   gtmId: "GTM-MHCBMHW",
 }

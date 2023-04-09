@@ -1,6 +1,7 @@
 import { render } from "@react-email/render"
 import nodemailer from "nodemailer"
 import * as React from "react"
+import { log } from "next-axiom"
 
 export interface SendMailProps {
   from: string
@@ -33,7 +34,13 @@ export const useSendMail = ({ from, to, subject, content }: SendMailProps) => {
     headers: unsubscribeHeaders,
   }
 
-  transporter.sendMail(options)
-  // eslint-disable-next-line no-console
-  console.log(`Email sent to ${to}`)
+  const mail = transporter.sendMail(options, (error, info) => {
+    if (error) {
+      log.error(error.message)
+    } else {
+      log.info(`Email sent: ${info.response}`)
+    }
+  })
+
+  return { mail }
 }

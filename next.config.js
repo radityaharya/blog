@@ -1,4 +1,6 @@
-module.exports = {
+const { withAxiom } = require("next-axiom")
+
+module.exports = withAxiom({
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -16,4 +18,4 @@ module.exports = {
     locales: ["en"],
     defaultLocale: "en",
   },
-}
+})
