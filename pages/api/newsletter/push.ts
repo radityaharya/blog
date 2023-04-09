@@ -9,10 +9,6 @@ import { log } from "next-axiom"
 
 export default verifySignature(handler)
 
-export const config = {
-  runtime: "edge",
-}
-
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (process.env.POSTS_TABLE_ID == null) {
     return {

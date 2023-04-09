@@ -2,10 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { supabase } from "@lib/supabaseClient"
 import { log } from "next-axiom"
 
-export const config = {
-  runtime: "edge",
-}
-
 const htmlpage = `
 <!DOCTYPE html>
 <html>
