@@ -32,7 +32,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const emails = data.map((address: any) => address.address)
 
     for (const email of emails) {
-      await useSendMail({
+      const mail = await useSendMail({
         from: "newsletter@radityaharya.com",
         to: email,
         subject: "New blog post from Raditya Harya",
@@ -41,6 +41,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           post: unMailedPosts[0],
         }),
       })
+
+      if (mail.error) {
+        log.error("Failed to send email", mail.error)
+        res.status(500).json({ success: false, error: mail.error })
+        return
+      }
+      log.info(`Newsletter sent to ${email}`)
     }
 
     await notion.request({

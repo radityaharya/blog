@@ -56,12 +56,17 @@ export default async function handler(
       throw new Error(error.message)
     }
 
-    await useSendMail({
+    const mail = await useSendMail({
       from: "newsletter@radityaharya.com",
       to: address,
       subject: "Thank you for subscribing to my newsletter!",
       content: NewsletterWelcomeEmail({ address: address }),
     })
+
+    if (mail.error) {
+      log.error("Failed to send email", mail.error)
+      throw new Error(mail.error)
+    }
 
     log.info("Successfully subscribed", address)
     res.status(200).json({ success: true })

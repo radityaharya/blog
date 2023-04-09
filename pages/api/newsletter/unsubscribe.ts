@@ -29,6 +29,7 @@ const htmlpage = `
         const data = await response.json()
         if (data.success) {
           alert("You have been unsubscribed from my newsletter!")
+          window.close()
         } else {
           alert("Failed to unsubscribe from my newsletter!")
         }
