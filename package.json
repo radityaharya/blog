@@ -56,6 +56,7 @@
     "github-slugger": "^2.0.0",
     "memory-cache": "^0.2.0",
     "next": "13.1.2",
+    "next-axiom": "^0.17.0",
     "next-google-fonts": "^2.2.0",
     "next-seo": "^5.15.0",
     "next-themes": "^0.2.1",
