@@ -54,7 +54,6 @@ export const PostList: React.FC<{
     }
   }, [isMounted])
 
-
   return (
     <>
       <div className="px-5 md:px-8 select-none">
@@ -77,9 +76,9 @@ export const PostList: React.FC<{
 
         {otherPosts.length > 0 && (
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 mb-24 mt-10 md:mt-24">
-
             <h2 className="cat-title font-mono text-3xl font-bold mb-12">
-              {capitalize(category ?? "Everything")}<BlinkingCursor />
+              {capitalize(category ?? "Everything")}
+              <BlinkingCursor />
             </h2>
 
             <div className="col-span-1 lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8 [&>*:nth-last-child(2)]:border-transparent md:[&>*:nth-last-child(3)]:border-transparent">
@@ -104,13 +103,11 @@ export const PostList: React.FC<{
             </div>
           </div>
         )}
-      </div >
+      </div>
     </>
   )
 }
 
 const BlinkingCursor = () => {
-  return (
-    <span className="animate-blink">|</span>
-  )
+  return <span className="animate-blink">|</span>
 }

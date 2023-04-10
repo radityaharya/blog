@@ -2,6 +2,12 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { verifySignature } from "@upstash/qstash/nextjs"
 import { log } from "next-axiom"
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
+
 export default verifySignature(handler)
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {

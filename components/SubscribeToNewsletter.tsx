@@ -92,11 +92,11 @@ export const SubscribeToNewsletter: React.FC<{
                 ></path>
               </svg>
             ) : // default state
-              isSubscribed ? (
-                <span>Subscribed</span>
-              ) : (
-                <span>Subscribe</span>
-              )}
+            isSubscribed ? (
+              <span>Subscribed</span>
+            ) : (
+              <span>Subscribe</span>
+            )}
           </button>
           <Turnstile
             sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}

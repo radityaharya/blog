@@ -13,8 +13,9 @@ export const PostCategory: React.FC<{
 }> = ({ category, className }) => {
   return (
     <div
-      className={`${categoryToStyle[category] ?? "text-gray-500 bg-gray-50"
-        } font-bold px-1.5 py-1 rounded max-w-max text-xs font-mono uppercase ${className}`}
+      className={`${
+        categoryToStyle[category] ?? "text-gray-500 bg-gray-50"
+      } font-bold px-1.5 py-1 rounded max-w-max text-xs font-mono uppercase ${className}`}
     >
       {category}
     </div>

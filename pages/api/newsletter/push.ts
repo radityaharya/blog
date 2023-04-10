@@ -7,6 +7,12 @@ import { notion } from "@lib/notion"
 import { NewsletterNewPostEmail } from "../../../mail_templates/newsletter_newpost"
 import { log } from "next-axiom"
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
+
 export default verifySignature(handler)
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {

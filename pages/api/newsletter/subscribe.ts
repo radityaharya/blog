@@ -4,7 +4,6 @@ import { NewsletterWelcomeEmail } from "../../../mail_templates/newsletter_welco
 import { supabase } from "@lib/supabaseClient"
 import { log } from "next-axiom"
 
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
