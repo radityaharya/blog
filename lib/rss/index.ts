@@ -36,5 +36,7 @@ export const generateRssFeed = (posts: PostProps[]) => {
     })
   })
 
+  // Write the feed to a file create if it doesn't exist
+
   writeFileSync(`public/rss.xml`, feed.rss2())
 }

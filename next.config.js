@@ -13,6 +13,7 @@ module.exports = withAxiom({
       "www.radityaharya.com",
       "radityaharya.com",
     ],
+    minimumCacheTTL: 60,
   },
   i18n: {
     locales: ["en"],

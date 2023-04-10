@@ -100,7 +100,7 @@ export const getBlogLink = (slug: string) => {
   return `/blog/p/${slug}`
 }
 
-export const getChangelogImageSrc = async (blockId: string) => {
+export const GetNotionImageSrc = async (blockId: string) => {
   const supportedBlockType = "image"
   const block = await notion.blocks.retrieve({ block_id: blockId })
 

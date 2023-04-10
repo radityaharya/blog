@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next"
-import { getChangelogImageSrc } from "../../lib/notion"
+import { GetNotionImageSrc } from "../../lib/notion"
 
 const handler: NextApiHandler = async (req, res) => {
   const blockId = req.query.blockId as string
@@ -8,8 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(404).json({ message: "Block ID is not defined" })
     return
   }
-
-  const imageSrc = await getChangelogImageSrc(blockId)
+  const imageSrc = await GetNotionImageSrc(blockId)
   res.json({ imageSrc })
 }
 
