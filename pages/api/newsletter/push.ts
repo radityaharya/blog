@@ -16,7 +16,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const QSTASH_CURRENT_SIGNING_KEY = req.body.key
+  const QSTASH_CURRENT_SIGNING_KEY = req.headers["x-qstash-signing-key"]
 
   if (QSTASH_CURRENT_SIGNING_KEY == null) {
     res.status(400).json({ success: false, error: "Missing signing key" })
