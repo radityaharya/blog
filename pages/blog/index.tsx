@@ -3,7 +3,7 @@ import { getDatabase } from "@lib/notion"
 import { generateRssFeed } from "@lib/rss"
 import { PostProps } from "@lib/types"
 import { GetStaticProps, NextPage } from "next"
-import { PostList } from "../components/PostList"
+import { PostList } from "@components/PostList"
 
 export interface Props {
   posts: PostProps[]
