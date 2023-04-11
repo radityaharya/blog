@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { verifySignature } from "@upstash/qstash/nextjs"
 import { log } from "next-axiom"
 
 export const config = {
@@ -8,9 +7,22 @@ export const config = {
   },
 }
 
-export default verifySignature(handler)
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const QSTASH_CURRENT_SIGNING_KEY = req.body.key
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (QSTASH_CURRENT_SIGNING_KEY == null) {
+    res.status(400).json({ success: false, error: "Missing signing key" })
+    return
+  }
+
+  if (QSTASH_CURRENT_SIGNING_KEY !== process.env.QSTASH_CURRENT_SIGNING_KEY) {
+    res.status(401).json({ success: false, error: "Unauthorized" })
+    return
+  }
+
   try {
     log.info("Revalidating...")
     await res.revalidate("/blog")
