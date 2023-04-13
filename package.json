@@ -44,6 +44,7 @@
     "@types/nodemailer": "^6.4.7",
     "@types/react-gtm-module": "^2.0.1",
     "@upstash/qstash": "^0.3.6",
+    "@upstash/redis": "^1.20.2",
     "@vercel/analytics": "^0.1.11",
     "@vercel/og": "^0.4.0",
     "async-sema": "^3.1.1",

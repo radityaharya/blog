@@ -6,6 +6,7 @@ import { Divider } from "./Divider"
 import { NotionText } from "./NotionText"
 import { PostCategory } from "./PostCategory"
 import Image from "next/image"
+import { useState } from "react"
 
 export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
   const formattedDate = useMemo(
@@ -17,12 +18,31 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
   const author = post.properties.Authors.people[0]
   const category = post.properties.Category.select?.name
   const featuredImage = post.properties.FeaturedImage.files?.[0]
-  const featuredImageUrl =
+
+  // let featuredImageUrl =
+  // featuredImage?.type === "file"
+  //   ? featuredImage?.file?.url
+  //   : featuredImage?.type === "external"
+  //   ? featuredImage?.external?.url
+  //   : null
+
+  const [featuredImageUrl, setFeaturedImageUrl] = useState(
     featuredImage?.type === "file"
       ? featuredImage?.file?.url
       : featuredImage?.type === "external"
       ? featuredImage?.external?.url
       : null
+  )
+
+  const onError = async () => {
+    fetch(
+      `/api/featuredimage?slug=${post.properties.Slug.rich_text[0].plain_text}`
+    )
+      .then((data) => data.json())
+      .then((data) => {
+        setFeaturedImageUrl(data.featuredImageUrl)
+      })
+  }
 
   return (
     <Link
@@ -37,10 +57,17 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
             priority
             alt={post.properties.Page.title[0].plain_text}
             className="object-cover transition-transform group-hover:scale-[1.05]"
+            onError={onError}
+            onLoadingComplete={(result) => {
+              if (result.naturalWidth === 0) {
+                // Broken image
+                onError()
+              }
+            }}
           />
         </div>
       ) : (
-        <div className="w-full aspect-[2/1] bg-gray-100 rounded-xl" />
+        <div className="w-full aspect-[2.25/1] bg-gray-100 rounded-xl" />
       )}
 
       <div className="mt-6">
