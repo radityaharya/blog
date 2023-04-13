@@ -88,7 +88,7 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
             className="w-6 h-6 rounded-full overflow-hidden"
           />
           <span className="font-medium text-sm text-gray-500">
-            {author.name}
+            {`${author.name.replace(" ", "").toLowerCase()}`}
           </span>
           <Divider />
           <span className="font-medium text-sm text-gray-500">
