@@ -1,7 +1,12 @@
 import { render } from "@react-email/render"
-import nodemailer from "nodemailer"
 import * as React from "react"
 import { log } from "next-axiom"
+import { Client } from "@sendgrid/client"
+import sgMail from "@sendgrid/mail"
+
+sgMail.setClient(new Client())
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+sgMail.setSubstitutionWrappers("{{", "}}")
 
 export interface SendMailProps {
   from: string
@@ -10,16 +15,6 @@ export interface SendMailProps {
   content: React.ReactElement
   additionalHeaders?: Record<string, string>
 }
-
-const transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT as unknown as number,
-  secure: true,
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-  },
-})
 
 export const useSendMail = async ({
   from,
@@ -40,19 +35,7 @@ export const useSendMail = async ({
   }
 
   try {
-    const info = await new Promise((resolve, reject) => {
-      transporter.sendMail(options, (error, info) => {
-        if (error) {
-          log.error(error.message)
-          reject(error)
-        } else {
-          log.info(`Message sent: ${info}`)
-          resolve(info)
-        }
-      })
-    })
-
-    log.info(`Message sent: ${info}`)
+    await sgMail.send(options)
   } catch (error) {
     log.error(error)
     return { success: false, error: error.message }

@@ -14,7 +14,7 @@ My personal website + blog
 - Google Tag Manager
 - Supabase
 - Cloudflare Turnstile
-- Automated newsletter mailing using [nodemailer/nodemailer](https://github.com/nodemailer/nodemailer), [resendlabs/react-email](https://github.com/resendlabs/react-email) and [QStash](https://docs.upstash.com/qstash)
+- Automated newsletter mailing using [sendgrid](sendgrid.com), [resendlabs/react-email](https://github.com/resendlabs/react-email) and [QStash](https://docs.upstash.com/qstash)
 
 ---
 

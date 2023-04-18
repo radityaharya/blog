@@ -5,14 +5,11 @@ import { useSendMail } from "@hooks/useSendMail"
 import { notion } from "@lib/notion"
 import { NewsletterNewPostEmail } from "../../../mail_templates/newsletter_newpost"
 import { log } from "next-axiom"
-import { verifySignature } from "@upstash/qstash/nextjs";
+import { verifySignature } from "@upstash/qstash/nextjs"
 
-export default verifySignature(handler);
+export default verifySignature(handler)
 
-async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (process.env.POSTS_TABLE_ID == null) {
     return {
       notFound: true,
