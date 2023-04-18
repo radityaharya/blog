@@ -43,11 +43,11 @@ const PostItem: React.FC<Props> = ({ post }) => {
           alt={`Avatar of ${author.name}`}
           className="w-6 h-6 rounded-full overflow-hidden"
         />
-        <span className="font-medium text-sm text-gray-500">
+        <span className="font-medium text-sm text-gray-500 font-mono">
           {`${author.name.replace(" ", "").toLowerCase()}`}
         </span>
         <Divider />
-        <span className="font-medium text-sm text-gray-500">
+        <span className="font-medium text-sm text-gray-500 font-mono">
           <Suspense fallback={"..."}>{formattedDate}</Suspense>
         </span>
       </div>
