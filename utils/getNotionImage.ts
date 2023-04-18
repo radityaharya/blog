@@ -2,15 +2,12 @@ import { supabase } from "@lib/supabaseClient"
 import { log } from "next-axiom"
 
 export const getNotionImage = async (blockId: string, src: string) => {
-  // check if the featured image is cached in supabase
-
   const { data, error } = await supabase.storage.from("public").list("blog", {
     limit: 1,
     offset: 0,
     search: `content-${blockId}.png`,
   })
 
-  
   if (error) {
     throw new Error(error.message)
   }

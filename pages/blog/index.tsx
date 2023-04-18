@@ -40,7 +40,6 @@ export const getStaticProps: GetStaticProps = async () => {
       post.properties.Slug.rich_text[0].plain_text
     )) as string
 
-    // update the FeaturedImageUrl property of type rich_text
     post.properties.FeaturedImageUrl = {
       type: "rich_text",
       id: "FeaturedImageUrl",

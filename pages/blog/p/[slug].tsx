@@ -148,32 +148,29 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 
   const props = await mapDatabaseItemToPageProps(post.id)
 
-  // change all image src to use getNotionImage
-// change all image src to use getNotionImage
-props.blocks = await Promise.all(props.blocks.map(async (block) => {
-  if (block.type === "image") {
-    const image = block.image
+  props.blocks = await Promise.all(
+    props.blocks.map(async (block) => {
+      if (block.type === "image") {
+        const image = block.image
 
-    const imageUrl =
-      image?.type === "file"
-        ? image?.file?.url
-        : image?.type === "external"
-        ? image?.external?.url
-        : null
+        const imageUrl =
+          image?.type === "file"
+            ? image?.file?.url
+            : image?.type === "external"
+            ? image?.external?.url
+            : null
 
-    // getNotionImage returns a promise, so we need to wait for it to resolve
-    const cachedImageUrl = await getNotionImage(block.id, imageUrl)
+        const cachedImageUrl = await getNotionImage(block.id, imageUrl)
 
-    // update notion image url to cached image url
-    if (image.type === "file") {
-      image.file.url = cachedImageUrl
-    } else if (image.type === "external") {
-      image.external.url = cachedImageUrl
-    }
-  }
-  return block
-}))
-
+        if (image.type === "file") {
+          image.file.url = cachedImageUrl
+        } else if (image.type === "external") {
+          image.external.url = cachedImageUrl
+        }
+      }
+      return block
+    })
+  )
 
   return {
     props: {

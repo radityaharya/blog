@@ -3,8 +3,6 @@ import { notion } from "@lib/notion"
 import { PostProps } from "@lib/types"
 
 export const getFeaturedImage = async (slug: string) => {
-  // check if the featured image is cached
-
   const pages = await notion.databases.query({
     database_id: process.env.POSTS_TABLE_ID,
     filter: {
