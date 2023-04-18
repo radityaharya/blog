@@ -12,6 +12,7 @@ module.exports = withAxiom({
       "r2.radityaharya.com",
       "www.radityaharya.com",
       "radityaharya.com",
+      "qnhjmybhvmffhqxsggxx.supabase.co",
     ],
     minimumCacheTTL: 60,
   },

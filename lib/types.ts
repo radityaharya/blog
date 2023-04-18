@@ -27,6 +27,7 @@ export interface PostItem {
   Description: RichTextPropertyValue
   Category: SelectPropertyValue
   Mailed: checkboxValue
+  FeaturedImageUrl: RichTextPropertyValue
 }
 
 export interface PostProps extends Omit<Page, "properties"> {

@@ -4,6 +4,8 @@ import { PostProps } from "@lib/types"
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { PostList } from "../../components/PostList"
 import { CATEGORIES } from "../../constants"
+import { RichTextText } from "@notionhq/client/build/src/api-types"
+import { getFeaturedImage } from "utils/getFeaturedImage"
 
 export interface Props {
   posts: PostProps[]
@@ -38,9 +40,39 @@ export const getStaticProps: GetStaticProps = async (props) => {
       (category as string).toLowerCase()
   )
 
+  for (const post of posts) {
+    const featuredImageUrl = (await getFeaturedImage(
+      post.properties.Slug.rich_text[0].plain_text
+    )) as string
+
+    // update the FeaturedImageUrl property of type rich_text
+    post.properties.FeaturedImageUrl = {
+      type: "rich_text",
+      id: "FeaturedImageUrl",
+      rich_text: [
+        {
+          type: "text",
+          text: {
+            content: featuredImageUrl,
+          },
+          plain_text: featuredImageUrl,
+          annotations: {
+            bold: false,
+            italic: false,
+            strikethrough: false,
+            underline: false,
+            code: false,
+            color: "default",
+          },
+          href: null,
+        },
+      ] as RichTextText[],
+    }
+  }
+
   return {
     props: { posts, category },
-    revalidate: 60, // 1 minute
+    revalidate: 600, // 10 minutes
   }
 }
 
