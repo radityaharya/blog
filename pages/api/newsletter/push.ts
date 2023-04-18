@@ -5,29 +5,14 @@ import { useSendMail } from "@hooks/useSendMail"
 import { notion } from "@lib/notion"
 import { NewsletterNewPostEmail } from "../../../mail_templates/newsletter_newpost"
 import { log } from "next-axiom"
+import { verifySignature } from "@upstash/qstash/nextjs";
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-}
+export default verifySignature(handler);
 
-export default async function handler(
+async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const QSTASH_CURRENT_SIGNING_KEY = req.headers["x-qstash-signing-key"]
-
-  if (QSTASH_CURRENT_SIGNING_KEY == null) {
-    res.status(400).json({ success: false, error: "Missing signing key" })
-    return
-  }
-
-  if (QSTASH_CURRENT_SIGNING_KEY !== process.env.QSTASH_CURRENT_SIGNING_KEY) {
-    res.status(401).json({ success: false, error: "Unauthorized" })
-    return
-  }
-
   if (process.env.POSTS_TABLE_ID == null) {
     return {
       notFound: true,
@@ -86,4 +71,10 @@ export default async function handler(
     log.info("No new posts to send")
     res.status(200).json({ success: true })
   }
+}
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
 }
