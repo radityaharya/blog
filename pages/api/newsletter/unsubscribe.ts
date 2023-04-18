@@ -56,7 +56,12 @@ export default async function handler(
       res.status(404).send("Not found")
       return
     }
-
+    res.setHeader("Content-Type", "text/html")
+    res.setHeader("Cache-Control", "s-maxage=1, stale-while-revalidate")
+    res.setHeader("X-Robots-Tag", "noindex")
+    res.setHeader("X-Frame-Options", "DENY")
+    res.setHeader("X-Content-Type-Options", "nosniff")
+    res.setHeader("X-XSS-Protection", "1; mode=block")
     res.status(200).send(htmlpage)
   } else if (req.method === "POST") {
     const address = req.body.address

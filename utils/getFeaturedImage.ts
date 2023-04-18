@@ -68,21 +68,20 @@ export const getFeaturedImage = async (slug: string) => {
   }
 
   //   update link to notion
-  await notion.request({
-    path: `pages/${results[0].id}`,
-    method: "patch",
-    body: {
-      properties: {
-        FeaturedImageUrl: {
-          rich_text: [
-            {
-              type: "text",
-              text: {
-                content: publicData.publicUrl,
-              },
+  await notion.pages.update({
+    page_id: results[0].id,
+    archived: false,
+    properties: {
+      FeaturedImageUrl: {
+        type: "rich_text",
+        rich_text: [
+          {
+            type: "text",
+            text: {
+              content: publicData.publicUrl,
             },
-          ],
-        },
+          },
+        ],
       },
     },
   })
