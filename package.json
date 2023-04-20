@@ -31,7 +31,7 @@
   "dependencies": {
     "@fontsource/jetbrains-mono": "^4.5.12",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
-    "@next/font": "^13.1.2",
+    "@next/font": "^13.2.4",
     "@nextui-org/react": "^1.0.0-beta.12",
     "@notionhq/client": "^0.3.3",
     "@octokit/rest": "^19.0.7",
