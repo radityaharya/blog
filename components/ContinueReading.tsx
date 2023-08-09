@@ -15,12 +15,12 @@ export const ContinueReading: React.FC<{
 
   return (
     <div>
-      <header className={cn("flex items-center justify-between mb-8")}>
-        <h3 className="text-gray-500 font-semibold text-lg">
+      <header className={cn("font-mono flex items-center justify-between mb-8")}>
+        <h3 className="text-gray-500 text-lg">
           Continue Reading...
         </h3>
         <Link
-          className={cn("text-pink-500", "hover:underline")}
+          className={cn("font-mono text-pink-500", "hover:underline")}
           href={`/${category.toLowerCase()}`}
         >
           View All {category} →
@@ -49,7 +49,7 @@ const RelatedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
   return (
     <Link
       href={`/blog/p/${post.properties.Slug.rich_text[0].plain_text}`}
-      className="flex flex-col bg-secondaryBg p-6 rounded-lg hover:bg-gray-100 group"
+      className="flex font-mono flex-col bg-transparent p-6 rounded-lg hover:bg-gray-100 group border border-gray-200"
     >
       {category != null && <PostCategory category={category} />}
 
