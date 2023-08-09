@@ -19,7 +19,16 @@ export const getDatabase = async (databaseId: string) => {
     database_id: databaseId,
   })
 
-  const results = response.results as unknown as PostProps[]
+  let results = response.results as unknown as PostProps[]
+
+  results = results.map((r) => {
+    r.properties.Authors.people = r.properties.Authors.people.map((p) => {
+      delete p.person.email
+      return p
+    })
+    return r
+  })
+
   return results
     .filter(
       (r) =>

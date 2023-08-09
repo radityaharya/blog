@@ -52,7 +52,7 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
         <div className="flex items-center gap-3 mt-6">
           <img
             src={author.avatar_url}
-            alt={`Avatar of ${author.name}`}
+            alt={`Avatar of ${author.name.toLowerCase().replace(" ", "")}`}
             className="w-6 h-6 rounded-full overflow-hidden"
           />
           <span className="font-medium text-sm text-gray-500 font-mono">

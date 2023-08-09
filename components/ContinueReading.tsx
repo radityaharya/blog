@@ -15,10 +15,10 @@ export const ContinueReading: React.FC<{
 
   return (
     <div>
-      <header className={cn("font-mono flex items-center justify-between mb-8")}>
-        <h3 className="text-gray-500 text-lg">
-          Continue Reading...
-        </h3>
+      <header
+        className={cn("font-mono flex items-center justify-between mb-8")}
+      >
+        <h3 className="text-gray-500 text-lg">Continue Reading...</h3>
         <Link
           className={cn("font-mono text-pink-500", "hover:underline")}
           href={`/${category.toLowerCase()}`}
@@ -66,7 +66,7 @@ const RelatedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
       <div className="flex items-center gap-3 mt-6">
         <img
           src={author.avatar_url}
-          alt={`Avatar of ${author.name}`}
+          alt={`Avatar of ${author.name.toLowerCase().replace(" ", "")}`}
           className="w-6 h-6 rounded-full overflow-hidden"
         />
         <span className="font-medium text-sm text-gray-500">{author.name}</span>

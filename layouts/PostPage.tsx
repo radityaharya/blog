@@ -7,7 +7,7 @@ import { ContinueReading } from "../components/ContinueReading"
 import { SubscribeToNewsletter } from "@components/SubscribeToNewsletter"
 import { Divider } from "../components/Divider"
 import { useOgImage } from "../hooks/useOGImage"
-import { cn } from "../utils"
+// import { cn } from "../utils"
 
 export interface Props {
   post: PostProps
@@ -45,14 +45,7 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
       }}
     >
       <div className="mt-10 mb-20 px-5 md:px-8 mx-auto">
-        <article
-          className={cn(
-            "max-w-6xl mx-auto mt-18 mb-5",
-            relatedPosts.length >= 2
-              ? "border-b border-gray-100 pb-32"
-              : "pb-12"
-          )}
-        >
+        <article className="max-w-6xl mx-auto mt-18 mb-5">
           <div className="flex items-center text-gray-500 space-x-3">
             <div className="flex items-center space-x-3">
               <img
@@ -60,10 +53,15 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
                 alt={`Avatar of ${author?.name}`}
                 className="w-6 h-6 rounded-full overflow-hidden"
               />
-              <span>{author?.name}</span>
+              <span className="font-mono">
+                {author.name.toLowerCase().replace(" ", "")}
+              </span>
             </div>
             <Divider />
-            <time dateTime={post.properties.Date.date.start}>
+            <time
+              dateTime={post.properties.Date.date.start}
+              className="font-mono"
+            >
               {formattedDate}
             </time>
           </div>
@@ -78,10 +76,10 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
             {children}
           </section>
         </article>
-        <div className="max-w-[736px] mx-auto">
+        <div className="max-w-[736px] mx-auto mt-10">
           <SubscribeToNewsletter />
         </div>
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto mt-20">
           {category != null && relatedPosts.length >= 2 && (
             <ContinueReading category={category} posts={relatedPosts} />
           )}

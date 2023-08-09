@@ -41,7 +41,7 @@ export const SubscribeToNewsletter: React.FC<{
 
   return (
     <div
-      className={`p-10 rounded-md shadow-md ${className} border border-gray-200`}
+      className={`p-10 rounded-md shadow-md ${className} border border-gray-200 font-mono`}
     >
       <form
         onSubmit={(e) => {
