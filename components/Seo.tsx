@@ -7,6 +7,7 @@ export interface Props extends NextSeoProps {
   description?: string
   image?: string
   author?: string
+  keywords: string
 }
 
 const title = "Raditya Harya"
@@ -40,6 +41,13 @@ const SEO: React.FC<Props> = ({ image, author, ...props }) => {
 
       <NextSeo
         {...props}
+        additionalMetaTags={[
+          {
+            name: "keywords",
+            content:
+              props.keywords ?? "Blog, raditya, harya, radityaharya, tech blog",
+          },
+        ]}
         {...(image == null
           ? {}
           : {

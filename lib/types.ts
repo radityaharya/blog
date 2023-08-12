@@ -8,6 +8,7 @@ import {
   URLPropertyValue,
   SelectPropertyValue,
   FilesPropertyValue,
+  MultiSelectPropertyValue,
 } from "@notionhq/client/build/src/api-types"
 
 export interface checkboxValue {
@@ -28,6 +29,7 @@ export interface PostItem {
   Category: SelectPropertyValue
   Mailed: checkboxValue
   FeaturedImageUrl: RichTextPropertyValue
+  Keywords: MultiSelectPropertyValue
 }
 
 export interface PostProps extends Omit<Page, "properties"> {

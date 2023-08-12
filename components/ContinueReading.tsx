@@ -14,13 +14,11 @@ export const ContinueReading: React.FC<{
   category = category === "Guide" ? "Guides" : category
 
   return (
-    <div>
-      <header
-        className={cn("font-mono flex items-center justify-between mb-8")}
-      >
-        <h3 className="text-gray-500 text-lg">Continue Reading...</h3>
+    <div className="max-w-6xl">
+      <header className={cn("font-mono flex justify-end mb-8")}>
+        {/* <h3 className="text-gray-500 text-lg">Continue Reading...</h3> */}
         <Link
-          className={cn("font-mono text-pink-500", "hover:underline")}
+          className={cn("font-mono text-white", "hover:underline")}
           href={`/${category.toLowerCase()}`}
         >
           View All {category} →
@@ -66,12 +64,14 @@ const RelatedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
       <div className="flex items-center gap-3 mt-6">
         <img
           src={author.avatar_url}
-          alt={`Avatar of ${author.name.toLowerCase().replace(" ", "")}`}
+          alt={`Avatar of ${author.name}`}
           className="w-6 h-6 rounded-full overflow-hidden"
         />
-        <span className="font-medium text-sm text-gray-500">{author.name}</span>
-        <Divider />
         <span className="font-medium text-sm text-gray-500">
+          {author.name.toLowerCase().replace(" ", "")}
+        </span>
+        <Divider />
+        <span className="font-medium text-xs text-gray-500">
           {formattedDate}
         </span>
       </div>

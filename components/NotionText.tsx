@@ -27,12 +27,13 @@ const RenderTextContent: React.FC<{
   className?: string
 }> = ({ isCode, content, className }) =>
   isCode ? (
-    <code className="text-pink-600 whitespace-normal break-words">
+    // add highlight
+    <code className="text-pink-600 whitespace-normal break-words background-clip-padding bg-gray-100 rounded-md p-1">
       {content}
     </code>
   ) : (
     <span
-      className={className}
+      className={`${className} text-gray-800`}
       dangerouslySetInnerHTML={{ __html: content.replace("\n", "<br/>") }}
     />
   )
@@ -96,7 +97,9 @@ export const NotionList: React.FC<{
   children?: React.ReactNode
 }> = ({ type, children }) =>
   type === "ul" ? (
-    <ul className="list-disc pl-6 mb-6">{children}</ul>
+    <ul className="list-disc text-justify font-mono pl-6 mb-6">{children}</ul>
   ) : (
-    <ol className="list-decimal pl-6 mb-6">{children}</ol>
+    <ol className="list-decimal text-justify font-mono pl-6 mb-6">
+      {children}
+    </ol>
   )

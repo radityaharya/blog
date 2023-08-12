@@ -23,7 +23,7 @@ export const getDatabase = async (databaseId: string) => {
 
   results = results.map((r) => {
     r.properties.Authors.people = r.properties.Authors.people.map((p) => {
-      delete p.person.email
+      p.person.email = ""
       return p
     })
     return r

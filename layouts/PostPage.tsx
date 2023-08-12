@@ -8,7 +8,7 @@ import { SubscribeToNewsletter } from "@components/SubscribeToNewsletter"
 import { Divider } from "../components/Divider"
 import { useOgImage } from "../hooks/useOGImage"
 // import { cn } from "../utils"
-
+import Keywords from "../components/Keywords"
 export interface Props {
   post: PostProps
   relatedPosts: PostProps[]
@@ -42,40 +42,50 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
         description: post.properties.Description.rich_text[0].plain_text,
         image: ogImage,
         author: author?.name,
+        keywords: post.properties.Keywords.multi_select
+          .map((keyword) => keyword.name)
+          .join(","),
       }}
     >
       <div className="mt-10 mb-20 px-5 md:px-8 mx-auto">
         <article className="max-w-6xl mx-auto mt-18 mb-5">
-          <div className="flex items-center text-gray-500 space-x-3">
-            <div className="flex items-center space-x-3">
-              <img
-                src={author?.avatar_url}
-                alt={`Avatar of ${author?.name}`}
-                className="w-6 h-6 rounded-full overflow-hidden"
-              />
-              <span className="font-mono">
-                {author.name.toLowerCase().replace(" ", "")}
-              </span>
+          <div className="mx-auto mb-16 max-w-[736px]">
+            <div className="flex items-center text-gray-500 space-x-3">
+              <div className="flex items-center space-x-3">
+                <img
+                  src={author?.avatar_url}
+                  alt={`Avatar of ${author?.name}`}
+                  className="w-6 h-6 rounded-full overflow-hidden"
+                />
+                <span className="font-mono">
+                  {author.name.toLowerCase().replace(" ", "")}
+                </span>
+              </div>
+              <Divider />
+              <time
+                dateTime={post.properties.Date.date.start}
+                className="font-mono"
+              >
+                {formattedDate}
+              </time>
             </div>
-            <Divider />
-            <time
-              dateTime={post.properties.Date.date.start}
-              className="font-mono"
-            >
-              {formattedDate}
-            </time>
+            <header className="mt-5 max-w-[736px]">
+              <h1 className="text-huge font-bold">
+                <NotionText text={post.properties.Page.title} />
+              </h1>
+            </header>
+            <div className="text-gray-500 mt-2 font-mono">
+              <p>{post.properties.Description.rich_text[0].plain_text}</p>
+            </div>
           </div>
-
-          <header className="mt-5 mb-16 max-w-[736px]">
-            <h1 className="text-huge font-bold">
-              <NotionText text={post.properties.Page.title} />
-            </h1>
-          </header>
 
           <section className="max-w-[736px] mx-auto text-base sm:text-lg leading-8">
             {children}
           </section>
         </article>
+        <div className="max-w-[736px] mx-auto mt-10">
+          <Keywords keywords={post.properties.Keywords.multi_select} />
+        </div>
         <div className="max-w-[736px] mx-auto mt-10">
           <SubscribeToNewsletter />
         </div>
