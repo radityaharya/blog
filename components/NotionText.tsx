@@ -33,7 +33,7 @@ const RenderTextContent: React.FC<{
     </code>
   ) : (
     <span
-      className={`${className} text-gray-800`}
+      className={`${className}`}
       dangerouslySetInnerHTML={{ __html: content.replace("\n", "<br/>") }}
     />
   )
@@ -97,9 +97,11 @@ export const NotionList: React.FC<{
   children?: React.ReactNode
 }> = ({ type, children }) =>
   type === "ul" ? (
-    <ul className="list-disc text-justify font-mono pl-6 mb-6">{children}</ul>
+    <ul className="list-disc  text-gray-800 text-justify font-mono pl-6 mb-6">
+      {children}
+    </ul>
   ) : (
-    <ol className="list-decimal text-justify font-mono pl-6 mb-6">
+    <ol className="list-decimal  text-gray-800 text-justify font-mono pl-6 mb-6">
       {children}
     </ol>
   )

@@ -71,7 +71,7 @@ const RelatedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
           {author.name.toLowerCase().replace(" ", "")}
         </span>
         <Divider />
-        <span className="font-medium text-xs text-gray-500">
+        <span className="font-medium text-sm text-gray-500">
           {formattedDate}
         </span>
       </div>

@@ -11,7 +11,7 @@ import { getDatabase } from "@lib/notion"
 export interface Props {
   posts: PostProps[]
   preview: boolean
-  nowPlaying: string[]
+  nowPlaying?: string[]
 }
 
 const Home: NextPage<Props> = ({ posts = [] }) => {

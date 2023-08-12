@@ -1,6 +1,7 @@
 export const Loading: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <div className={`loader ${className}`}>
+      {/* eslint-disable-next-line react/no-unknown-property */}
       <style jsx>{`
         .loader {
           border: 6px solid rgba(0, 0, 0, 0);

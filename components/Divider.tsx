@@ -1,7 +1,7 @@
 export const Divider: React.FC = () => {
   return (
     <svg
-      width="6"
+      width="4"
       height="24"
       viewBox="0 0 6 24"
       fill="none"

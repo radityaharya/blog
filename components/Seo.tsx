@@ -7,7 +7,7 @@ export interface Props extends NextSeoProps {
   description?: string
   image?: string
   author?: string
-  keywords: string
+  keywords?: string
 }
 
 const title = "Raditya Harya"
