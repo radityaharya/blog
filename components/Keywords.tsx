@@ -11,7 +11,7 @@ const Keywords: React.FC<Props> = ({ keywords }) => {
       {keywords.map((keyword) => (
         <span
           key={keyword.id}
-          className="text-sm bg-gray-200 text-gray-700 rounded-lg px-2 py-1 mr-2 mb-2 select-none"
+          className="text-sm font-mono bg-gray-200 text-gray-700 rounded-lg px-2 py-1 mr-2 mb-2 select-none"
         >
           {keyword.name}
         </span>
