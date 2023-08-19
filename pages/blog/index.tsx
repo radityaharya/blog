@@ -6,6 +6,7 @@ import { GetStaticProps, NextPage } from "next"
 import { PostList } from "@components/PostList"
 import { getFeaturedImage } from "utils/getFeaturedImage"
 import { RichTextText } from "@notionhq/client/build/src/api-types"
+
 export interface Props {
   posts: PostProps[]
   preview: boolean

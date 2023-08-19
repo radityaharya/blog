@@ -19,7 +19,7 @@ export const ContinueReading: React.FC<{
         {/* <h3 className="text-gray-500 text-lg">Continue Reading...</h3> */}
         <Link
           className={cn("font-mono text-white", "hover:underline")}
-          href={`/${category.toLowerCase()}`}
+          href={`/blog/${category.toLowerCase()}`}
         >
           View All {category} →
         </Link>
