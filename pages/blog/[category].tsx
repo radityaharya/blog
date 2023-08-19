@@ -32,18 +32,6 @@ export const getStaticProps: GetStaticProps = async (props) => {
     }
   }
 
-  if (props.params?.category == null) {
-    return {
-      notFound: true,
-    }
-  }
-
-  if (!CATEGORIES.includes(props.params?.category as string)) {
-    return {
-      notFound: true,
-    }
-  }
-
   const category = props.params?.category as string
 
   const posts = (await getDatabase(process.env.POSTS_TABLE_ID)).filter(
