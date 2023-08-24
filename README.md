@@ -11,10 +11,8 @@ My personal website + blog
 - Notion as CMS
 - Built in OG-Image generator
 - Spotify now playing status
-- Google Tag Manager
 - Supabase
-- Cloudflare Turnstile
-- Automated newsletter mailing using [sendgrid](sendgrid.com), [resendlabs/react-email](https://github.com/resendlabs/react-email) and [QStash](https://docs.upstash.com/qstash)
+- Automated newsletter mailing using [sendgrid](sendgrid.com), [resendlabs/react-email](https://github.com/resendlabs/react-email)
 
 ---
 

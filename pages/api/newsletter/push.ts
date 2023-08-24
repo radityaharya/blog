@@ -5,11 +5,13 @@ import { useSendMail } from "@hooks/useSendMail"
 import { notion } from "@lib/notion"
 import { NewsletterNewPostEmail } from "../../../mail_templates/newsletter_newpost"
 import { log } from "next-axiom"
-import { verifySignature } from "@upstash/qstash/nextjs"
-
-export default verifySignature(handler)
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.query.key !== process.env.NEWSLETTER_PUSH_KEY) {
+    res.status(401).json({ success: false, error: "Unauthorized" })
+    return
+  }
+
   if (process.env.POSTS_TABLE_ID == null) {
     return {
       notFound: true,
@@ -70,8 +72,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-}
+export default handler
