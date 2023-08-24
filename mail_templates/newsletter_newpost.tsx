@@ -54,16 +54,16 @@ export const NewsletterNewPostEmail = ({
       <Body>
         <Container>
           <Section>
-            <Row>
-              <Column>
-                <Heading className="font-mono text-2xl text-gray-900">
-                  {" "}
-                  Hi there!{" "}
-                </Heading>
-                <Text className="font-mono text-sm text-gray-500">
-                  I just published a new post on my blog. I hope you enjoy it!
-                </Text>
-                <Tailwind>
+            <Tailwind>
+              <Row>
+                <Column>
+                  <Heading className="font-mono text-2xl text-gray-900">
+                    {" "}
+                    Hi there!{" "}
+                  </Heading>
+                  <Text className="font-mono text-sm text-gray-500">
+                    I just published a new post on my blog. I hope you enjoy it!
+                  </Text>
                   <Link
                     href={`${baseUrl}/blog/p/${post.properties.Slug.rich_text[0].plain_text}`}
                     className="group no-tap-highlight text-gray-900 visited:text-gray-900 underline-none"
@@ -111,20 +111,20 @@ export const NewsletterNewPostEmail = ({
                       </div>
                     </div>
                   </Link>
-                </Tailwind>
-                <Hr style={hr} />
-                <Text style={footer}>
-                  {" "}
-                  don&apos;t want to receive these emails?{" "}
-                  <Link
-                    href={`https://radityaharya.com/api/newsletter/unsubscribe?address=${address}`}
-                  >
-                    unsubscribe
-                  </Link>
-                  .
-                </Text>
-              </Column>
-            </Row>
+                  <Hr style={hr} />
+                  <Text style={footer}>
+                    {" "}
+                    don&apos;t want to receive these emails?{" "}
+                    <Link
+                      href={`https://radityaharya.com/api/newsletter/unsubscribe?address=${address}`}
+                    >
+                      unsubscribe
+                    </Link>
+                    .
+                  </Text>
+                </Column>
+              </Row>
+            </Tailwind>
           </Section>
         </Container>
       </Body>
