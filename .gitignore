@@ -41,3 +41,6 @@ public/rss.xml
 # notion
 .blog_index_data
 .blog_index_data_previews
+
+# Sentry Auth Token
+.sentryclirc
