@@ -39,9 +39,9 @@ const RailwayBlog = ({ Component, pageProps }: AppProps) => {
       <Head>
         <style>{bodyCSS}</style>
       </Head>
+      <SpeedInsights />
       <Component {...pageProps} />
       <Analytics />
-      <SpeedInsights />
     </ThemeProvider>
   )
 }
