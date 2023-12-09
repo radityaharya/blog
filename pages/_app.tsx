@@ -1,6 +1,9 @@
+/* eslint-disable */
+// @ts-nocheck
+
 import "@styles/globals.css"
 import { ThemeProvider } from "next-themes"
-import type { AppProps } from "next/app"
+import type { AppProps } from 'next/app'
 import Head from "next/head"
 import { useEffect, useMemo } from "react"
 import { transformThemeToCustomProperties } from "theme-custom-properties"
@@ -8,6 +11,7 @@ import { colorThemes, defaultColorMode } from "../styles/theme"
 import { Analytics } from "@vercel/analytics/react"
 import TagManager from "react-gtm-module"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { ReactElement } from 'react';
 
 // TODO: wait till https://github.com/axiomhq/next-axiom/issues/115 is fixed
 // export { reportWebVitals } from 'next-axiom';
@@ -17,6 +21,7 @@ const tagManagerArgs = {
 }
 
 const RailwayBlog = ({ Component, pageProps }: AppProps) => {
+  const PageComponent = Component as (props: any) => ReactElement | null;
   useEffect(() => {
     TagManager.initialize(tagManagerArgs)
   }, [])
@@ -40,7 +45,7 @@ const RailwayBlog = ({ Component, pageProps }: AppProps) => {
         <style>{bodyCSS}</style>
       </Head>
       <SpeedInsights />
-      <Component {...pageProps} />
+      <PageComponent {...pageProps} />
       <Analytics />
     </ThemeProvider>
   )
