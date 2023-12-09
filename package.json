@@ -70,7 +70,7 @@
     "react-terminal-component": "^1.5.0",
     "react-turnstile": "^1.1.0",
     "react-twitter-embed": "^4.0.4",
-    "sharp": "^0.31.3",
+    "sharp": "^0.32.6",
     "shiki": "^0.14.1",
     "tailwind-merge": "^1.11.0",
     "theme-custom-properties": "^1.0.0",
