@@ -1,0 +1,255 @@
+---
+title: 'Cloudflare Workers AI'
+date: '2023-11-20'
+tags: ['cloudflare', 'cloudflare workers', 'cloudflare workers ai']
+draft: false
+summary: 'Serverless AI'
+---
+
+![og.png](https://qnhjmybhvmffhqxsggxx.supabase.co/storage/v1/object/public/public/featured-image-cloudflare-worker-ai.png)
+
+Cloudflare's Workers AI is revolutionizing the accessibility of machine learning, offering a gateway for developers to deploy ML models seamlessly across their codebase. While still in its Open Beta phase, Workers AI presents a groundbreaking opportunity to harness serverless GPUs on Cloudflare's extensive global network.
+
+## **What is Workers AI?**
+
+At its core, Workers AI enables the execution of machine learning models within Cloudflare's network infrastructure. This functionality isn't confined to specific platforms; developers can integrate it into their code using Workers, Pages, or via REST API, allowing for versatile and dynamic utilization.
+
+## **Supported Models**
+
+Workers AI arrives with a curated selection of renowned open-source models, ensuring seamless integration and performance. These models span across multiple domains, unlocking a spectrum of AI-driven tasks:
+
+### Natural Language Processing (NLP)
+
+- Text Generation
+- Summarization
+- Classification
+- Translation
+- Similarity Analysis
+- Question Answering
+
+### Computer Vision
+
+- Image Classification
+- Object Detection
+
+### Audio
+
+- Automatic Speech Recognition (ASR)
+
+By supporting these diverse classes of models, Workers AI empowers developers to leverage AI across various domains effortlessly.
+
+## Easy as Pie
+
+Designed with a developer-first approach, Workers AI aims to simplify the complexities of machine learning integration. Developers need not delve deeply into the intricacies of ML; instead, a few lines of code are all that's required to kickstart the process:
+
+```jsx
+import { Ai } from '@cloudflare/ai'
+
+export interface Env {
+  AI: any;
+}
+
+export default {
+  async fetch(request: Request, env: Env) {
+    const ai = new Ai(env.AI);
+
+    const messages = [
+      { role: 'system', content: 'You are a friendly assistant' },
+      { role: 'user', content: 'What is the origin of the phrase Hello, World' }
+    ];
+    const response = await ai.run('@cf/meta/llama-2-7b-chat-int8', { messages });
+
+    return Response.json(response);
+  },
+};
+```
+
+You can follow this [documentation](https://developers.cloudflare.com/workers-ai/get-started/workers-wrangler) for a detailed step-by-step guide on deploying an AI worker.
+
+## **Extending the Potential**
+
+With Workers AI, the scope of possibilities stretches far beyond the initial integration. As it lives inside Cloudflare Worker’s Environment. We can easily integrate it with existing applications. Let's explore an extension of the AI capabilities, showcasing its flexibility and adaptability across various applications.
+
+```jsx
+import { Ai } from '@cloudflare/ai';
+import template from './template.html';
+
+interface Env {
+	AI: any;
+	SECRET_KEY: string;
+}
+
+interface RequestData {
+	messages: Message[];
+	model:
+		| '@cf/meta/llama-2-7b-chat-fp16'
+		| '@cf/meta/llama-2-7b-chat-int8'
+		| '@cf/mistral/mistral-7b-instruct-v0.1'
+		| '@hf/codellama/codellama-7b-hf';
+	stream: boolean;
+	max_tokens: number;
+}
+
+interface Message {
+	role: 'system' | 'user' | 'assistant';
+	content: string;
+}
+
+const DEFAULT_MODEL = '@cf/meta/llama-2-7b-chat-int8';
+const DEFAULT_STREAM = false;
+const DEFAULT_MAX_TOKENS = 256;
+
+export default {
+	/**
+	 * Fetches a response from the AI based on the request and environment provided.
+	 * @param {Request} request - The request object.
+	 * @param {Env} env - The environment object.
+	 * @return {Promise<Response>} The response from the AI.
+	 */
+	async fetch(request: Request, env: Env): Promise<Response> {
+		const url = new URL(request.url);
+
+		cases: switch (url.pathname) {
+			case '/api/ai':
+				try {
+					const ai = new Ai(env.AI);
+
+					if (request.method !== 'POST') {
+						return new Response(
+							JSON.stringify({
+								status: 'error',
+								message: 'Invalid request method.',
+								method: request.method,
+							}),
+							{
+								status: 405,
+								headers: { 'Content-Type': 'application/json' },
+							}
+						);
+					}
+
+					if (request.headers.get('Authorization') !== env.SECRET_KEY) {
+						return new Response(
+							JSON.stringify({
+								status: 'error',
+								message: 'Invalid authorization key.',
+							}),
+							{
+								status: 401,
+								headers: { 'Content-Type': 'application/json' },
+							}
+						);
+					}
+
+					if (!request.body) {
+						return new Response(
+							JSON.stringify({
+								status: 'error',
+								message: 'No request body provided.',
+							}),
+							{
+								status: 400,
+								headers: { 'Content-Type': 'application/json' },
+							}
+						);
+					}
+
+					const requestData = await request.json();
+					const { messages, model = DEFAULT_MODEL, stream = DEFAULT_STREAM, max_tokens = DEFAULT_MAX_TOKENS } = requestData as RequestData;
+
+					if (!messages) {
+						return new Response(
+							JSON.stringify({
+								status: 'error',
+								message: 'No messages provided.',
+							}),
+							{
+								status: 400,
+								headers: { 'Content-Type': 'application/json' },
+							}
+						);
+					}
+
+					console.log(`Last message: ${messages[messages.length - 1].content}`);
+
+					const input = {
+						messages,
+						stream,
+						max_tokens: parseInt(max_tokens.toString()),
+					};
+					console.log(`Input: ${JSON.stringify(input, null, 2)}`);
+					const response = await ai.run(model, input);
+
+					const corsHeaders = {
+						'Access-Control-Allow-Origin': '*',
+						'Access-Control-Allow-Methods': 'GET,HEAD,POST,OPTIONS',
+						'Access-Control-Max-Age': '86400',
+					};
+
+					const headers = stream ? { 'content-type': 'text/event-stream' } : { 'content-type': 'application/json' };
+					if (stream) {
+						return new Response(response, {
+							headers: {
+								...corsHeaders,
+								...headers,
+							},
+						});
+					} else {
+						return new Response(JSON.stringify(response), {
+							headers: {
+								...corsHeaders,
+								...headers,
+							},
+						});
+					}
+				} catch (error: any) {
+					console.error(`Error fetching AI response: ${error}`);
+					return new Response(
+						JSON.stringify({
+							status: 'error',
+							message: 'An error occurred while fetching the AI response.',
+							error: error.message,
+						}),
+						{
+							status: 500,
+							headers: { 'Content-Type': 'application/json' },
+						}
+					);
+				}
+			case '/':
+				return new Response(template, {
+					headers: { 'Content-Type': 'text/html' },
+				});
+			default:
+				return new Response("Not found.", {
+					status: 404,
+					headers: { 'Content-Type': 'text/plain' },
+				});
+		}
+	},
+};
+```
+
+<aside>
+💡 https://github.com/radityaharya/workers-ai-showcase/
+
+</aside>
+
+This worker enables ‘OpenAI’ like endpoint for Chat Completion. We can interact with various text generation models by POSTing this to our worker.
+
+```jsx
+{
+  messages: [
+    { role: 'system', content: 'You are a friendly assistant' },
+    { role: 'user', content: 'What is the origin of the phrase Hello, World' }
+  ],
+  stream: true,
+  max_tokens: 256,
+}
+```
+
+## **Caution in the Beta Phase**
+
+While Workers AI holds immense potential, it's important to note that during the Beta phase, it's not recommended for production data or traffic. Additionally, access and limitations are subject to change as the platform evolves.
+
+Thanks for reading! If you have any questions or comments, feel free to reach out to me on [contact@radityaharya.com](https://www.notion.so/A-Comprehensive-Rust-Quick-Start-Guide-for-Python-Developers-e10b8719609e4c1f8e622c8ce8ae310f?pvs=21)

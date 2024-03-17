@@ -2,10 +2,8 @@ import siteMetadata from '@/data/siteMetadata'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { AiFillLinkedin, AiFillMail } from 'react-icons/ai'
-import { FaGithub, FaSpotify, FaSteam, FaTwitter } from 'react-icons/fa'
+import { FaGithub, FaRss, FaSpotify } from 'react-icons/fa'
 import NowPlaying from './Spotify/NowPlaying'
-import { Mail } from './social-icons/icons'
-
 export default function Footer() {
   return (
     <footer className="flex items-center justify-between py-10">
@@ -23,7 +21,12 @@ export default function Footer() {
           </ul>
           <ul className="flex cursor-pointer items-center space-x-5">
             <li>
-              <a href={siteMetadata.email} target="_blank" rel="noreferrer" aria-label="email">
+              <a
+                href={`mailto:${siteMetadata.email}`}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="email"
+              >
                 <AiFillMail className="sm:text-lg" />
               </a>
             </li>
@@ -45,6 +48,11 @@ export default function Footer() {
             <li>
               <a href={siteMetadata.spotify} target="_blank" rel="noreferrer" aria-label="spotify">
                 <FaSpotify className="sm:text-lg" />
+              </a>
+            </li>
+            <li>
+              <a href="/feed.xml" target="_blank" rel="noreferrer" aria-label="spotify">
+                <FaRss className="sm:text-lg" />
               </a>
             </li>
           </ul>

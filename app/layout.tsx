@@ -11,6 +11,8 @@ import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
+import { GoogleTagManager } from '@next/third-parties/google'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const open_sans = Open_Sans({
   subsets: ['latin'],
@@ -82,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-background text-black antialiased dark:bg-background-dark dark:text-white">
         <ThemeProviders>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
+          <GoogleTagManager gtmId="GTM-MHCBMHW" />
           <SectionContainer>
             <div className="flex h-screen flex-col justify-between font-sans">
               <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
@@ -92,6 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </SectionContainer>
         </ThemeProviders>
+        <SpeedInsights />
       </body>
     </html>
   )

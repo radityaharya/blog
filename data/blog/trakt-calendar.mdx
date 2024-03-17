@@ -1,0 +1,57 @@
+---
+title: 'Trakt Calendar Sync'
+date: '2023-07-16'
+tags: ['trakt', 'calendar', 'sync', 'trakt to google calendar', 'trakt to ical', 'trakt to outlook', 'trakt to apple calendar']
+draft: false
+summary: 'Syncing Trakt to Calendars'
+---
+
+
+!https://qnhjmybhvmffhqxsggxx.supabase.co/storage/v1/object/public/public/featured-image-trakt-calendar.png
+
+In this post, I'm excited to share my journey working on a recent project called "Trakt-ical Calendar Sync." Trakt-ical Calendar Sync is a web application that's all about making your TV show and movie schedule more organized and accessible. With this app, you can effortlessly sync your favorite content from Trakt to your personal calendar, ensuring you never miss out on upcoming episodes or releases. Join me as I delve into the ins and outs of this intriguing endeavor.
+
+<aside>
+🌐 https://trakt-ical.radityaharya.com
+
+</aside>
+
+## The Why Behind Trakt-ical
+
+Trakt offers Calendar and RSS feeds as part of their VIP membership package. However, for free users like me, there's no built-in calendar functionality. This challenge ignited my passion to create Trakt-ical Calendar Sync. The aim? To bridge this gap by enabling users to seamlessly sync their Trakt calendar with their preferred calendar app. This way, you can have your TV show and movie schedule right at your fingertips within your own calendar interface.
+
+## **Setting Up the Development Environment**
+
+To get started with Trakt Calendar Sync, the first step was to set up the development environment. I chose to use Python as the primary programming language due to its versatility and extensive library support. Here are the key steps I followed:
+
+1. Installed Python: I made sure to have Python installed on my system. Python 3.x is recommended for this project.
+2. Installed Dependencies: Trakt Calendar Sync relies on several external libraries. I used **`pip`**, the Python package manager, to install the necessary dependencies. Some of the key libraries include:
+    - **`Flask`**: A lightweight web framework used for building the application.
+    - **`pymongo`**: A Python driver for MongoDB, used for storing user data.
+    - **`requests`**: A library for making HTTP requests to interact with the Trakt API.
+    - **`icalendar`**: A library for working with iCalendar data.
+3. Set Up MongoDB: Trakt Calendar Sync stores user information, such as access tokens, in a MongoDB database. I ensured that MongoDB was installed and running on my local machine.
+4. Obtained Trakt API Credentials: To access the Trakt API, I registered an application on the Trakt developer portal. This provided me with a client ID and client secret, which I stored securely in environment variables.
+5. Configured the Application: Trakt Calendar Sync uses Flask's configuration system. I created a configuration file and specified the necessary settings, such as the MongoDB connection URL and Trakt API credentials.
+6. Prepared the Development Server: Finally, I set up a development server using Flask's built-in server. This allowed me to test the application locally and make modifications as needed.
+
+## **Building the Calendar Sync Functionality**
+
+The core functionality of Trakt Calendar Sync revolves around syncing a user's Trakt calendar with their preferred calendar application. Here's how it works:
+
+1. User Authorization: When a user wants to sync their calendar, they are redirected to the Trakt authorization page. They grant permission for the application to access their Trakt data and receive an authorization code in return.
+2. Access Token Retrieval: The authorization code is exchanged for an access token by making a POST request to the Trakt API. This access token is used to authenticate subsequent requests.
+3. Calendar Sync: With the access token in hand, Trakt Calendar Sync retrieves the user's Trakt calendar data. It fetches upcoming episodes and movie releases from the Trakt API.
+4. iCalendar Generation: The fetched data is transformed into the iCalendar format using the **`icalendar`** library. Each TV show episode or movie release is represented as an event in the iCalendar.
+5. Calendar Integration: The generated iCalendar data is then made available for users to download or import into their preferred calendar application. This enables seamless integration with popular calendar platforms such as Google Calendar, Apple Calendar, or Microsoft Outlook.
+
+## Evolution of Trakt-ical
+
+As Trakt-ical progressed, I decided to enhance the user experience by adding a ReactJS frontend. Initially, I considered using the Google Calendar API, but later discovered the convenience of webcal integration, which streamlined the process even further.
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fb9f1cdd-b20e-446e-b57a-c1d19fe93421/Untitled.png)
+
+## Conclusion
+
+Trakt-ical, offers a straightforward solution to seamlessly integrate your Trakt entertainment schedule into your daily routine. This application ensures you never miss a TV show episode or movie release again. Whether you're a binge-watching enthusiast or just looking to organize your viewing habits, Trakt-ical has you covered. Give it a try and experience the ease of managing your entertainment schedule.
+
