@@ -1,42 +1,21 @@
-import React, { useMemo } from "react"
-import NLink from "next/link"
+/* eslint-disable jsx-a11y/anchor-has-content */
+import Link from 'next/link'
+import type { LinkProps } from 'next/link'
+import { AnchorHTMLAttributes } from 'react'
 
-export interface Props {
-  href: string
-  children: React.ReactNode
-  external?: boolean
-  className?: string
-  style?: React.CSSProperties
-}
+const CustomLink = ({ href, ...rest }: LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>) => {
+  const isInternalLink = href && href.startsWith('/')
+  const isAnchorLink = href && href.startsWith('#')
 
-const isExternalLink = (href: string) =>
-  href == null || href.startsWith("http://") || href.startsWith("https://")
-
-const useIsExternalLink = (href: string) =>
-  useMemo(() => isExternalLink(href), [href])
-
-const Link = ({ href, external, children, ...props }: Props) => {
-  const isExternal = (useIsExternalLink(href) || external) ?? false
-
-  if (isExternal) {
-    return (
-      <a
-        className="underline"
-        href={href}
-        target="_blank"
-        rel="noreferrer noopener"
-        {...props}
-      >
-        {children}
-      </a>
-    )
+  if (isInternalLink) {
+    return <Link href={href} {...rest} />
   }
 
-  return (
-    <NLink href={href} passHref {...props}>
-      {children}
-    </NLink>
-  )
+  if (isAnchorLink) {
+    return <a href={href} {...rest} />
+  }
+
+  return <a target="_blank" rel="noopener noreferrer" href={href} {...rest} />
 }
 
-export default Link
+export default CustomLink

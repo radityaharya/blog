@@ -1,29 +1,45 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@components/*": ["components/*"],
-      "@layouts/*": ["layouts/*"],
-      "@lib/*": ["lib/*"],
-      "@hooks/*": ["hooks/*"],
-      "@styles/*": ["styles/*"]
-    },
-    "target": "es5",
+    "incremental": true,
+    "target": "ES6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "downlevelIteration": true,
     "noEmit": true,
+    "composite": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/data/*": ["data/*"],
+      "@/layouts/*": ["layouts/*"],
+      "@/css/*": ["css/*"],
+      "contentlayer/generated": ["./.contentlayer/generated"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
   },
-  "exclude": ["node_modules", ".next", "out"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "next.config.mjs"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.js",
+    "**/*.mjs",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.json",
+    ".contentlayer/generated",
+    ".contentlayer/generated/**/*.json",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
 }
