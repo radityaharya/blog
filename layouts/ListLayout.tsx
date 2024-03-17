@@ -18,6 +18,7 @@ interface ListLayoutProps {
   title: string
   initialDisplayPosts?: CoreContent<Blog>[]
   pagination?: PaginationProps
+  description?: string
 }
 
 function Pagination({ totalPages, currentPage }: PaginationProps) {
@@ -65,6 +66,7 @@ export default function ListLayout({
   title,
   initialDisplayPosts = [],
   pagination,
+  description,
 }: ListLayoutProps) {
   const [searchValue, setSearchValue] = useState('')
   const filteredBlogPosts = posts.filter((post) => {
@@ -83,6 +85,9 @@ export default function ListLayout({
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             {title}
           </h1>
+          {description && (
+            <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">{description}</p>
+          )}
           <div className="relative max-w-lg">
             <label>
               <span className="sr-only">Search articles</span>

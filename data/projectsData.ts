@@ -1,27 +1,33 @@
+import siteMetadata from '@/data/siteMetadata'
+
 interface Project {
-  title: string,
-  description: string,
-  href?: string,
-  imgSrc?: string,
+  title: string
+  description: string
+  href?: string
+  imgSrc?: string
+  stargazers_count: number
+  language: string
 }
 
-const projectsData: Project[] = [
-  {
-    title: 'A Search Engine',
-    description: `What if you could look up any information in the world? Webpages, images, videos
-    and more. Google has many features to help you find exactly what you're looking
-    for.`,
-    imgSrc: '/static/images/google.png',
-    href: 'https://www.google.com',
-  },
-  {
-    title: 'The Time Machine',
-    description: `Imagine being able to travel back in time or to the future. Simple turn the knob
-    to the desired date and press "Go". No more worrying about lost keys or
-    forgotten headphones with this simple yet affordable solution.`,
-    imgSrc: '/static/images/time-machine.jpg',
-    href: '/blog/the-time-machine',
-  },
-]
+async function getProjectsData(): Promise<Project[]> {
+  const githubUsername = siteMetadata.github.split('/').pop()
+  const response = await fetch(`https://api.github.com/users/${githubUsername}/repos`)
+  const data = await response.json()
 
-export default projectsData
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const projects = data.map((repo: any) => ({
+    title: repo.name,
+    description: repo.description,
+    href: repo.html_url,
+    imgSrc: '/static/images/github.png',
+    stargazers_count: repo.stargazers_count || 0,
+    language: repo.language,
+  }))
+
+  // Sort projects by stargazers_count in descending order
+  projects.sort((a: Project, b: Project) => b.stargazers_count - a.stargazers_count)
+
+  return projects
+}
+
+export default getProjectsData
