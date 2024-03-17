@@ -6,7 +6,7 @@ import { FaGithub, FaRss, FaSpotify } from 'react-icons/fa'
 import NowPlaying from './Spotify/NowPlaying'
 export default function Footer() {
   return (
-    <footer className="flex items-center justify-between py-10">
+    <footer className="flex items-center justify-between">
       <div className="mb-0 flex w-full flex-col justify-start space-x-0 space-y-1.5 py-10 text-gray-500 dark:text-gray-400">
         <Suspense fallback="loading...">
           <NowPlaying />

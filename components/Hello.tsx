@@ -1,6 +1,7 @@
 'use client'
 
 import Typewriter from 'typewriter-effect'
+import { useState, useEffect } from 'react'
 
 const hello_strings = [
   { language: 'English', greeting: 'Hello' },
@@ -36,7 +37,13 @@ const hello_strings = [
 ]
 
 export const Hello = () => {
-  return (
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  return isMounted ? (
     <Typewriter
       options={{
         strings: hello_strings.map((greeting) => `${greeting.greeting}`),
@@ -44,5 +51,7 @@ export const Hello = () => {
         loop: true,
       }}
     />
+  ) : (
+    <div>Hello</div>
   )
 }
