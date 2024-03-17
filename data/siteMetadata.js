@@ -3,7 +3,7 @@ const siteMetadata = {
   title: 'radityaharya',
   author: 'Raditya Harya',
   headerTitle: 'radityaharya',
-  description: 'A blog created with Next.js and Tailwind.css',
+  description: 'Welcome to my personal blog',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://radityaharya.com',
