@@ -9,7 +9,7 @@ interface CardProps {
 }
 
 const Card = ({ title, description, imgSrc, href }: CardProps) => (
-  <div className="md max-w-[544px] p-4 md:w-1/2">
+  <div className="md max-w-[544px] p-4 md:w-1/2 w-full">
     <div
       className={`${
         imgSrc && 'h-full'
