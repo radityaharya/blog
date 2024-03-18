@@ -5,7 +5,7 @@ const siteMetadata = {
   headerTitle: 'radityaharya',
   description: 'Welcome to my personal blog',
   language: 'en-us',
-  theme: 'system', // system, dark or light
+  theme: 'dark', // system, dark or light
   siteUrl: 'https://radityaharya.com',
   siteRepo: 'https://github.com/radityaharya/blog',
   siteLogo: '/static/images/logo.png',
