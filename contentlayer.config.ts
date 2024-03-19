@@ -1,8 +1,8 @@
-import { defineDocumentType, ComputedFields, makeSource } from 'contentlayer/source-files'
-import { writeFileSync } from 'fs'
+import { defineDocumentType, type ComputedFields, makeSource } from 'contentlayer/source-files'
+import { writeFileSync } from 'node:fs'
 import readingTime from 'reading-time'
 import { slug } from 'github-slugger'
-import path from 'path'
+import path from 'node:path'
 // Remark packages
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
@@ -10,7 +10,7 @@ import {
   remarkExtractFrontmatter,
   remarkCodeTitles,
   remarkImgToJsx,
-  extractTocHeadings,
+  extractTocHeadings
 } from 'pliny/mdx-plugins/index.js'
 // Rehype packages
 import rehypeSlug from 'rehype-slug'
@@ -29,17 +29,17 @@ const computedFields: ComputedFields = {
   readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
   slug: {
     type: 'string',
-    resolve: (doc) => doc._raw.flattenedPath.replace(/^.+?(\/)/, ''),
+    resolve: (doc) => doc._raw.flattenedPath.replace(/^.+?(\/)/, '')
   },
   path: {
     type: 'string',
-    resolve: (doc) => doc._raw.flattenedPath,
+    resolve: (doc) => doc._raw.flattenedPath
   },
   filePath: {
     type: 'string',
-    resolve: (doc) => doc._raw.sourceFilePath,
+    resolve: (doc) => doc._raw.sourceFilePath
   },
-  toc: { type: 'string', resolve: (doc) => extractTocHeadings(doc.body.raw) },
+  toc: { type: 'string', resolve: (doc) => extractTocHeadings(doc.body.raw) }
 }
 
 /**
@@ -47,7 +47,8 @@ const computedFields: ComputedFields = {
  */
 function createTagCount(allBlogs) {
   const tagCount: Record<string, number> = {}
-  allBlogs.forEach((file) => {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  allBlogs.forEach((file: { tags: any[]; draft: boolean }) => {
     if (file.tags && (!isProduction || file.draft !== true)) {
       file.tags.forEach((tag) => {
         const formattedTag = slug(tag)
@@ -71,7 +72,6 @@ function createSearchIndex(allBlogs) {
       `public/${siteMetadata.search.kbarConfig.searchDocumentsPath}`,
       JSON.stringify(allCoreContent(sortPosts(allBlogs)))
     )
-    console.log('Local search index generated...')
   }
 }
 
@@ -90,7 +90,7 @@ export const Blog = defineDocumentType(() => ({
     authors: { type: 'list', of: { type: 'string' } },
     layout: { type: 'string' },
     bibliography: { type: 'string' },
-    canonicalUrl: { type: 'string' },
+    canonicalUrl: { type: 'string' }
   },
   computedFields: {
     ...computedFields,
@@ -104,10 +104,10 @@ export const Blog = defineDocumentType(() => ({
         dateModified: doc.lastmod || doc.date,
         description: doc.summary,
         image: doc.images ? doc.images[0] : siteMetadata.socialBanner,
-        url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}`,
-      }),
-    },
-  },
+        url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}`
+      })
+    }
+  }
 }))
 
 export const Authors = defineDocumentType(() => ({
@@ -123,9 +123,9 @@ export const Authors = defineDocumentType(() => ({
     twitter: { type: 'string' },
     linkedin: { type: 'string' },
     github: { type: 'string' },
-    layout: { type: 'string' },
+    layout: { type: 'string' }
   },
-  computedFields,
+  computedFields
 }))
 
 export default makeSource({
@@ -138,19 +138,19 @@ export default makeSource({
       remarkGfm,
       remarkCodeTitles,
       remarkMath,
-      remarkImgToJsx,
+      remarkImgToJsx
     ],
     rehypePlugins: [
       rehypeSlug,
       rehypeAutolinkHeadings,
       [rehypeCitation, { path: path.join(root, 'data') }],
       [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
-      rehypePresetMinify,
-    ],
+      rehypePresetMinify
+    ]
   },
   onSuccess: async (importData) => {
     const { allBlogs } = await importData()
     createTagCount(allBlogs)
     createSearchIndex(allBlogs)
-  },
+  }
 })

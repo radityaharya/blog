@@ -33,7 +33,7 @@ const hello_strings = [
   { language: 'Norwegian', greeting: 'Hei' },
   { language: 'Ukrainian', greeting: 'Привіт' },
   { language: 'Bengali', greeting: 'হ্যালো' },
-  { language: 'Tagalog', greeting: 'Kamusta' },
+  { language: 'Tagalog', greeting: 'Kamusta' }
 ]
 
 export const Hello = () => {
@@ -48,7 +48,7 @@ export const Hello = () => {
       options={{
         strings: hello_strings.map((greeting) => `${greeting.greeting}`),
         autoStart: true,
-        loop: true,
+        loop: true
       }}
     />
   ) : (

@@ -1,6 +1,7 @@
-import { writeFileSync, mkdirSync } from 'fs'
-import path from 'path'
+import { writeFileSync, mkdirSync } from 'node:fs'
+import path from 'node:path'
 import { slug } from 'github-slugger'
+// biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
 import { escape } from 'pliny/utils/htmlEscaper.js'
 import siteMetadata from '../data/siteMetadata.js'
 import tagData from '../app/tag-data.json' assert { type: 'json' }
@@ -15,7 +16,7 @@ const generateRssItem = (config, post) => `
     ${post.summary && `<description>${escape(post.summary)}</description>`}
     <pubDate>${new Date(post.date).toUTCString()}</pubDate>
     <author>${config.email} (${config.author})</author>
-    ${post.tags && post.tags.map((t) => `<category>${t}</category>`).join('')}
+    ${post.tags?.map((t) => `<category>${t}</category>`).join('')}
   </item>
 `
 
@@ -56,6 +57,5 @@ async function generateRSS(config, allBlogs, page = 'feed.xml') {
 
 const rss = () => {
   generateRSS(siteMetadata, allBlogs)
-  console.log('RSS feed generated...')
 }
 export default rss

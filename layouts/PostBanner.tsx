@@ -1,7 +1,7 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import Image from '@/components/Image'
 import Bleed from 'pliny/ui/Bleed'
-import { CoreContent } from 'pliny/utils/contentlayer'
+import type { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Comments from '@/components/Comments'
 import Link from '@/components/Link'
@@ -47,7 +47,7 @@ export default function PostMinimal({ content, next, prev, children }: LayoutPro
           )}
           <footer>
             <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base">
-              {prev && prev.path && (
+              {prev?.path && (
                 <div className="pt-4 xl:pt-8">
                   <Link
                     href={`/${prev.path}`}
@@ -58,7 +58,7 @@ export default function PostMinimal({ content, next, prev, children }: LayoutPro
                   </Link>
                 </div>
               )}
-              {next && next.path && (
+              {next?.path && (
                 <div className="pt-4 xl:pt-8">
                   <Link
                     href={`/${next.path}`}

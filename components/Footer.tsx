@@ -18,7 +18,7 @@ const socialLinks = [
   { href: siteMetadata.linkedin, ariaLabel: 'linkedin', IconComponent: AiFillLinkedin },
   { href: siteMetadata.github, ariaLabel: 'github', IconComponent: FaGithub },
   { href: siteMetadata.spotify, ariaLabel: 'spotify', IconComponent: FaSpotify },
-  { href: '/feed.xml', ariaLabel: 'rss', IconComponent: FaRss },
+  { href: '/feed.xml', ariaLabel: 'rss', IconComponent: FaRss }
 ]
 
 export default function Footer() {
@@ -38,6 +38,7 @@ export default function Footer() {
           </ul>
           <ul className="flex cursor-pointer items-center space-x-5">
             {socialLinks.map((link, index) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               <SocialIcon key={index} {...link} />
             ))}
           </ul>

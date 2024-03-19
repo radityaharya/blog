@@ -22,7 +22,7 @@
       "@/layouts/*": ["layouts/*"],
       "@/css/*": ["css/*"],
       "contentlayer/generated": ["./.contentlayer/generated"],
-      "@/lib/*": ["lib/*"],
+      "@/lib/*": ["lib/*"]
     },
     "plugins": [
       {

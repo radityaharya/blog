@@ -1,0 +1,51 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.6.1/schema.json",
+  "vcs": { "clientKind": "git", "enabled": true },
+  "files": {
+    "ignore": [
+      "next.config.js",
+      "node_modules/**/*",
+      "dist/**/*",
+      ".next/**/*",
+      "./.contentlayer/**/*"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 100,
+    "attributePosition": "auto"
+  },
+  "organizeImports": { "enabled": true },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "all": true,
+      "a11y": { "noSvgWithoutTitle": "off" },
+      "complexity": { "noForEach": "off" },
+      "nursery": {
+        "noNodejsModules": "off",
+        "noUndeclaredDependencies": "off",
+        "useImportRestrictions": "off"
+      },
+      "style": { "all": false }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingComma": "none",
+      "semicolons": "asNeeded",
+      "arrowParentheses": "always",
+      "bracketSpacing": true,
+      "bracketSameLine": false,
+      "quoteStyle": "single",
+      "attributePosition": "auto"
+    }
+  },
+  "json": { "parser": { "allowComments": true } }
+}

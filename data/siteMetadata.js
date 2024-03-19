@@ -28,11 +28,11 @@ const siteMetadata = {
     umamiAnalytics: {
       // We use an env variable for this site to avoid other users cloning our analytics ID
       umamiWebsiteId: process.env.NEXT_UMAMI_ID, // e.g. 123e4567-e89b-12d3-a456-426614174000
-      src: process.env.NEXT_UMAMI_SRC,
+      src: process.env.NEXT_UMAMI_SRC
       // You may also need to overwrite the script if you're storing data in the US - ex:
       // src: 'https://us.umami.is/script.js'
       // Remember to add 'us.umami.is' in `next.config.js` as a permitted domain for the CSP
-    },
+    }
     // plausibleAnalytics: {
     //   plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
     // },
@@ -47,7 +47,7 @@ const siteMetadata = {
   newsletter: {
     // supports mailchimp, buttondown, convertkit, klaviyo, revue, emailoctopus
     // Please add your .env file and modify it according to your selection
-    provider: 'buttondown',
+    provider: 'buttondown'
   },
   comments: {
     // If you want to use an analytics provider you have to add it to the
@@ -76,14 +76,14 @@ const siteMetadata = {
       // example: https://giscus.app/themes/custom_example.css
       themeURL: '',
       // This corresponds to the `data-lang="en"` in giscus's configurations
-      lang: 'en',
-    },
+      lang: 'en'
+    }
   },
   search: {
     provider: 'kbar', // kbar or algolia
     kbarConfig: {
-      searchDocumentsPath: 'search.json', // path to load documents to search
-    },
+      searchDocumentsPath: 'search.json' // path to load documents to search
+    }
     // provider: 'algolia',
     // algoliaConfig: {
     //   // The application ID provided by Algolia
@@ -92,7 +92,7 @@ const siteMetadata = {
     //   apiKey: '599cec31baffa4868cae4e79f180729b',
     //   indexName: 'docsearch',
     // },
-  },
+  }
 }
 
 module.exports = siteMetadata

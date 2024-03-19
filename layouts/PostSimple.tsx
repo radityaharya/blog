@@ -1,6 +1,6 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { formatDate } from 'pliny/utils/formatDate'
-import { CoreContent } from 'pliny/utils/contentlayer'
+import type { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Comments from '@/components/Comments'
 import Link from '@/components/Link'
@@ -17,6 +17,7 @@ interface LayoutProps {
 }
 
 export default function PostLayout({ content, next, prev, children }: LayoutProps) {
+  // biome-ignore lint/correctness/noUnusedVariables: <explanation>
   const { path, slug, date, title } = content
 
   return (
@@ -50,7 +51,7 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
             )}
             <footer>
               <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base">
-                {prev && prev.path && (
+                {prev?.path && (
                   <div className="pt-4 xl:pt-8">
                     <Link
                       href={`/${prev.path}`}
@@ -61,7 +62,7 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
                     </Link>
                   </div>
                 )}
-                {next && next.path && (
+                {next?.path && (
                   <div className="pt-4 xl:pt-8">
                     <Link
                       href={`/${next.path}`}
