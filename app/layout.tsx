@@ -3,33 +3,34 @@ import 'pliny/search/algolia.css'
 
 import { Open_Sans } from 'next/font/google'
 import { Space_Mono } from 'next/font/google'
-import { Analytics, AnalyticsConfig } from 'pliny/analytics'
-import { SearchProvider, SearchConfig } from 'pliny/search'
+import { Analytics, type AnalyticsConfig } from 'pliny/analytics'
+import { SearchProvider, type SearchConfig } from 'pliny/search'
 import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import type { ReactNode } from 'react'
 
 const open_sans = Open_Sans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-open-sans',
+  variable: '--font-open-sans'
 })
 
 const space_mono = Space_Mono({
   subsets: ['latin'],
   weight: ['400', '700'],
-  variable: '--font-space-mono',
+  variable: '--font-space-mono'
 })
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
   title: {
     default: siteMetadata.title,
-    template: `%s | ${siteMetadata.title}`,
+    template: `%s | ${siteMetadata.title}`
   },
   description: siteMetadata.description,
   openGraph: {
@@ -39,13 +40,13 @@ export const metadata: Metadata = {
     siteName: siteMetadata.title,
     images: [siteMetadata.socialBanner],
     locale: 'en_US',
-    type: 'website',
+    type: 'website'
   },
   alternates: {
     canonical: './',
     types: {
-      'application/rss+xml': `${siteMetadata.siteUrl}/feed.xml`,
-    },
+      'application/rss+xml': `${siteMetadata.siteUrl}/feed.xml`
+    }
   },
   robots: {
     index: true,
@@ -55,17 +56,17 @@ export const metadata: Metadata = {
       follow: true,
       'max-video-preview': -1,
       'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+      'max-snippet': -1
+    }
   },
   twitter: {
     title: siteMetadata.title,
     card: 'summary_large_image',
-    images: [siteMetadata.socialBanner],
-  },
+    images: [siteMetadata.socialBanner]
+  }
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang={siteMetadata.language}

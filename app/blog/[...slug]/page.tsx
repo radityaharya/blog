@@ -1,7 +1,6 @@
 import 'css/prism.css'
 import 'katex/dist/katex.css'
 
-import PageTitle from '@/components/PageTitle'
 import { components } from '@/components/MDXComponents'
 import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import { sortPosts, coreContent, allCoreContent } from 'pliny/utils/contentlayer'
@@ -10,7 +9,7 @@ import type { Authors, Blog } from 'contentlayer/generated'
 import PostSimple from '@/layouts/PostSimple'
 import PostLayout from '@/layouts/PostLayout'
 import PostBanner from '@/layouts/PostBanner'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
 
@@ -18,11 +17,11 @@ const defaultLayout = 'PostLayout'
 const layouts = {
   PostSimple,
   PostLayout,
-  PostBanner,
+  PostBanner
 }
 
 export async function generateMetadata({
-  params,
+  params
 }: {
   params: { slug: string[] }
 }): Promise<Metadata | undefined> {
@@ -46,7 +45,7 @@ export async function generateMetadata({
   }
   const ogImages = imageList.map((img) => {
     return {
-      url: img.includes('http') ? img : siteMetadata.siteUrl + img,
+      url: img.includes('http') ? img : siteMetadata.siteUrl + img
     }
   })
 
@@ -63,14 +62,14 @@ export async function generateMetadata({
       modifiedTime: modifiedAt,
       url: './',
       images: ogImages,
-      authors: authors.length > 0 ? authors : [siteMetadata.author],
+      authors: authors.length > 0 ? authors : [siteMetadata.author]
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.summary,
-      images: imageList,
-    },
+      images: imageList
+    }
   }
 }
 
@@ -99,10 +98,10 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   })
   const mainContent = coreContent(post)
   const jsonLd = post.structuredData
-  jsonLd['author'] = authorDetails.map((author) => {
+  jsonLd.author = authorDetails.map((author) => {
     return {
       '@type': 'Person',
-      name: author.name,
+      name: author.name
     }
   })
 
@@ -112,6 +111,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     <>
       <script
         type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev}>

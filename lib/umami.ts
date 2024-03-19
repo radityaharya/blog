@@ -33,12 +33,12 @@ async function getToken(): Promise<string> {
   const response = await fetch(`${umami_host}/api/auth/login`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       username: process.env.UMAMI_USERNAME,
-      password: process.env.UMAMI_PASSWORD,
-    }),
+      password: process.env.UMAMI_PASSWORD
+    })
   })
   const data = (await response.json()) as TokenResponse
   return data.token
@@ -52,6 +52,8 @@ async function getToken(): Promise<string> {
  * @returns A promise that resolves to the fetched data.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 async function fetchData(endpoint: string, options: Props): Promise<any> {
   const token = await getToken()
   const websiteId = options.websiteId || process.env.WEBSITE_ID
@@ -63,11 +65,10 @@ async function fetchData(endpoint: string, options: Props): Promise<any> {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   })
   const data = await response.json()
-  console.log(data)
   return data
 }
 
@@ -85,7 +86,7 @@ interface ActiveUsersResponse {
 async function getActiveUsers(props: Props): Promise<ActiveUsersResponse> {
   return fetchData(`websites/${props.websiteId}/active`, props).then(
     (data) => {
-      return { unique_visitors: parseInt(data.x) }
+      return { unique_visitors: Number.parseInt(data.x) }
     },
     (error) => {
       console.error(error)
@@ -113,11 +114,12 @@ async function getEvents(props: Props): Promise<GetEventsResponse> {
   return fetchData(`websites/${props.websiteId}/events`, props).then(
     (data) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       const events = data.map((item: any) => {
         return {
           event_name: item.x,
           timestamp: new Date(item.t),
-          number_of_events: item.y,
+          number_of_events: item.y
         }
       }, [])
 
@@ -151,18 +153,20 @@ async function getPageviews(props: Props): Promise<PageviewsResponse> {
   return fetchData(`websites/${props.websiteId}/pageviews`, props).then(
     (data) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       const pageviews = data.pageviews.map((item: any) => {
         return {
           timestamp: new Date(item.x),
-          number_of_visitors: item.y,
+          number_of_visitors: item.y
         }
       })
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       const sessions = data.sessions.map((item: any) => {
         return {
           timestamp: new Date(item.x),
-          number_of_visitors: item.y,
+          number_of_visitors: item.y
         }
       })
 
@@ -188,6 +192,8 @@ interface StatsResponse {
  * @param props - The properties required to fetch the statistics. See {@link Props} for more details.
  * @returns A promise that resolves to the statistics response.
  */
+
+// biome-ignore lint/suspicious/useAwait: <explanation>
 async function getStats(props: Props): Promise<StatsResponse> {
   return fetchData(`websites/${props.websiteId}/stats`, props)
 }
@@ -251,10 +257,11 @@ async function getMetrics(
   return fetchData(`websites/${props.websiteId}/metrics/${props.type}`, props).then(
     (data) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       return data.map((item: any) => {
         const responseItem = {
           [props.type]: item.x,
-          number_of_visitors: item.y,
+          number_of_visitors: item.y
         } as MetricsTypeMap[GetMetricsProps['type']]
         return responseItem
       })

@@ -1,6 +1,6 @@
 import { getNowPlaying } from '@/lib/spotify'
 import AnimatedBars from './AnimatedBars'
-import { Artist, NowPlayingSong } from './types'
+import type { Artist, NowPlayingSong } from './types'
 
 async function fetchNowPlaying(): Promise<NowPlayingSong | null> {
   try {
@@ -24,7 +24,7 @@ async function fetchNowPlaying(): Promise<NowPlayingSong | null> {
       artist,
       isPlaying,
       songUrl,
-      title,
+      title
     }
   } catch (e) {
     if (e instanceof Error) {
@@ -38,7 +38,7 @@ async function fetchNowPlaying(): Promise<NowPlayingSong | null> {
 export default async function NowPlaying() {
   const nowPlaying = await fetchNowPlaying()
 
-  if (!nowPlaying?.songUrl || !nowPlaying.title || !nowPlaying.artist) {
+  if (!(nowPlaying?.songUrl && nowPlaying.title && nowPlaying.artist)) {
     return (
       <div className="flex items-center justify-center space-x-2 text-sm sm:justify-start sm:text-base">
         <svg className="mt-[-2px] h-4 w-4" viewBox="0 0 168 168">

@@ -23,7 +23,7 @@ export const nowPlayingEmptyState: NowPlayingSong = {
   artist: '',
   isPlaying: false,
   songUrl: '',
-  title: '',
+  title: ''
 }
 
 export type NowPlayingSong = {

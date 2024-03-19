@@ -1,12 +1,8 @@
-import Link from '@/components/Link'
-import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
-import { formatDate } from 'pliny/utils/formatDate'
-import NewsletterForm from 'pliny/ui/NewsletterForm'
 import { Hello } from '@/components/Hello'
 import { Suspense } from 'react'
-const MAX_DISPLAY = 5
 
+// biome-ignore lint/correctness/noUnusedVariables: <explanation>
 export default function Home({ posts }) {
   return (
     <div className="h-full">
