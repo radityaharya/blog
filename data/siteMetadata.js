@@ -13,7 +13,7 @@ const siteMetadata = {
   mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'contact@radityaharya.com',
   github: 'https://github.com/radityaharya',
-  spotify: 'https://spotify.com/radityaharya',
+  spotify: 'https://open.spotify.com/user/radityaharya',
   twitter: 'https://twitter.com/Twitter',
   facebook: 'https://facebook.com',
   youtube: 'https://youtube.com',

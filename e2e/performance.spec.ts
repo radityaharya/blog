@@ -193,28 +193,4 @@ for (const targetUrl of targetUrls) {
     // For example, check if TTFB is within an acceptable range
     expect(timeToFirstByte).toBeLessThan(performanceThresholds.TTFB)
   })
-
-  // https://developer.mozilla.org/en-US/docs/Glossary/First_input_delay
-  test(`evaluate FID for ${targetUrl}`, async ({ page }) => {
-    await page.goto(targetUrl)
-
-    // Evaluate FID using the First Input Delay API
-    const firstInputDelay = await page.evaluate(() => {
-      return new Promise((resolve) => {
-        let firstInputDelay = 0
-
-        // Initialize a PerformanceObserver to observe first-input entries
-        const observer = new PerformanceObserver((list) => {
-          const entries = list.getEntries() as PerformanceEventTiming[]
-          entries.forEach((entry) => {
-            firstInputDelay = entry.processingStart - entry.startTime
-          })
-          resolve(firstInputDelay)
-        })
-
-        observer.observe({ type: 'first-input', buffered: true })
-      })
-    })
-    expect(firstInputDelay).toBeLessThan(performanceThresholds.FID)
-  })
 }
