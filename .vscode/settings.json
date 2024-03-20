@@ -3,9 +3,12 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.defaultFormatter": "biomejs.biome",
   "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "[javascript, javascriptreact, typescript, Typescript JSX, JSON, JSON with Comments]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
 }

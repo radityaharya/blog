@@ -26,7 +26,7 @@ module.exports = {
         mono: ['var(--font-space-mono)', ...fontFamily.mono]
       },
       colors: {
-        primary: colors.purple,
+        primary: colors.indigo,
         gray: colors.gray,
         background: {
           DEFAULT: '#f0f0f0',

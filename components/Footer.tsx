@@ -25,7 +25,9 @@ export default function Footer() {
   return (
     <footer className="flex items-center justify-between">
       <div className="mb-0 flex w-full flex-col justify-start space-x-0 space-y-3 py-10 text-gray-500 dark:text-gray-400 sm:space-y-1.5">
-        <Suspense fallback="loading...">
+        <Suspense
+          fallback={<div className="w-full flex items-center justify-center">Loading...</div>}
+        >
           <NowPlaying />
         </Suspense>
         <div className="flex flex-col items-center space-y-3 text-sm sm:flex-row sm:justify-between sm:text-base">

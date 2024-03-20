@@ -87,7 +87,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <GoogleTagManager gtmId="GTM-MHCBMHW" />
           <SectionContainer>
-            <div className="flex min-h-screen flex-col font-sans">
+            <div className="flex min-h-[100dvh] flex-col font-sans">
               <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
                 <Header />
                 <main className="my-auto">{children}</main>

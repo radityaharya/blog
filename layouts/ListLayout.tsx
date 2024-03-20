@@ -87,14 +87,6 @@ export default function ListLayout({
             <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
               {title}
             </h1>
-            <Link
-              className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400"
-              href="/feed.xml"
-              aria-label="RSS feed"
-            >
-              Subscribe
-              <FaRss />
-            </Link>
           </div>
           {description && (
             <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">{description}</p>
@@ -140,7 +132,7 @@ export default function ListLayout({
                     </dd>
                   </dl>
                   <div className="space-y-3 xl:col-span-3">
-                    <div>
+                    <div className="space-y-2">
                       <h3 className="text-2xl font-bold leading-8 tracking-tight">
                         <Link href={`/${path}`} className="text-gray-900 dark:text-gray-100">
                           {title}
