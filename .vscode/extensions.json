@@ -1,3 +1,19 @@
 {
-  "recommendations": ["biomejs.biome"]
+  "recommendations": [
+    "biomejs.biome",
+    "ms-vscode.vscode-typescript-next",
+    "formulahendry.auto-rename-tag",
+    "usernamehw.errorlens",
+    "vincaslt.highlight-matching-tag",
+    "rolandotaipe.underdark",
+    "wix.vscode-import-cost",
+    "oderwat.indent-rainbow",
+    "visualstudioexptteam.vscodeintellicode",
+    "unifiedjs.vscode-mdx",
+    "christian-kohler.path-intellisense",
+    "yoavbls.pretty-ts-errors",
+    "bradlc.vscode-tailwindcss",
+    "meganrogge.template-string-converter"
+  ],
+  "unwantedRecommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
 }

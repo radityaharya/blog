@@ -4,7 +4,8 @@
   "editor.defaultFormatter": "biomejs.biome",
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
-  "[typescriptreact]": {
+  "[javascript, javascriptreact, typescript, Typescript JSX, JSON, JSON with Comments]": {
     "editor.defaultFormatter": "biomejs.biome"
-  }
+  },
+  "editor.tabSize": 2
 }
