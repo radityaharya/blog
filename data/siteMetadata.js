@@ -9,7 +9,7 @@ const siteMetadata = {
   siteUrl: 'https://radityaharya.com',
   siteRepo: 'https://github.com/radityaharya/blog',
   siteLogo: '/static/images/logo.png',
-  socialBanner: '/static/images/twitter-card.png',
+  socialBanner: '/static/images/banner.png',
   mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'contact@radityaharya.com',
   github: 'https://github.com/radityaharya',
