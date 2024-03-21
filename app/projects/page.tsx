@@ -18,10 +18,20 @@ export default async function Projects() {
             Side projects I have worked on in my free time.
           </p>
         </div>
-        <div className="container py-12">
-          <div className="-m-4 flex flex-wrap">
+        <div className="py-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {projects.map((d) => (
-              <Card key={d.title} title={d.title} description={d.description} href={d.href} />
+              <Card
+                key={d.title}
+                title={d.title}
+                description={d.description}
+                href={d.href}
+                topics={d.topics}
+                language={d.language}
+                fork={d.fork}
+                fork_parent={d.fork_parent}
+                languages={d.languages}
+              />
             ))}
           </div>
         </div>

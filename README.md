@@ -8,8 +8,7 @@ My personal website + blog
 - [Contentlayer](https://www.contentlayer.dev/) to manage content logic
 - Easy styling customization with [Tailwind 3.0](https://tailwindcss.com/blog/tailwindcss-v3) and primary color attribute
 - [MDX - write JSX in markdown documents!](https://mdxjs.com/)
-- Near perfect lighthouse score - [Lighthouse report](https://www.webpagetest.org/result/230805_BiDcBQ_4H7)
-- Lightweight, 85kB first load JS
+- Near perfect lighthouse score - [Lighthouse report](https://pagespeed.web.dev/analysis/https-radityaharya-com/ce2eze43xo?form_factor=desktop)
 - Mobile-friendly view
 - Light and dark theme
 - Font optimization with [next/font](https://nextjs.org/docs/app/api-reference/components/font)
@@ -27,7 +26,8 @@ My personal website + blog
 - 3 different blog layouts
 - 2 different blog listing layouts
 - Support for nested routing of blog posts
-- Projects page
+- Projects page (data fetched from Github api)
+- Spotify Now Playing integration
 - Preconfigured security headers
 - SEO friendly with RSS feed, sitemaps and more!
 
@@ -171,4 +171,4 @@ See [Next.js on Netlify](https://docs.netlify.com/integrations/frameworks/next-j
 
 ## Licence
 
-[MIT](https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/LICENSE) © [Timothy Lin](https://www.timlrx.com)
+[MIT](https://github.com/radityaharya/blog/blob/v2/LICENSE)
