@@ -10,7 +10,7 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 
-const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
+const editUrl = (path) => `${siteMetadata.siteRepo}/blob/v2/data/${path}`
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: 'long',
@@ -57,7 +57,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             <dl className="pb-10 pt-6 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
               <dt className="sr-only">Authors</dt>
               <dd>
-                <ul className="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
+                <ul className="flex flex-wrap justify-start gap-4 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
                   {authorDetails.map((author) => (
                     <li className="flex items-center space-x-2" key={author.name}>
                       {author.avatar && (
@@ -91,10 +91,6 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
               <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">{children}</div>
-              <p className="py-6">
-                Thanks for reading! If you have any questions or comments, feel free to reach out to
-                me on <Link href={`mailto:${siteMetadata.email}`}>{siteMetadata.email}</Link>
-              </p>
               <div className="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
                 <Link href={editUrl(filePath)}>View on GitHub</Link>
               </div>

@@ -11,17 +11,19 @@ import { sortPosts } from 'pliny/utils/contentlayer.js'
 const generateRssItem = (config, post) => `
   <item>
     <guid>${config.siteUrl}/blog/${post.slug}</guid>
-    <title>${escape(post.title)}</title>
+    <title><![CDATA[ ${post.title} ]]></title>
     <link>${config.siteUrl}/blog/${post.slug}</link>
-    ${post.summary && `<description>${escape(post.summary)}</description>`}
+    ${post.summary && `<description><![CDATA[ ${post.summary} ]]></description>`}
     <pubDate>${new Date(post.date).toUTCString()}</pubDate>
     <author>${config.email} (${config.author})</author>
-    ${post.tags?.map((t) => `<category>${t}</category>`).join('')}
+    ${post.tags?.map((t) => `<category><![CDATA[ ${t} ]]></category>`).join('')}
+    <content:encoded><![CDATA[ ${post.body.raw.replace(/\]\(\/blog\//g, `](${config.siteUrl}/blog/`).replace("\n", "<br>")} ]]></content:encoded>
+    <dc:creator>${config.email} (${config.author})</dc:creator>
   </item>
 `
 
 const generateRss = (config, posts, page = 'feed.xml') => `
-  <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
     <channel>
       <title>${escape(config.title)}</title>
       <link>${config.siteUrl}/blog</link>
@@ -30,6 +32,11 @@ const generateRss = (config, posts, page = 'feed.xml') => `
       <managingEditor>${config.email} (${config.author})</managingEditor>
       <webMaster>${config.email} (${config.author})</webMaster>
       <lastBuildDate>${new Date(posts[0].date).toUTCString()}</lastBuildDate>
+      <image>
+        <url>${config.siteUrl}/static/images/favicons/android-chrome-192x192.png</url>
+        <title>${escape(config.title)}</title>
+        <link>${config.siteUrl}/blog</link>
+      </image>
       <atom:link href="${config.siteUrl}/${page}" rel="self" type="application/rss+xml"/>
       ${posts.map((post) => generateRssItem(config, post)).join('')}
     </channel>

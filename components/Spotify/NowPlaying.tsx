@@ -40,7 +40,7 @@ export default async function NowPlaying() {
 
   if (!(nowPlaying?.songUrl && nowPlaying.title && nowPlaying.artist)) {
     return (
-      <div className="flex items-center justify-center space-x-2 text-sm sm:justify-start sm:text-base">
+      <div className="max-h-5 flex items-center justify-center space-x-2 sm:flex-row sm:justify-start sm:space-x-2">
         <svg className="mt-[-2px] h-4 w-4" viewBox="0 0 168 168">
           <path
             fill="#1ED760"
@@ -57,7 +57,7 @@ export default async function NowPlaying() {
   }
 
   return (
-    <div className="mt-4 flex items-center justify-center space-x-2 sm:flex-row sm:justify-start sm:space-x-2">
+    <div className="max-h-5 flex items-center justify-center space-x-2 sm:flex-row sm:justify-start sm:space-x-2">
       <AnimatedBars />
       <div className="inline-flex max-w-[70%] items-center space-x-2 text-sm sm:max-w-[90%] sm:text-base">
         <a
