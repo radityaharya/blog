@@ -4,21 +4,30 @@ import { Suspense } from 'react'
 import { AiFillLinkedin, AiFillMail } from 'react-icons/ai'
 import { FaGithub, FaRss, FaSpotify } from 'react-icons/fa'
 import NowPlaying from './Spotify/NowPlaying'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 const SocialIcon = ({ href, ariaLabel, IconComponent }) => (
   <li>
-    <a href={href} target="_blank" rel="noreferrer" aria-label={ariaLabel}>
-      <IconComponent className="text-2xl sm:text-lg" />
-    </a>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>
+          <Link href={href} rel="noreferrer" aria-label={ariaLabel}>
+            <IconComponent className="text-2xl sm:text-lg" />
+          </Link>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{ariaLabel}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   </li>
 )
-
 const socialLinks = [
-  { href: `mailto:${siteMetadata.email}`, ariaLabel: 'email', IconComponent: AiFillMail },
-  { href: siteMetadata.linkedin, ariaLabel: 'linkedin', IconComponent: AiFillLinkedin },
-  { href: siteMetadata.github, ariaLabel: 'github', IconComponent: FaGithub },
-  { href: siteMetadata.spotify, ariaLabel: 'spotify', IconComponent: FaSpotify },
-  { href: '/feed.xml', ariaLabel: 'rss', IconComponent: FaRss }
+  { href: `mailto:${siteMetadata.email}`, ariaLabel: 'Email', IconComponent: AiFillMail },
+  { href: siteMetadata.linkedin, ariaLabel: 'Linkedin', IconComponent: AiFillLinkedin },
+  { href: siteMetadata.github, ariaLabel: 'Github', IconComponent: FaGithub },
+  { href: siteMetadata.spotify, ariaLabel: 'Spotify Profile', IconComponent: FaSpotify },
+  { href: '/feed.xml', ariaLabel: 'Subscribe to rss', IconComponent: FaRss }
 ]
 
 export default function Footer() {
