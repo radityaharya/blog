@@ -63,3 +63,14 @@ body {
 html {
   scrollbar-gutter: stable;
 }
+
+.imageContainer > span {
+  position: unset !important;
+}
+
+.nextImage {
+  object-fit: contain;
+  max-width: 100% !important;
+  position: relative !important;
+  height: unset !important;
+}
