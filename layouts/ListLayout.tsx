@@ -8,7 +8,16 @@ import type { Blog } from 'contentlayer/generated'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
-import { FaRss } from 'react-icons/fa'
+import { Input } from '@/components/ui/input'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious
+} from '@/components/ui/pagination'
 
 interface PaginationProps {
   totalPages: number
@@ -22,7 +31,7 @@ interface ListLayoutProps {
   description?: string
 }
 
-function Pagination({ totalPages, currentPage }: PaginationProps) {
+function BlogPagination({ totalPages, currentPage }: PaginationProps) {
   const pathname = usePathname()
   const basePath = pathname.split('/')[1]
   const prevPage = currentPage - 1 > 0
@@ -30,34 +39,32 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
 
   return (
     <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-      <nav className="flex justify-between">
-        {!prevPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!prevPage} type="button">
-            Previous
-          </button>
-        )}
-        {prevPage && (
-          <Link
-            href={currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`}
-            rel="prev"
-          >
-            Previous
-          </Link>
-        )}
-        <span>
-          {currentPage} of {totalPages}
-        </span>
-        {!nextPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!nextPage} type="button">
-            Next
-          </button>
-        )}
-        {nextPage && (
-          <Link href={`/${basePath}/page/${currentPage + 1}`} rel="next">
-            Next
-          </Link>
-        )}
-      </nav>
+      <Pagination>
+        <PaginationContent>
+          {prevPage && (
+            <PaginationItem>
+              <PaginationPrevious
+                href={
+                  currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`
+                }
+              />
+            </PaginationItem>
+          )}
+          {[...Array(totalPages)].map((_, i) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+            <PaginationItem key={'pagination-' + i} aria-current="page">
+              <PaginationLink href={`/${basePath}/page/${i + 1}`} isActive={i + 1 === currentPage}>
+                {i + 1}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          {nextPage && (
+            <PaginationItem>
+              <PaginationNext href={`/${basePath}/page/${currentPage + 1}`} />
+            </PaginationItem>
+          )}
+        </PaginationContent>
+      </Pagination>
     </div>
   )
 }
@@ -82,7 +89,7 @@ export default function ListLayout({
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
+        <div className="space-y-3 pb-8 pt-6 md:space-y-5">
           <div className="flex flex-row items-start justify-between">
             <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
               {title}
@@ -91,19 +98,19 @@ export default function ListLayout({
           {description && (
             <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">{description}</p>
           )}
-          <div className="relative max-w-lg">
+          <div className="relative max-w-lg pt-2">
             <label>
               <span className="sr-only">Search articles</span>
-              <input
+              <Input
                 aria-label="Search articles"
                 type="text"
                 onChange={(e) => setSearchValue(e.target.value)}
                 placeholder="Search articles"
-                className="block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-900 dark:bg-gray-800 dark:text-gray-100"
+                className="h-12"
               />
             </label>
             <svg
-              className="absolute right-3 top-3 h-5 w-5 text-gray-400 dark:text-gray-300"
+              className="absolute right-3 top-5 h-5 w-5 text-gray-400 dark:text-gray-300"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -138,7 +145,7 @@ export default function ListLayout({
                           {title}
                         </Link>
                       </h3>
-                      <div className="flex flex-wrap">
+                      <div className="prose flex flex-wrap gap-2 text-base">
                         {tags?.map((tag) => (
                           <Tag key={tag} text={tag} />
                         ))}
@@ -155,7 +162,7 @@ export default function ListLayout({
         </ul>
       </div>
       {pagination && pagination.totalPages > 1 && !searchValue && (
-        <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
+        <BlogPagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
       )}
     </>
   )

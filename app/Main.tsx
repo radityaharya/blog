@@ -9,7 +9,7 @@ export default function Home({ posts }) {
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="flex flex-col items-center justify-center space-x-2 space-y-2 pb-8 pt-6 text-sm sm:text-base md:items-start md:justify-start md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div>Hello</div>}>
               <Hello />
             </Suspense>
           </h1>
