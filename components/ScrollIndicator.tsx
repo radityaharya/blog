@@ -1,16 +1,16 @@
 "use client"
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 const ScrollIndicator = () => {
   const [scrollTop, setScrollTop] = useState(0);
 
-  const onScroll = () => {
+  const onScroll = useCallback(() => {
     const winScroll = document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (winScroll / height) * 100;
 
     setScrollTop(scrolled);
-  };
+  }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', onScroll);

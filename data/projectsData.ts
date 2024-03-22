@@ -20,7 +20,7 @@ async function getProjectsData(): Promise<Project[]> {
   const headers = accessToken ? { Authorization: `token ${accessToken}` } : undefined;
   const perPage = accessToken ? '100' : '30';
 
-  const response = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=${perPage}`, { headers, cache: 'force-cache' })
+  const response = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=${perPage}`, { headers, cache: 'force-cache', next: { revalidate: 3600 }}) // 1 hour
   const data = await response.json()
 
   // biome-ignore lint/suspicious/noExplicitAny: Todo later
@@ -28,7 +28,7 @@ async function getProjectsData(): Promise<Project[]> {
     let fork_parent = null;
     let languages: { [key: string]: number } | null = null;
     if (repo.fork && repo.parent && accessToken) {
-      const parentResponse = await fetch(`https://api.github.com/repos/${githubUsername}/${repo.name}`, { headers, cache: 'force-cache' })
+      const parentResponse = await fetch(`https://api.github.com/repos/${githubUsername}/${repo.name}`, { headers, cache: 'force-cache', next: { revalidate: 3600 }}) // 1 hour
       const parentData = await parentResponse.json()
       fork_parent = parentData.parent?.html_url
       languages = await fetch(parentData.languages_url, { headers }).then((res) => res.json())
@@ -51,7 +51,8 @@ async function getProjectsData(): Promise<Project[]> {
   }))
 
   projects.sort((a: Project, b: Project) => b.stargazers_count - a.stargazers_count)
-
+  // biome-ignore lint/suspicious/noConsoleLog: <explanation>
+  console.log(projects)
   return projects
 }
 
