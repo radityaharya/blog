@@ -2,7 +2,7 @@ import Image from './Image'
 import Link from './Link'
 import { Badge } from './ui/badge'
 import icons from 'app/devicon.json'
-import 'devicon/devicon.min.css'
+import DynamicDiIcon from './DynamicDevIcon'
 
 const availableIcons = icons.map((icon) => icon.name)
 
@@ -85,7 +85,7 @@ const Card = ({
                   rel={'noopener noreferrer'}
                   className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 underline"
                 >
-                  {fork_parent}
+                  {fork_parent.replace('https://github.com/', '')}
                 </Link>
               </span>
             </div>
@@ -112,10 +112,10 @@ const Card = ({
                     {(availableIcons.includes(language.toLowerCase()) ||
                       altNames[language.toLowerCase()]) && (
                       <span className="flex items-center">
-                        <i
-                          className={`devicon-${
-                            altNames[language.toLowerCase()] || language.toLowerCase()
-                          }-plain text-xs align-middle max-h-5`}
+                        <DynamicDiIcon
+                          name={altNames[language] || language}
+                          className="h-full"
+                          size={19}
                         />
                       </span>
                     )}
@@ -129,8 +129,9 @@ const Card = ({
                   href={`https://github.com/topics/${topic}`}
                   aria-label={`Github link to ${topic}`}
                   rel={'noopener noreferrer'}
+                  className="no-underline"
                 >
-                  <Badge key={topic} variant="secondary" className="h-full">
+                  <Badge key={topic} variant="secondary" className="h-full flex items-center">
                     {topic}
                   </Badge>
                 </Link>
