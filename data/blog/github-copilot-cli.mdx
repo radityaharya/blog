@@ -1,0 +1,110 @@
+---
+title: 'GitHub Copilot CLI: My Terminal Just Got a Whole Lot Smarter 🤯'
+date: '2024-03-26'
+tags: ['github copilot', 'github copilot cli', 'github', 'cli', 'terminal', 'command line', 'ai', 'artificial intelligence']
+draft: false
+summary: 'GitHub Copilot CLI is now generally available!'
+---
+
+<Image src="/static/images/content/github-copilot-cli.png" alt="GitHub copilot CLI" />
+
+Remember the days of endless Googling, trying to decipher cryptic command-line commands? Or the fear of accidentally nuking your system with a stray `rm -rf`? Well, friends, those days are fading into the past thanks to the **general availability of GitHub Copilot CLI**! 🎉
+
+Now, I've been a fan of GitHub Copilot in VS Code for a while now. It's been a game-changer, helping me write better code faster and making the whole process actually fun. But let's be real, sometimes you gotta step away from the IDE and get your hands dirty in the terminal. When they announced Copilot CLI was running in beta, I was excited to try it out and signed up for it. I've been using it for a while now and I gotta say, I'm impressed!
+
+But of course, anything related to AI must be taken with a grain of salt, always do you due diligence and double-check the commands before running them. Have 👏🏻 some 👏🏻 common 👏🏻 sense 👏🏻 people! 😅
+
+### Who can use GitHub Copilot CLI?
+
+- **Copilot Individual users:** You're golden! You automatically have access. (a reminder that Students and Educators can use Copilot for free! [Check it out here](https://techcommunity.microsoft.com/t5/educator-developer-blog/step-by-step-setting-up-github-student-and-github-copilot-as-an/ba-p/3736279))
+- **Copilot Business and Enterprise users:** Your organization admins need to grant you access.
+
+
+### How to get started with GitHub Copilot CLI
+
+1. Make sure you have the GitHub CLI installed and authenticated. If you haven't already, you can set it up like [here](https://github.com/cli/cli#installation).
+2. Run `gh extension install github/gh-copilot`
+
+### Now, let's dive into the fun stuff! 🎉
+
+There are two main commands:
+
+- **`gh copilot explain`:** This is your lifeline when you encounter a mysterious command. Just type `gh copilot explain "your command here"` and get a clear, human-readable explanation of what it does. No more frantic Googling!
+- **`gh copilot suggest`:** This is where the magic happens. Describe what you want to do, and Copilot CLI will suggest the perfect command. You can even specify the type of command (e.g., `git`, `gh`, or general shell commands).
+
+**Pro tip:** Make your life easier with aliases!
+
+Run `gh copilot alias` to generate shell-specific configurations for `ghcs` and `ghce` aliases. These are shortcuts for `gh copilot suggest` and `gh copilot explain`, respectively. Trust me, your fingers will thank you. 😉
+
+```bash
+gh copilot alias
+
+```
+
+```bash
+
+? Which shell to generate aliases for?  [Use arrows to move, type to filter]
+  Bash
+  PowerShell
+> Zsh
+
+```
+
+### Some Examples
+
+Let's say you want to stash your changes in git but can't remember how to include untracked files. You can run:
+
+```bash
+ghcs 'include untracked files in stash'
+```
+```bash
+Suggestion:
+
+  git stash -u
+
+? Select an option  [Use arrows to move, type to filter]
+> Copy command to clipboard
+  Explain command
+  Execute command
+  Revise command
+  Rate response
+  Exit
+```
+<br/>
+Anothe scenario is, you found a command online, it works but you're not sure what it does. Just run:
+
+<br/>
+
+```bash
+ghce 'docker ps -q | xargs -L 1 -P `docker ps | wc -l` docker logs --since 30s'
+```
+```
+Explanation:
+
+  • docker ps -q lists the IDs of all running Docker containers.
+  • | pipes the output of the previous command to the next command.
+  • xargs -L 1 -P $(docker ps | wc -l) reads the input from the previous command and executes the subsequent command for each input.
+    • -L 1 specifies that each input should be processed individually.
+    • -P $(docker ps | wc -l) specifies the maximum number of concurrent processes to run, which is determined by the count of running Docker containers.
+  • docker logs --since 30s retrieves the logs of a Docker container since the last 30 seconds.
+
+```
+
+pretty neat eh?
+
+## Wrapping Up
+
+GitHub Copilot CLI is a game-changer for anyone who's not a command line savant. It's like having a helpful friend who knows all the answers and never gets tired of your questions. And of course, always to do a sanity check before running any command that you're not familiar with. For more information, check out the [official documentation](https://docs.github.com/en/copilot/github-copilot-in-the-cli/about-github-copilot-in-the-cli).
+
+
+
+
+
+
+
+
+
+
+
+
+
