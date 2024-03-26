@@ -1,6 +1,7 @@
 import { getNowPlaying } from '@/lib/spotify'
-import AnimatedBars from './AnimatedBars'
 import type { Artist, NowPlayingSong } from './types'
+import animatedEQ from './equaliser-animated-green.gif'
+import Image from '@/components/Image'
 
 async function fetchNowPlaying(): Promise<NowPlayingSong | null> {
   try {
@@ -58,7 +59,15 @@ export default async function NowPlaying() {
 
   return (
     <div className="max-h-5 flex items-center justify-center space-x-2 sm:flex-row sm:justify-start sm:space-x-2">
-      <AnimatedBars />
+      <Image
+        src={animatedEQ}
+        alt="Equaliser Icon"
+        unoptimized
+        width={14}
+        height={14}
+        aria-hidden
+        placeholder="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMuOTk5MDIgMTRINS45OTkwMlYwSDMuOTk5MDJWMTRaTS0wLjAwMDk3NjU2MiAxNEgxLjk5OTAyVjRILTAuMDAwOTc2NTYyVjE0Wk0xMiA3VjE0SDE0VjdIMTJaTTguMDAwMDIgMTRIMTBWMTBIOC4wMDAwMlYxNFoiIGZpbGw9IiMxREI5NTQiLz4KPC9zdmc+Cg=="
+      />
       <div className="inline-flex max-w-[70%] items-center space-x-2 text-sm sm:max-w-[90%] sm:text-base">
         <a
           className="inline-block truncate font-medium text-gray-800 dark:text-gray-200"
