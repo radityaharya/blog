@@ -21,7 +21,13 @@ const MobileNav = () => {
 
   return (
     <>
-      <button aria-label="Toggle Menu" onClick={onToggleNav} className="sm:hidden" type="button">
+      <button
+        aria-label="Toggle Menu"
+        onClick={onToggleNav}
+        className="sm:hidden"
+        type="button"
+        aria-expanded={navShow}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
@@ -68,6 +74,9 @@ const MobileNav = () => {
                 href={link.href}
                 className="text-2xl font-bold tracking-widest text-gray-900 dark:text-gray-100"
                 onClick={onToggleNav}
+                tabIndex={navShow ? 0 : -1}
+                aria-label={`Link to ${link.title}`}
+                aria-hidden={!navShow}
               >
                 {link.title}
               </Link>

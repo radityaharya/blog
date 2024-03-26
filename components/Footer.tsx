@@ -1,5 +1,5 @@
 import siteMetadata from '@/data/siteMetadata'
-import Link from 'next/link'
+import Link from '@/components/Link'
 import { Suspense } from 'react'
 import { AiFillLinkedin, AiFillMail } from 'react-icons/ai'
 import { FaGithub, FaRss, FaSpotify } from 'react-icons/fa'
@@ -10,7 +10,7 @@ const SocialIcon = ({ href, ariaLabel, IconComponent }) => (
   <li>
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Link href={href} rel="noreferrer" aria-label={ariaLabel}>
             <IconComponent className="text-2xl sm:text-lg" />
           </Link>
