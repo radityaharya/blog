@@ -3,7 +3,7 @@ import NextImage, { ImageProps } from 'next/image'
 const Image = ({ src, ...rest }: ImageProps) => {
   const isGif = typeof src === 'string' && src.endsWith('.gif')
   return (
-    <div className="imageContainer w-full">
+    <div className="imageContainer w-full aspect-[2/1]">
       <NextImage
         src={src}
         {...rest}
