@@ -21,6 +21,7 @@ import rehypePrismPlus from 'rehype-prism-plus'
 import rehypePresetMinify from 'rehype-preset-minify'
 import siteMetadata from './data/siteMetadata'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer.js'
+import rehypeImageSize from './lib/rehypeImageSize'
 
 const root = process.cwd()
 const isProduction = process.env.NODE_ENV === 'production'
@@ -138,14 +139,15 @@ export default makeSource({
       remarkGfm,
       remarkCodeTitles,
       remarkMath,
-      remarkImgToJsx
+      remarkImgToJsx,
     ],
     rehypePlugins: [
       rehypeSlug,
       rehypeAutolinkHeadings,
       [rehypeCitation, { path: path.join(root, 'data') }],
       [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
-      rehypePresetMinify
+      rehypePresetMinify,
+      [rehypeImageSize, { root: path.join(root, 'public') }]
     ]
   },
   onSuccess: async (importData) => {
