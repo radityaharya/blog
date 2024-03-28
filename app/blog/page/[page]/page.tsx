@@ -1,6 +1,20 @@
 import ListLayout from '@/layouts/ListLayout'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { allBlogs } from 'contentlayer/generated'
+import { genPageMetadata } from 'app/seo'
+import type { Metadata } from 'next'
+
+export function generateMetadata({
+  params
+}: {
+  params: { slug: string[] }
+}): Metadata {
+  return genPageMetadata({
+    title: 'Blog Page ' + params.slug
+  })
+}
+
+export const metadata = genPageMetadata(generateMetadata)
 
 const POSTS_PER_PAGE = 5
 

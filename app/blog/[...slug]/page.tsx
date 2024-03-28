@@ -13,6 +13,7 @@ import type { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
 import ScrollIndicator from '@/components/ScrollIndicator'
+import { genPageMetadata } from 'app/seo'
 
 const defaultLayout = 'PostLayout'
 const layouts = {
@@ -50,7 +51,7 @@ export async function generateMetadata({
     }
   })
 
-  return {
+  const postMetadata = {
     title: post.title,
     description: post.summary,
     openGraph: {
@@ -72,6 +73,7 @@ export async function generateMetadata({
       images: imageList
     }
   }
+  return genPageMetadata(postMetadata)
 }
 
 export const generateStaticParams = async () => {
