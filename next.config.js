@@ -57,8 +57,9 @@ const securityHeaders = [
 /**
  * @type {import('next/dist/next-server/server/config').NextConfig}
  **/
-module.exports = () => {
-  const plugins = [withContentlayer, withBundleAnalyzer]
+module.exports = async () => {
+  const withPlaiceholder = (await import('@plaiceholder/next')).default
+  const plugins = [withContentlayer, withBundleAnalyzer, withPlaiceholder]
   return plugins.reduce((acc, next) => next(acc), {
     reactStrictMode: true,
     output: process.env.STANDALONE_OUTPUT ? "standalone" : undefined,
@@ -71,6 +72,10 @@ module.exports = () => {
         {
           protocol: 'https',
           hostname: 'picsum.photos',
+        },
+        {
+          protocol: 'https',
+          hostname: '*radityaharya.com',
         },
       ],
     },
@@ -87,6 +92,7 @@ module.exports = () => {
         test: /\.svg$/,
         use: ['@svgr/webpack'],
       })
+      
 
       return config
     },
