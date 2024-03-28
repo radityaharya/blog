@@ -14,8 +14,6 @@ export function generateMetadata({
   })
 }
 
-export const metadata = genPageMetadata(generateMetadata)
-
 const POSTS_PER_PAGE = 5
 
 export const generateStaticParams = async () => {
