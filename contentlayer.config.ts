@@ -1,4 +1,4 @@
-import { defineDocumentType, type ComputedFields, makeSource } from 'contentlayer/source-files'
+import { defineDocumentType, type ComputedFields, makeSource } from 'contentlayer2/source-files'
 import { writeFileSync } from 'node:fs'
 import readingTime from 'reading-time'
 import { slug } from 'github-slugger'

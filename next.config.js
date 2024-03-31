@@ -1,4 +1,4 @@
-const { withContentlayer } = require('next-contentlayer')
+const { withContentlayer } = require('next-contentlayer2')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -78,7 +78,7 @@ module.exports = async () => {
         'contentlayer',
         'pliny',
         'typewriter-effect',
-        'next-contentlayer',
+        'next-contentlayer2',
         'remark',
         'rehype-autolink-headings',
         'rehype-citation',
