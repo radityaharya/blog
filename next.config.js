@@ -67,6 +67,28 @@ module.exports = async () => {
     eslint: {
       dirs: ['app', 'components', 'layouts', 'scripts'],
     },
+    experimental: {
+      optimizePackageImports: [
+        '@loadable/component',
+        '@radix-ui/react-scroll-area',
+        '@radix-ui/react-slot',
+        '@radix-ui/react-tooltip',
+        'lucide-react',
+        'react-icons',
+        'contentlayer',
+        'pliny',
+        'typewriter-effect',
+        'next-contentlayer',
+        'remark',
+        'rehype-autolink-headings',
+        'rehype-citation',
+        'rehype-preset-minify',
+        'rehype-prism-plus',
+        'rehype-slug',
+        'remark-gfm',
+        'remark-math',
+      ],
+    },
     images: {
       remotePatterns: [
         {

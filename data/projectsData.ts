@@ -44,10 +44,16 @@ async function getProjectsData(): Promise<Project[]> {
       }
       const parentData = await parentResponse.json()
       fork_parent = parentData.html_url
-      languages = await fetch(parentData.languages_url, { headers }).then((res) => res.json())
+      languages = await fetch(parentData.languages_url, { headers }).then((res) => res.json()).catch((error) => {
+        console.error('Error fetching parent languages:', error);
+        return null;
+      });
       topics = parentData.topics
     } else {
-      languages = await fetch(repo.languages_url, { headers }).then((res) => res.json())
+      languages = await fetch(repo.languages_url, { headers }).then((res) => res.json()).catch((error) => {
+        console.error('Error fetching languages:', error);
+        return null;
+      });
     }
 
     return {
@@ -65,7 +71,6 @@ async function getProjectsData(): Promise<Project[]> {
   }))
 
   projects.sort((a: Project, b: Project) => b.stargazers_count - a.stargazers_count)
-  // biome-ignore lint/suspicious/noConsoleLog: <explanation>
   // console.log(projects)
   return projects.filter(project => project !== null)
 }

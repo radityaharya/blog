@@ -1,7 +1,7 @@
 'use client'
-import { Clipboard, ClipboardCheckIcon } from 'lucide-react'
 import { useState, useRef } from 'react'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { FaClipboard, FaClipboardCheck } from 'react-icons/fa'
 
 const Pre = (props) => {
   const textInput = useRef<HTMLDivElement>(null)
@@ -37,9 +37,9 @@ const Pre = (props) => {
               onClick={onCopy}
             >
               {copied ? (
-                <ClipboardCheckIcon size={24} className="" />
+                <FaClipboardCheck className="h-6 w-6" />
               ) : (
-                <Clipboard size={24} className="text-primary" />
+                <FaClipboard className="h-6 w-6" />
               )}
             </TooltipTrigger>
             <TooltipContent>
