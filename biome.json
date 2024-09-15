@@ -27,8 +27,6 @@
       "a11y": { "noSvgWithoutTitle": "off" },
       "complexity": { "noForEach": "off" },
       "nursery": {
-        "noNodejsModules": "off",
-        "noUndeclaredDependencies": "off",
         "useImportRestrictions": "off"
       },
       "style": { "all": false }
@@ -38,7 +36,7 @@
     "formatter": {
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",
-      "trailingComma": "none",
+      "trailingCommas": "none",
       "semicolons": "asNeeded",
       "arrowParentheses": "always",
       "bracketSpacing": true,
