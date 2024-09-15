@@ -1,0 +1,71 @@
+---
+title: 'Tailscale Caddy Fly.io Proxy'
+date: '2024-09-15'
+tags: ['tailscale', 'caddy', 'fly.io', 'proxy', 'dns', 'tailnet']
+draft: false
+summary: 'A guide to setting up a Tailscale, Caddy, and Fly.io proxy for named domain routing within your tailnet.'
+---
+
+I was looking for a solution to offload my proxy and DNS server for my tailnet from my homeserver or my VPS to somewhere else in case of outages. Before, i used to run Nginx proxy manager and AdGuard Home on my homeserver, but it was not ideal as the internet keeps cutting off (thanks biznet). So, i decided to move the proxy and DNS server to Fly.io, and use Tailscale to route the traffic.
+
+I could just host it on my VPS, but i wanted to try out connecting apps on Fly.io to Tailscale, and see how it goes.
+
+### Getting Started
+
+Here’s how to set up the proxy and route your tailnet services, each with its own named domain:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/radityaharya/tailscale-caddy-fly-proxy.git
+   cd tailscale-caddy-flyio-router
+   ```
+
+2. **Configure Caddy:**
+   ```bash
+   cp Caddyfile.example Caddyfile
+   ```
+   Edit the `Caddyfile` to define each service. For each service, assign a specific domain name within your tailnet using the `.fly.local` domain. This allows you to easily route and access services by their domain name.
+
+3. **Launch a Fly.io app:**
+   Create a new Fly.io app, selecting "copy from existing configuration":
+   ```bash
+   flyctl launch --ha-false
+   ```
+
+4. **Set environment variables:**
+   Add your Tailscale authentication key:
+   ```bash
+   flyctl secrets set TAILSCALE_AUTHKEY=<your-tailscale-auth-key>
+   ```
+
+5. **Deploy the app:**
+   ```bash
+   flyctl deploy --ha=false
+   ```
+
+6. **Get the app IP:**
+   After deployment, go to the [Tailscale admin console](https://login.tailscale.com/admin/machines) and save your newly added machine’s IP address.
+
+7. **Configure AdGuard Home:**
+   Set up AdGuard Home by visiting `http://<your-tailscale-app-ip>:3000`. Change the dashboard listening port from `80` (which Caddy will use) to something else, like `8053`.
+
+8. **Add DNS Rewrites:**
+   In the AdGuard Home dashboard at `http://<your-tailscale-app-ip>:8053`, go to Filters > DNS Rewrites, and add the following:
+   ```
+   *.fly.local -> <your-tailscale-app-ip>
+   ```
+   This ensures each service can be accessed using a unique domain name.
+
+9. **Set up Tailscale DNS:**
+   Go to the [Tailscale admin console > DNS](https://login.tailscale.com/admin/dns) and add a custom nameserver:
+   ```
+   Name: <your-tailscale-app-ip>
+   Restrict to domain: true
+   Domains: fly.local
+   ```
+   (Skip this if you prefer not to use split DNS.)
+
+
+Now that your proxy is set up, each service defined in the `Caddyfile` will have **its own unique domain name** (e.g., `dns.fly.local`). 
+
+Get started with the repository [here](https://github.com/radityaharya/tailscale-caddy-fly-proxy)!
