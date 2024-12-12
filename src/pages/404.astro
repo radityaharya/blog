@@ -10,14 +10,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="max-w-none prose prose-theme sm:prose-lg">
             <p>The page you're looking for doesn't exist or has been moved.</p>
             <p><a href="/">Return to homepage</a></p>
-            <details class="p-4 rounded-md">
-                <summary class="cursor-pointer">Details</summary>
-                <pre
-                    class="mt-2"><code>{JSON.stringify({
-                    headers: Object.fromEntries(Astro.request.headers),
-                    clientAddress: Astro.clientAddress
-                }, null, 2)}</code></pre>
-            </details>
         </div>
     </article>
 </BaseLayout>
