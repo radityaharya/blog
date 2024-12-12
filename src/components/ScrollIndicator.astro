@@ -1,0 +1,17 @@
+<div class="scroll-indicator fixed top-0 left-0 h-1 bg-black/60 dark:bg-white/60 z-50" style="width: 0%"></div>
+
+<script>
+    document.addEventListener('astro:page-load', () => {
+        const updateScrollIndicator = () => {
+            const indicator = document.querySelector('.scroll-indicator');
+            if (!indicator) return;
+
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            indicator.style.width = scrolled + '%';
+        };
+
+        document.addEventListener('scroll', updateScrollIndicator);
+    });
+</script>

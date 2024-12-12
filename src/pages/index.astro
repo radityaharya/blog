@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Hero from '../components/Hero.astro';
+import PostPreview from '../components/PostPreview.astro';
+import siteConfig from '../data/site-config';
+import { sortItemsByDateDesc } from '../utils/data-utils';
+import { getProjectsData } from '../data/projectsData';
+import Projects from '../components/Projects.astro';
+
+const posts = (await getCollection('blog')).sort(sortItemsByDateDesc);
+const featuredPosts = posts.filter(({ data }) => data.isFeatured);
+
+const featuredProjectsTitles = ['uptime-kuma-rn', 'flowify'];
+const projects = (await getProjectsData()).filter((d) => !d.fork);
+const featuredProjects = projects
+    .filter((project) => featuredProjectsTitles.includes(project.title))
+    .sort((a, b) => featuredProjectsTitles.indexOf(a.title) - featuredProjectsTitles.indexOf(b.title));
+---
+
+<BaseLayout description={siteConfig.description} image={siteConfig.image} showHeader={false}>
+    <Hero />
+    {
+        featuredProjects?.length > 0 && (
+            <div class="mb-16 sm:mb-24">
+                <h2 class="mb-12 text-xl sm:mb-16 sm:text-2xl">Projects</h2>
+                <Projects projects={featuredProjects} />
+                <div class="mt-12 sm:mt-16">
+                    <Button href="/projects">View All Projects</Button>
+                </div>
+            </div>
+        )
+    }
+    {
+        featuredPosts?.length > 0 && (
+            <div class="mb-16 sm:mb-24">
+                <h2 class="mb-12 text-xl sm:mb-16 sm:text-2xl">Writing</h2>
+                {featuredPosts.map((post) => (
+                    <PostPreview post={post} class="mb-10 sm:mb-12" headingLevel="h3" />
+                ))}
+                <div class="mt-12 sm:mt-16">
+                    <Button href="/blog">View All Posts</Button>
+                </div>
+            </div>
+        )
+    }
+</BaseLayout>

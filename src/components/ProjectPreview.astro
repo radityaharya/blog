@@ -1,0 +1,45 @@
+---
+import { type Project } from '../data/projectsData';
+
+export type Props = {
+    project: Project;
+    class?: string;
+};
+
+const {
+    project: { title, description, href, topics, language, fork, fork_parent, languages, stargazers_count },
+    class: className
+} = Astro.props;
+---
+
+<a class:list={['flex justify-between items-start gap-8 group', className]} href={href}>
+    <div class="grow">
+        <h2
+            class="text-xl leading-tight font-medium group-hover:underline group-hover:decoration-dashed group-hover:underline-offset-4 group-hover:decoration-1 sm:text-2xl flex items-center gap-2"
+        >
+            {title}
+            <!-- {
+                stargazers_count > 0 && (
+                    <span class="px-2 py-0.5 text-xs rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                        ★ {stargazers_count}
+                    </span>
+                )
+            } -->
+        </h2>
+
+        {description && <div class="mt-1 text-sm leading-normal">{description}</div>}
+
+        {
+            fork && fork_parent && (
+                <div class="mt-1 text-xs">
+                    Forked from <span class="underline">{fork_parent.replace('https://github.com/', '')}</span>
+                </div>
+            )
+        }
+
+        <div class="mt-3 flex flex-wrap gap-2">
+            {languages?.map((lang) => <span class="px-2 py-0.5 text-xs bg-muted">{lang}</span>)}
+            {topics.map((topic) => <span class="px-2 py-0.5 text-xs bg-muted">{topic}</span>)}
+        </div>
+    </div>
+</a>

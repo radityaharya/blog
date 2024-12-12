@@ -1,0 +1,43 @@
+---
+interface Track {
+    name: string;
+    artists: Array<{ name: string }>;
+    album: {
+        images: Array<{ url: string }>;
+    };
+    external_urls: {
+        spotify: string;
+    };
+}
+
+interface TopTracksResponse {
+    items: Track[];
+    class?: string;
+}
+
+const response = await fetch('https://nowplaying.radityaharya.workers.dev/top-tracks');
+const data: TopTracksResponse = await response.json();
+
+const tracks = data.items.slice(0, 5);
+
+const truncate = (str: string, length: number) => {
+    return str.length > length ? str.substring(0, length) + '...' : str;
+};
+---
+
+<div class:list={['flex flex-col w-full', Astro.props.class]}>
+    <p class="text-base">My top tracks:</p>
+    <ul class="list-disc list-inside">
+        {
+            tracks.map((track) => (
+                <li class="text-base">
+                    <a href={track.external_urls.spotify} target="_blank" class="inline-flex items-center gap-1 hover:bg-muted/50 rounded">
+                        <span class="bg-muted px-1">{truncate(track.name, 25)}</span>
+                        by
+                        <span class="bg-muted px-1">{truncate(track.artists[0].name, 25)}</span>
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</div>

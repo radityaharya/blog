@@ -1,0 +1,27 @@
+---
+title: 'GitHub Copilot X Announcement'
+excerpt: '🧑🏻‍✈️Dont fly solo'
+publishDate: '2023-03-18'
+tags: 
+  - github
+  - copilot
+  - ai
+seo:
+  image:
+    src: '/copilot-x.png'
+draft: false
+---
+
+
+GitHub has announced GitHub Copilot X, which builds on the success of GitHub Copilot, an AI tool that helps developers write code faster and with less work by suggesting individual lines and whole functions instantly. GitHub Copilot X introduces chat and voice interfaces, support for pull requests, answers questions on docs, and adopts OpenAI’s GPT-4 for a more personalized developer experience. With AI available at every step, GitHub aims to make complex work easier across the developer lifecycle and enable every developer to focus on building the innovation of tomorrow and accelerating human progress.
+
+💡 Signup to their [waitlist](https://githubnext.com)
+
+One of the most exciting features of GitHub Copilot X is its chat interface. It is deeply embedded into IDEs like VS Code and Visual Studio, and can provide in-depth analysis and explanations of code blocks, generate unit tests, and even propose fixes to bugs.
+
+GitHub Copilot X also brings support for pull requests. It can automatically generate PR descriptions based on changes made in a branch, and point out missing unit tests and generate new test cases after every build.
+
+In addition to these features, GitHub Copilot X can answer questions on your projects by leveraging its understanding of your codebase and documentation.
+
+Overall, GitHub Copilot X is an exciting tool for developers that promises to help them be more productive, focus on more satisfying work, and build better software for everyone.
+

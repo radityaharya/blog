@@ -1,0 +1,26 @@
+---
+
+title: About
+seo:
+  title: About Me
+  description: A little bit about me
+---
+
+Hi 👋, I'm **Raditya Harya**, a software engineer from Indonesia focused on web development and automation. I enjoy building efficient solutions and sharing what I learn along the way through writing and open source contributions.
+
+My work revolves around creating robust web applications and automating repetitive tasks. While some might question spending hours automating a five-minute task, I believe in building systems that scale and maintain themselves.
+
+### Tech Stack
+
+Current technologies I work with:
+
+- **React** & **Next.js** for web applications
+- **React Native** for mobile applications
+- **Astro** for static sites
+- **Node.js** for server-side logic
+- **PostgreSQL**, and **MongoDB** for databases
+- **TypeScript** for type safety
+- **Tailwind CSS** for styling
+- **Python** for automation and scripting
+- **Docker** for development and deployment
+- **Vercel**, **Cloudflare Workers**, **Railway**, and **Fly.io** for hosting

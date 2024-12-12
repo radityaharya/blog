@@ -1,0 +1,15 @@
+---
+import { getProjectsData } from '../../data/projectsData';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Projects from '../../components/Projects.astro';
+
+const projects = (await getProjectsData()).filter((d) => !d.fork);
+---
+
+<BaseLayout title="Projects" description="Projects that I have worked on" showHeader={false}>
+    <h1 class="text-2xl leading-tight sm:text-4xl mb-2">Projects Archive</h1>
+    <p class="mb-12 text-sm leading-tight sm:mb-16">
+        Sourced from <a href="https://github.com/radityaharya" target="_blank" rel="noopener noreferrer" class="undeline">my GitHub</a>.
+    </p>
+    <Projects projects={projects}  />
+</BaseLayout>

@@ -1,0 +1,44 @@
+---
+import { marked } from 'marked';
+import Button from './Button.astro';
+import siteConfig from '../data/site-config';
+
+const hero = siteConfig.hero;
+---
+
+{
+    (hero?.title || hero?.image?.src || hero?.text || (hero?.actions && hero.actions.length > 0)) && (
+        <section class="w-full flex flex-col gap-8 mb-16 sm:mb-24">
+            {hero.title && (
+                <h1 class="text-3xl leading-tight font-medium sm:text-5xl sm:leading-tight">
+                    {hero.title}
+                    <span class="cursor">_</span>
+                </h1>
+            )}
+            {hero.text && <div class="max-w-none prose prose-theme sm:prose-lg" set:html={marked.parse(hero.text)} />}
+            {hero.actions && hero.actions.length > 0 && (
+                <div class="flex flex-wrap gap-4">
+                    {hero.actions.map((action) => (
+                        <Button href={action.href}>{action.text}</Button>
+                    ))}
+                </div>
+            )}
+        </section>
+    )
+}
+
+<style>
+    .cursor {
+        animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+    }
+</style>

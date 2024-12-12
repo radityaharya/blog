@@ -1,0 +1,14 @@
+---
+import type { Project } from '../data/projectsData';
+import ProjectPreview from './ProjectPreview.astro';
+type Props = {
+    projects: Project[];
+    class?: string;
+};
+
+const { projects } = Astro.props;
+---
+
+<div>
+    {projects.map((project: Project) => <ProjectPreview project={project} class:list={['mb-10 sm:mb-12', Astro.props.class]} />)}
+</div>
