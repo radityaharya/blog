@@ -4,17 +4,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
     const pages = await getCollection('pages');
-    return pages.map((page) => {
-        return {
-            params: { slug: page.slug },
-            props: { page }
-        };
-    });
+    return pages.map((page) => ({
+        params: { slug: page.slug },
+        props: { page }
+    }));
 }
 
 type Props = { page: CollectionEntry<'pages'> };
 
 const { page } = Astro.props;
+if (!page) {
+    return Astro.redirect('/404');
+}
+
 const { title, seo } = page.data;
 const { Content } = await page.render();
 ---
