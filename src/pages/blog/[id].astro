@@ -5,7 +5,7 @@ import Button from '../../components/Button.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import PostPreview from '../../components/PostPreview.astro';
 import { sortItemsByDateDesc } from '../../utils/data-utils';
-import { slugify } from '../../utils/common-utils';
+import { idify } from '../../utils/common-utils';
 import ScrollToTop from '../../components/ScrollToTop.astro';
 import { getEntry, render } from 'astro:content';
 
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
     const posts = (await getCollection('blog')).sort(sortItemsByDateDesc);
     const postCount = posts.length;
     return posts.map((post, index) => ({
-        params: { slug: post.slug },
+        params: { id: post.id },
         props: {
             post,
             prevPost: index + 1 !== postCount ? posts[index + 1] : null,
@@ -56,7 +56,7 @@ const { Content } = await render(post);
                 tags.length > 0 && (
                     <div class="flex flex-wrap gap-x-5 gap-y-1 text-sm">
                         {tags.map((tag) => (
-                            <a class="text-main hover:underline" href={`/tags/${slugify(tag)}`}>
+                            <a class="text-main hover:underline" href={`/tags/${idify(tag)}`}>
                                 #{tag}
                             </a>
                         ))}

@@ -19,7 +19,10 @@ const blog = page.data;
 ---
 
 <BaseLayout title="Blog" description="Things I write about" showHeader={false}>
-    <h1 class="mb-12 text-2xl leading-tight sm:mb-16 sm:text-4xl">Blog Archive</h1>
+    <h1 class="text-2xl leading-tight sm:text-4xl mb-2">Blog Archive</h1>
+    <p class="mb-12 text-sm leading-tight sm:mb-16">
+        A gist of my thoughts and experiences
+    </p>
     {blog.map((post) => <PostPreview post={post} class="mb-10 sm:mb-12" />)}
     <Pagination page={page} class="my-16 sm:my-24" />
 </BaseLayout>
