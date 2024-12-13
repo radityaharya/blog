@@ -1,5 +1,6 @@
 ---
 import { type Project } from '../data/projectsData';
+import { Icon } from 'astro-icon/components';
 
 export type Props = {
     project: Project;
@@ -29,7 +30,7 @@ const {
 } = Astro.props;
 ---
 
-<a class:list={['flex justify-between items-start gap-8 group', className]} href={href}>
+<a class:list={['flex justify-between items-start gap-8 group', className]} href={href} target="_blank" rel="noopener noreferrer">
     <div class="grow">
         <h2
             class="text-xl leading-tight font-medium group-hover:underline group-hover:decoration-dashed group-hover:underline-offset-4 group-hover:decoration-1 sm:text-2xl flex items-center gap-2"
@@ -42,6 +43,7 @@ const {
                     </span>
                 )
             } -->
+            <Icon name="new-tab" class="w-4 h-4 group-hover:opacity-100 opacity-0" />
         </h2>
 
         {description && <div class="mt-1 text-sm leading-normal">{description}</div>}

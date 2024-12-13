@@ -4,6 +4,8 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import cloudflare from '@astrojs/cloudflare';
 
+import icon from 'astro-icon';
+
 // https://astro.build/config
 export default defineConfig({
     site: 'https://radityaharya.com',
@@ -21,7 +23,8 @@ export default defineConfig({
         sitemap(),
         tailwind({
             applyBaseStyles: false
-        })
+        }),
+        icon()
     ],
 
     adapter: cloudflare({
