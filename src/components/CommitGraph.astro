@@ -1,0 +1,107 @@
+---
+const GITHUB_TOKEN = import.meta.env.GITHUB_ACCESS_TOKEN;
+const username = 'radityaharya';
+
+const query = `
+query {
+    user(login: "${username}") {
+        contributionsCollection {
+            contributionCalendar {
+                totalContributions
+                weeks {
+                    contributionDays {
+                        contributionCount
+                        date
+                    }
+                }
+            }
+        }
+    }
+}`;
+
+let contributions;
+let error = null;
+
+try {
+    const response = await fetch('https://api.github.com/graphql', {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${GITHUB_TOKEN}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ query })
+    });
+
+    if (!response.ok) throw new Error('Failed to fetch');
+
+    const data = await response.json();
+    contributions = data.data.user.contributionsCollection.contributionCalendar;
+} catch (e) {
+    error = 'Failed to load contribution data';
+}
+
+function getContributionColor(count: number): string {
+    if (count === 0) return 'bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600';
+    if (count <= 3) return 'bg-green-200 hover:bg-green-300 dark:bg-green-600 dark:hover:bg-green-500';
+    if (count <= 6) return 'bg-green-300 hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400';
+    if (count <= 9) return 'bg-green-400 hover:bg-green-500 dark:bg-green-400 dark:hover:bg-green-300';
+    return 'bg-green-500 hover:bg-green-600 dark:bg-green-300 dark:hover:bg-green-200';
+}
+---
+
+{error && <div class="text-red-500 text-sm">{error}</div>}
+
+{
+    !error && contributions && (
+        <div class="w-full overflow-x-auto px-2 sm:px-0">
+            <div class="inline-block min-w-full">
+                <div class="flex flex-wrap gap-[2px] sm:gap-[3px] max-w-full">
+                    {contributions.weeks.map((week: any) => (
+                        <div class="flex flex-col gap-[2px] sm:gap-[3px]">
+                            {week.contributionDays.map((day: any) => (
+                                <div
+                                    class={`w-[6px] h-[6px] sm:w-[10px] sm:h-[10px] rounded-[2px] transition-colors duration-200 
+                                    ${getContributionColor(day.contributionCount)}`}
+                                    title={`${day.contributionCount} contributions on ${new Date(day.date).toLocaleDateString()}`}
+                                    id={`day-${day.date}`}
+                                />
+                            ))}
+                        </div>
+                    ))}
+                </div>
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 gap-2">
+                    <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">{contributions.totalContributions} contributions in the last year</p>
+                    <div class="flex items-center gap-1">
+                        <span class="text-xs text-zinc-500 dark:text-zinc-400">Less</span>
+                        {[0, 3, 6, 9, 12].map((level) => (
+                            <div class={`w-[6px] h-[6px] sm:w-[10px] sm:h-[10px] rounded-[2px] ${getContributionColor(level)}`} id={`level-${level}`} />
+                        ))}
+                        <span class="text-xs text-zinc-500 dark:text-zinc-400">More</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+<style>
+    .overflow-x-auto {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .overflow-x-auto::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+
+<script>
+    setInterval(() => {
+        const days = document.querySelectorAll('[id^="day-"]');
+        const randomIndex = Math.floor(Math.random() * days.length);
+        const originalOpacity = (days[randomIndex] as HTMLElement).style.opacity;
+        (days[randomIndex] as HTMLElement).style.opacity = (Math.random() * 0.7 + 0.3).toString();
+        setTimeout(() => {
+            (days[randomIndex] as HTMLElement).style.opacity = originalOpacity;
+        }, 1000);
+    }, 1000);
+</script>

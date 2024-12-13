@@ -25,28 +25,39 @@ const languageColors = {
 };
 
 const {
-    project: { title, description, href, topics, language, fork, fork_parent, languages, stargazers_count },
+    project: { title, description, href, topics, language, fork, fork_parent, languages, stargazers_count, archived },
     class: className
 } = Astro.props;
 ---
 
 <a class:list={['flex justify-between items-start gap-8 group', className]} href={href} target="_blank" rel="noopener noreferrer">
     <div class="grow">
-        <h2
-            class="text-xl leading-tight font-medium group-hover:underline group-hover:decoration-dashed group-hover:underline-offset-4 group-hover:decoration-1 sm:text-2xl flex items-center gap-2"
-        >
-            {title}
+        <div class="flex items-center gap-2">
+            <h2
+                class="text-xl leading-tight font-medium group-hover:underline group-hover:decoration-dashed group-hover:underline-offset-4 group-hover:decoration-1 sm:text-2xl flex items-center gap-2"
+            >
+                {title}
+            </h2>
             <!-- {
-                stargazers_count > 0 && (
-                    <span class="px-2 py-0.5 text-xs rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
-                        ★ {stargazers_count}
-                    </span>
-                )
-            } -->
+              stargazers_count > 0 && (
+                  <span class="px-2 py-0.5 text-xs rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                      ★ {stargazers_count}
+                  </span>
+              )
+          } -->
             <Icon name="new-tab" class="w-4 h-4 group-hover:opacity-100 opacity-0" />
-        </h2>
+        </div>
 
-        {description && <div class="mt-1 text-sm leading-normal">{description}</div>}
+        <div class="mt-1 text-sm leading-normal">
+            <p class="mt-1 text-sm leading-normal">
+                <!-- {
+                    archived && (
+                        <span class="px-2 py-0.5 text-xs text-yellow-800  dark:text-yellow-200 border border-yellow-800 dark:border-yellow-200">Archived</span>
+                    )
+                } -->
+                {description}
+            </p>
+        </div>
 
         {
             fork && fork_parent && (

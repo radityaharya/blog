@@ -12,6 +12,7 @@ export interface Project {
     fork_parent?: string;
     languages: string[];
     isFeatured?: boolean;
+    archived: boolean;
 }
 
 interface RawProject {
@@ -26,6 +27,7 @@ interface RawProject {
     fork_parent: any;
     languages: string[];
     isFeatured: boolean;
+    archived: boolean;
 }
 
 export async function getProjectsData(): Promise<Project[]> {
@@ -115,7 +117,8 @@ export async function getProjectsData(): Promise<Project[]> {
                         fork: repo.fork,
                         fork_parent: fork_parent,
                         languages: languages ? Object.keys(languages).sort((a, b) => languages[b] - languages[a]) : [],
-                        isFeatured: isFeatured
+                        isFeatured: isFeatured,
+                        archived: repo.archived
                     };
                 } catch (err) {
                     console.error(`Error processing repo ${repo.name}:`, err);
