@@ -32,8 +32,8 @@ try {
             return str.length > length ? str.substring(0, length) + '...' : str;
         };
 
-        artistName = truncate(track.artists[0].name, 15);
-        trackName = truncate(track.name, 10);
+        artistName = truncate(track.artists[0].name, 40);
+        trackName = truncate(track.name, 40);
     }
 } catch (error) {
     console.error('Failed to fetch Spotify data:', error);
@@ -45,10 +45,10 @@ try {
         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-2 w-full">
             <p class="text-sm whitespace-normal">{isPlaying ? "I'm currently listening to" : 'I last listened to'}</p>
             <div class="text-sm flex flex-wrap gap-1">
-                <a href={trackUrl} target="_blank" class="inline-flex items-center gap-1 hover:underline">
-                    <span class="bg-muted px-1">{trackName}</span>
+                <a href={trackUrl} target="_blank" class="inline-flex items-center gap-1">
+                    <span class="underline px-1">{trackName}</span>
                     <span>by</span>
-                    <span class="bg-muted px-1">{artistName}</span>
+                    <span class="underline px-1">{artistName}</span>
                 </a>
             </div>
         </div>

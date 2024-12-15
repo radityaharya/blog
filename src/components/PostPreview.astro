@@ -31,15 +31,9 @@ const TitleTag = headingLevel;
             }
         </div>
         {excerpt && <div class="mt-3 text-sm leading-normal">{excerpt}</div>}
-        {
-            tags && tags.length > 0 && (
-                <div class="mt-3 text-sm leading-normal">
-                    {tags.map((tag) => (
-                        <span class="px-2 py-0.5 text-xs bg-secondary text-foreground">{tag}</span>
-                    ))}
-                </div>
-            )
-        }
+        <div class="mt-3 flex flex-wrap gap-2">
+            {tags && tags.length > 0 && tags.map((tag) => <span class="px-2 py-0.5 text-xs bg-muted text-foreground">{tag}</span>)}
+        </div>
     </div>
     <div class="hidden opacity-0 transition group-hover:opacity-100 sm:inline-flex sm:gap-1 sm:items-center sm:shrink-0">
         Read Post <ArrowRight class="fill-current w-4 h-4" />

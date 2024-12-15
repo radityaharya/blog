@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.geist-mono {
+  font-family: "Geist Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+
 @layer base {
   :root {
     --color-text-main: 23 23 23;

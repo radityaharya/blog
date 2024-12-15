@@ -7,10 +7,10 @@ const navLinks = siteConfig.footerNavLinks || [];
 ---
 
 <footer class="w-full max-w-3xl mx-auto pt-12 pb-10 sm:pt-24 sm:pb-14">
-    <div class="flex sm:flex-row flex-col gap-4 sm:justify-between sm:items-center">
+    <div class="flex flex-col gap-4">
         {
             navLinks.length > 0 && (
-                <div class="mb-4 flex flex-wrap gap-x-6 gap-y-1">
+                <div class="flex flex-wrap gap-x-6 gap-y-1">
                     {navLinks.map((link) => (
                         <a class="hover:underline hover:underline-offset-2" href={link.href}>
                             {link.text}
@@ -19,7 +19,7 @@ const navLinks = siteConfig.footerNavLinks || [];
                 </div>
             )
         }
-        <div class="mb-4">
+        <div class="">
             <NowPlaying server:defer />
         </div>
     </div>
