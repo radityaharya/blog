@@ -10,8 +10,6 @@ export type Link = {
 };
 
 export type Hero = {
-    title?: string;
-    text?: string;
     image?: Image;
     actions?: Link[];
 };
@@ -77,8 +75,6 @@ const siteConfig: SiteConfig = {
         }
     ],
     hero: {
-        title: 'Hi There!',
-        text: "I'm **Raditya Harya**, a software engineer from Indonesia. I am passionate about web development, design, and technology. I write about web development, automation, and other tech-related topics.",
         actions: [
             {
                 text: 'Get in Touch',
