@@ -32,9 +32,7 @@ const truncate = (str: string, length: number) => {
             tracks.map((track) => (
                 <li class="text-base">
                     <a href={track.external_urls.spotify} target="_blank" class="inline-flex items-center gap-1 hover:bg-muted/50 rounded">
-                        <span class="bg-muted px-1">{truncate(track.name, 25)}</span>
-                        by
-                        <span class="bg-muted px-1">{truncate(track.artists[0].name, 25)}</span>
+                        <span class="bg-muted">{truncate(track.name, 25)}</span> by <span class="bg-muted">{truncate(track.artists[0].name, 25)}</span>
                     </a>
                 </li>
             ))
