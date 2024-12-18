@@ -22,17 +22,6 @@ const featuredProjects = projects
 <BaseLayout description={siteConfig.description} image={siteConfig.image} showHeader={false}>
     <Hero />
     {
-        featuredProjects?.length > 0 && (
-            <div class="mb-16 sm:mb-24">
-                <h2 class="mb-12 text-xl sm:mb-16 sm:text-2xl">Projects</h2>
-                <Projects projects={featuredProjects} />
-                <div class="mt-12 sm:mt-16">
-                    <Button href="/projects">View All Projects</Button>
-                </div>
-            </div>
-        )
-    }
-    {
         featuredPosts?.length > 0 && (
             <div class="mb-16 sm:mb-24">
                 <h2 class="mb-12 text-xl sm:mb-16 sm:text-2xl">Writing</h2>
@@ -41,6 +30,17 @@ const featuredProjects = projects
                 ))}
                 <div class="mt-12 sm:mt-16">
                     <Button href="/blog">View All Posts</Button>
+                </div>
+            </div>
+        )
+    }
+    {
+        featuredProjects?.length > 0 && (
+            <div class="mb-16 sm:mb-24">
+                <h2 class="mb-12 text-xl sm:mb-16 sm:text-2xl">Projects</h2>
+                <Projects projects={featuredProjects} />
+                <div class="mt-12 sm:mt-16">
+                    <Button href="/projects">View All Projects</Button>
                 </div>
             </div>
         )
