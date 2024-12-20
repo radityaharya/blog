@@ -28,8 +28,8 @@ export default defineConfig({
     ],
 
     adapter: cloudflare({
-        platformProxy: {
-            configPath: './wrangler.toml'
+        routes: {
+            exclude: ['/*.*', '/_astro/*', '/images/*', '/plugins/*']
         }
     })
 });
