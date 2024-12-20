@@ -1,0 +1,62 @@
+---
+import { getSecret } from 'astro:env/server';
+
+const apiKey = getSecret('UMAMI_API_KEY');
+const siteId = getSecret('UMAMI_WEBSITE_ID') || '';
+const endpoint = getSecret('UMAMI_API_ENDPOINT') || '';
+
+interface Props {
+    slug: string;
+    class?: string;
+}
+
+const { slug, class: className } = Astro.props;
+let views = 0;
+
+function getDateRange(): { startDate: number; endDate: number } {
+    const currentDate = new Date();
+    const startDate = new Date().setFullYear(currentDate.getFullYear() - 5);
+    return { startDate, endDate: currentDate.getTime() };
+}
+
+function createMetricsUrl(siteId: string, slug: string, params: Record<string, string>): URL {
+    const url = new URL(`${endpoint}/websites/${siteId}/metrics`);
+    Object.entries(params).forEach(([key, value]) => url.searchParams.append(key, value));
+    return url;
+}
+
+try {
+    const { startDate, endDate } = getDateRange();
+    const params = {
+        startAt: startDate.toString(),
+        endAt: endDate.toString(),
+        unit: 'month',
+        timezone: 'UTC',
+        type: 'url',
+        search: `/blog/${slug}`
+    };
+    const url = createMetricsUrl(siteId, slug, params);
+
+    const response = await fetch(url.toString(), {
+        headers: {
+            Authorization: `Bearer ${apiKey}`
+        }
+    });
+    const data = await response.json();
+    views = data[0]?.y || 0;
+} catch (error) {
+    console.error('Error fetching view count:', error);
+}
+---
+
+<span class:list={['inline-flex items-center gap-2 text-sm text-foreground', className]}>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+        <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+        ></path>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+    </svg>
+    {views} view{views === 1 ? '' : 's'}
+</span>

@@ -1,1 +1,6 @@
+name = "blog-ci"
 compatibility_flags = ["nodejs_compat"]
+
+[[kv_namespaces]]
+binding = "BLOG_KV"
+id = "f6337c010dd24d0f80f7a8f01be4c566"

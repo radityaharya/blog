@@ -28,5 +28,9 @@ export default defineConfig({
         icon()
     ],
 
-      adapter: cloudflare(),
+    adapter: cloudflare({
+        platformProxy: {
+            enabled: true
+        }
+    })
 });
