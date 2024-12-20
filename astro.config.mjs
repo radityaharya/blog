@@ -9,6 +9,7 @@ import icon from 'astro-icon';
 // https://astro.build/config
 export default defineConfig({
     site: 'https://radityaharya.com',
+    output: 'server',
     markdown: {
         shikiConfig: {
             themes: {
@@ -27,9 +28,5 @@ export default defineConfig({
         icon()
     ],
 
-    adapter: cloudflare({
-        routes: {
-            exclude: ['/*.*', '/_astro/*', '/images/*', '/plugins/*']
-        }
-    })
+      adapter: cloudflare(),
 });
