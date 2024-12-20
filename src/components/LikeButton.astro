@@ -67,7 +67,6 @@ const { slug, class: className } = Astro.props;
         }
     };
 
-    document.addEventListener('astro:page-load', handlePageLoad);
-    document.addEventListener('astro:after-swap', handlePageLoad);
+    handlePageLoad();
     document.addEventListener('astro:after-preparation', handlePageLoad);
 </script>
