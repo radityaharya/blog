@@ -39,36 +39,46 @@ try {
 
 <script>
     import { actions } from 'astro:actions';
-    document.addEventListener('astro:page-load', () => {
+
+    const updateLikeIcon = (isLiked = false) => {
+        const likeIcon = document.getElementById('like-icon');
+        if (likeIcon) {
+            likeIcon.setAttribute('fill', isLiked ? 'currentColor' : 'none');
+        }
+    };
+
+    const handleLikeButtonClick = async (slug: string , key: string) => {
+        // if (localStorage.getItem('likes:' + slug) === 'true') {
+        //     return;
+        // }
+
+        const { data, error } = await actions.likePage({ slug: key });
+        if (!error) {
+            const count = document.getElementById('like-count');
+            if (count) {
+                count.textContent = data.likes + ' like' + (data.likes === 1 ? '' : 's');
+            }
+            localStorage.setItem(key, 'true');
+            updateLikeIcon(slug);
+        }
+    };
+
+    const handlePageLoad = () => {
         const pathSegments = window.location.pathname.split('/').filter(Boolean);
         const slug = pathSegments.length > 1 && pathSegments[0] === 'blog' ? pathSegments[1] : '';
+        const key = 'likes:' + slug;
+        const isLiked = localStorage.getItem(key) === 'true';
 
-        const isLiked = localStorage.getItem('likes:' + slug) === 'true';
-        if (isLiked) {
-            const button = document.getElementById('like-btn');
-            if (button) {
-                button.querySelector('svg')?.setAttribute('fill', 'currentColor');
-            }
-        }
+        updateLikeIcon(isLiked);
 
         const button = document.getElementById('like-btn');
-        button?.addEventListener('click', async () => {
-            const key = 'likes:' + slug;
+        if (button) {
+            button.removeEventListener('click', () => {});
+            button.addEventListener('click', () => handleLikeButtonClick(slug, key));
+        }
+    };
 
-            const isLiked = localStorage.getItem(key) === 'true';
-            if (isLiked) {
-                return;
-            }
-
-            const { data, error } = await actions.likePage({ slug: key });
-            if (!error) {
-                const count = document.getElementById('like-count');
-                if (count) {
-                    count.textContent = data.likes + ' like' + (data.likes === 1 ? '' : 's');
-                }
-                localStorage.setItem(key, 'true');
-                button?.querySelector('svg')?.setAttribute('fill', 'currentColor');
-            }
-        });
-    });
+    document.addEventListener('astro:page-load', handlePageLoad);
+    document.addEventListener('astro:after-swap', handlePageLoad);
+    document.addEventListener('astro:after-preparation', handlePageLoad);
 </script>
