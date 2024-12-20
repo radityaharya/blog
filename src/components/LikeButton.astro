@@ -39,34 +39,36 @@ try {
 
 <script>
     import { actions } from 'astro:actions';
-    const pathSegments = window.location.pathname.split('/').filter(Boolean);
-    const slug = pathSegments.length > 1 && pathSegments[0] === 'blog' ? pathSegments[1] : '';
+    document.addEventListener('astro:page-load', () => {
+        const pathSegments = window.location.pathname.split('/').filter(Boolean);
+        const slug = pathSegments.length > 1 && pathSegments[0] === 'blog' ? pathSegments[1] : '';
 
-    const isLiked = localStorage.getItem('likes:' + slug) === 'true';
-    if (isLiked) {
-        const button = document.getElementById('like-btn');
-        if (button) {
-            button.querySelector('svg')?.setAttribute('fill', 'currentColor');
-        }
-    }
-
-    const button = document.getElementById('like-btn');
-    button?.addEventListener('click', async () => {
-        const key = 'likes:' + slug;
-
-        const isLiked = localStorage.getItem(key) === 'true';
+        const isLiked = localStorage.getItem('likes:' + slug) === 'true';
         if (isLiked) {
-            return;
+            const button = document.getElementById('like-btn');
+            if (button) {
+                button.querySelector('svg')?.setAttribute('fill', 'currentColor');
+            }
         }
 
-        const { data, error } = await actions.likePage({ slug: key });
-        if (!error) {
-            const count = document.getElementById('like-count');
-            if (count) {
-                count.textContent = data.likes + ' like' + (data.likes === 1 ? '' : 's');
+        const button = document.getElementById('like-btn');
+        button?.addEventListener('click', async () => {
+            const key = 'likes:' + slug;
+
+            const isLiked = localStorage.getItem(key) === 'true';
+            if (isLiked) {
+                return;
             }
-            localStorage.setItem(key, 'true');
-            button?.querySelector('svg')?.setAttribute('fill', 'currentColor');
-        }
+
+            const { data, error } = await actions.likePage({ slug: key });
+            if (!error) {
+                const count = document.getElementById('like-count');
+                if (count) {
+                    count.textContent = data.likes + ' like' + (data.likes === 1 ? '' : 's');
+                }
+                localStorage.setItem(key, 'true');
+                button?.querySelector('svg')?.setAttribute('fill', 'currentColor');
+            }
+        });
     });
 </script>
