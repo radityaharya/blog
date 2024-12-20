@@ -2,12 +2,13 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
 import PostPreview from '../../components/PostPreview.astro';
 import { sortItemsByDateDesc } from '../../utils/data-utils';
 import { idify } from '../../utils/common-utils';
 import ScrollToTop from '../../components/ScrollToTop.astro';
 import { getEntry, render } from 'astro:content';
+import PostHeader from '../../components/PostHeader.astro';
+import PostHeaderAlt from '../../components/PostHeaderAlt.astro';
 
 export async function getStaticPaths() {
     const posts = (await getCollection('blog')).sort(sortItemsByDateDesc);
@@ -32,22 +33,7 @@ const { Content } = await render(post);
 
 <BaseLayout title={seo?.title ?? title} description={seo?.description ?? excerpt} image={seo?.image} pageType="article" showHeader={false}>
     <article class="mb-16 sm:mb-24">
-        <header class="mb-8">
-            <h1 class="text-3xl leading-tight font-medium sm:text-5xl sm:leading-tight">{title}</h1>
-            <div class="mt-4 text-sm">
-                <FormattedDate date={publishDate} />
-                {
-                    updatedDate && (
-                        <>
-                            {' '}
-                            <span>
-                                (Updated on <FormattedDate date={updatedDate} />)
-                            </span>
-                        </>
-                    )
-                }
-            </div>
-        </header>
+        <PostHeaderAlt title={title} publishDate={publishDate} updatedDate={updatedDate} excerpt={excerpt} />
         <div class="max-w-none prose prose-theme sm:prose-lg">
             <Content />
         </div>

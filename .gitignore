@@ -22,3 +22,8 @@ pnpm-debug.log*
 
 .wrangler/
 .cache/
+
+# Obsidian
+.obsidian/
+.smtcmp**
+
