@@ -1,0 +1,20 @@
+---
+interface Props {
+    slug: string;
+    class?: string;
+}
+
+const { slug, class: className } = Astro.props;
+const blogKV = Astro.locals.runtime.env.BLOG_KV;
+
+let likes = 0;
+const key = 'likes:' + slug;
+try {
+    const currentLikes = await blogKV.get(key);
+    likes = parseInt(currentLikes) || 0;
+} catch (error) {
+    console.error('Error accessing KV:', error);
+}
+---
+
+<span class:list={['text-sm text-foreground', className]} id="like-count">{likes} like{likes === 1 ? '' : 's'}</span>
