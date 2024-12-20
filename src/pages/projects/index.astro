@@ -3,6 +3,8 @@ import { getProjectsData } from '../../data/projectsData';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Projects from '../../components/Projects.astro';
 
+export const prerender = true;
+
 const projects = (await getProjectsData()).filter((d) => !d.fork);
 ---
 
@@ -11,5 +13,5 @@ const projects = (await getProjectsData()).filter((d) => !d.fork);
     <p class="mb-12 text-sm leading-tight sm:mb-16">
         Sourced from <a href="https://github.com/radityaharya" target="_blank" rel="noopener noreferrer" class="undeline">my GitHub</a>.
     </p>
-    <Projects projects={projects}  />
+    <Projects projects={projects} />
 </BaseLayout>

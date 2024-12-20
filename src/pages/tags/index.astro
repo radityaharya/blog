@@ -4,6 +4,8 @@ import ArrowRight from '../../icons/ArrowRight.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { sortItemsByDateDesc, getAllTags, getPostsByTag } from '../../utils/data-utils';
 
+export const prerender = true;
+
 const posts = (await getCollection('blog')).sort(sortItemsByDateDesc);
 const tags = getAllTags(posts).sort((tagA, tagB) => {
     const postCountTagA = getPostsByTag(posts, tagA.id).length;
