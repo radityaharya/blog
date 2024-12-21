@@ -9,7 +9,9 @@
         "preview": "wrangler pages dev ./dist",
         "deploy": "astro build && wrangler pages deploy dist",
         "wrangler:deploy": "wrangler pages deploy dist",
-        "astro": "astro"
+        "astro": "astro",
+        "db:migrate": "wrangler d1 migrations  --remote DB",
+        "db:migrate:remote": "wrangler d1 migrations apply --remote DB"
     },
     "dependencies": {
         "@astrojs/cloudflare": "^12.1.0",

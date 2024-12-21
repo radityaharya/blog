@@ -41,7 +41,7 @@ const { slug, class: className } = Astro.props;
         //     return;
         // }
 
-        const { data, error } = await actions.likePage({ slug: key });
+        const { data, error } = await actions.likePage({ slug });
         if (!error) {
             const count = document.getElementById('like-count');
             if (count) {

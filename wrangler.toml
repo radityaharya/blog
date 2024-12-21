@@ -4,3 +4,9 @@ compatibility_flags = ["nodejs_compat"]
 [[kv_namespaces]]
 binding = "BLOG_KV"
 id = "f6337c010dd24d0f80f7a8f01be4c566"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "BLOG_DB"
+database_id = "59ffd597-138e-49fb-9e19-7fdc5006942e"
+migrations_dir = "migrations"

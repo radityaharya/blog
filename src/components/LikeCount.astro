@@ -1,19 +1,25 @@
 ---
+import { type CollectionEntry, getCollection } from 'astro:content';
+
 interface Props {
     slug: string;
     class?: string;
 }
 
 const { slug, class: className } = Astro.props;
-const blogKV = Astro.locals.runtime.env.BLOG_KV;
+const { DB } = Astro.locals.runtime.env;
 
 let likes = 0;
-const key = 'likes:' + slug;
+
 try {
-    const currentLikes = await blogKV.get(key);
-    likes = parseInt(currentLikes) || 0;
+    const post: CollectionEntry<'blog'> | undefined = (await getCollection('blog')).find((post) => post.id === slug);
+
+    if (!post) throw new Error('Post not found');
+
+    const result = await DB.prepare('SELECT count FROM likes WHERE slug = ?').bind(slug).first();
+    likes = result?.count || 0;
 } catch (error) {
-    console.error('Error accessing KV:', error);
+    console.error('Error querying D1:', error);
 }
 ---
 

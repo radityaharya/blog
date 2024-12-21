@@ -1,5 +1,11 @@
 import { defineAction } from 'astro:actions';
 import { z } from 'astro:schema';
+import { type CollectionEntry, getCollection } from 'astro:content';
+
+type LikeResult = {
+  slug: string;
+  likes: number;
+};
 
 export const server = {
   likePage: defineAction({
@@ -7,16 +13,24 @@ export const server = {
       slug: z.string()
     }),
     handler: async (input, context) => {
-      const { BLOG_KV } = context.locals.runtime.env;
+      const { DB } = context.locals.runtime.env;
+
+      const post: CollectionEntry<'blog'> | undefined = (await getCollection('blog')).find((post => post.id === input.slug));
+
+      if (!post) throw new Error('Post not found');
 
       try {
-        let likes = await BLOG_KV.get(input.slug);
-        likes = parseInt(likes) || 0;
+        const result = await DB.prepare(`
+          INSERT INTO likes (slug, count) 
+          VALUES (?, 1)
+          ON CONFLICT (slug) 
+          DO UPDATE SET count = count + 1
+          RETURNING slug, count as likes
+        `).bind(input.slug).first<LikeResult>();
 
-        likes++;
-        await BLOG_KV.put(input.slug, likes.toString());
+        console.log('Updated likes:', result);
 
-        return { slug: input.slug, likes: likes };
+        return { slug: input.slug, likes: result?.likes || 0 };
       } catch (error) {
         console.error('Error updating likes:', error);
         throw new Error('Failed to update likes');
