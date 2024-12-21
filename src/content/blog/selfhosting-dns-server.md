@@ -65,6 +65,6 @@ YouTube ads can't be blocked using DNS due to how YouTube serves ads. You can us
 
 DNS ad blocking is a great way to block ads on your entire network. By self-hosting your own DNS server, you have full control over what gets blocked and what doesn't. AdGuard Home is a great option for self-hosting your DNS server, with its modern UI and ease of use. Give it a try and see how much cleaner your browsing experience can be!
 
-## ✨ Bonus: Using Your DNS Server with Tailscale ✨
+## Bonus: Using Your DNS Server with Tailscale ✨
 
 If you're using Tailscale to connect your devices, you can use your self-hosted DNS server for your whole Tailnet. You can set up your Tailscale DNS to use your DNS server by going to the [Tailscale admin console > DNS](https://login.tailscale.com/admin/dns) and adding a custom nameserver with your DNS server's IP address and checking `Override local DNS`. Be sure to enable `accept dns` in your devices by running `tailscale set --accept-dns=true`, or in mobile devices, enable `Use Tailscale DNS` in the Tailscale app settings.

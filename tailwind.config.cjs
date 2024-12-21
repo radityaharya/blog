@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       color: {
         accent: 'rgb(var(--color-accent) / <alpha-value>)',
+        foreground:'rgb(var(--color-text-main) / <alpha-value>)',
       },
       textColor: {
         main: 'rgb(var(--color-text-main) / <alpha-value>)'
@@ -21,7 +22,8 @@ module.exports = {
       },
       borderColor: {
         main: 'rgb(var(--color-border-main) / <alpha-value>)',
-        accent: 'rgb(var(--color-accent) / <alpha-value>)'
+        accent: 'rgb(var(--color-accent) / <alpha-value>)',
+        foreground: 'rgb(var(--color-text-main) / <alpha-value>)'
       },
       typography: (theme) => ({
         theme: {
