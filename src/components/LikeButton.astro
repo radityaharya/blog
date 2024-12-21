@@ -1,13 +1,61 @@
 ---
+import { type CollectionEntry, getCollection } from 'astro:content';
+
 interface Props {
     slug: string;
     class?: string;
 }
 
+const { DB } = Astro.locals.runtime.env;
 const { slug, class: className } = Astro.props;
+
+let likes = 0;
+
+try {
+    const post: CollectionEntry<'blog'> | undefined = (await getCollection('blog')).find((post) => post.id === slug);
+
+    if (!post) throw new Error('Post not found');
+
+    const result = await DB.prepare('SELECT count FROM likes WHERE slug = ?').bind(slug).first();
+    likes = result?.count || 0;
+} catch (error) {
+    console.error('Error querying D1:', error);
+}
 ---
 
-<button class:list={['inline-flex items-center gap-2 text-sm text-foreground', className]} id="like-btn">
+<style>
+    @keyframes shake {
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+            transform: translateX(-8px) rotate(-2deg);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+            transform: translateX(8px) rotate(2deg);
+        }
+    }
+
+    .shake {
+        animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+</style>
+
+<button
+    class:list={['inline-flex items-center gap-2 text-sm text-foreground', className]}
+    id="like-btn"
+    data-slug={slug}
+    aria-label="Like this post"
+    role="button"
+>
     <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -24,6 +72,7 @@ const { slug, class: className } = Astro.props;
             d="m12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"
         ></path></svg
     >
+    <span class:list={['text-sm text-foreground', className]} id="like-count" aria-label="Likes" role="status">{likes} like{likes === 1 ? '' : 's'}</span>
 </button>
 
 <script>
@@ -36,37 +85,54 @@ const { slug, class: className } = Astro.props;
         }
     };
 
-    const handleLikeButtonClick = async (slug: string , key: string) => {
-        // if (localStorage.getItem('likes:' + slug) === 'true') {
-        //     return;
-        // }
-
-        const { data, error } = await actions.likePage({ slug });
-        if (!error) {
-            const count = document.getElementById('like-count');
-            if (count) {
-                count.textContent = data.likes + ' like' + (data.likes === 1 ? '' : 's');
-            }
-            localStorage.setItem(key, 'true');
-            updateLikeIcon(true);
+    const updateLikeCount = (count: number) => {
+        const countElement = document.getElementById('like-count');
+        if (countElement) {
+            countElement.textContent = count + ' like' + (count === 1 ? '' : 's');
         }
     };
 
-    const handlePageLoad = () => {
-        const pathSegments = window.location.pathname.split('/').filter(Boolean);
-        const slug = pathSegments.length > 1 && pathSegments[0] === 'blog' ? pathSegments[1] : '';
+    const handleLikeButtonClick = async (slug: string, key: string) => {
+        const button = document.getElementById('like-btn');
+        const countElement = document.getElementById('like-count');
+        const currentCount = parseInt(countElement?.textContent?.split(' ')[0] || '0');
+        updateLikeCount(currentCount + 1);
+        updateLikeIcon(true);
+        localStorage.setItem(key, 'true');
+
+        try {
+            const { data, error } = await actions.likePage({ slug });
+            updateLikeCount(data?.likes || currentCount);
+            if (error) {
+                updateLikeCount(currentCount);
+                updateLikeIcon(false);
+                localStorage.removeItem(key);
+                button?.classList.add('shake');
+                setTimeout(() => button?.classList.remove('shake'), 500);
+            }
+        } catch (error) {
+            updateLikeCount(currentCount);
+            updateLikeIcon(false);
+            localStorage.removeItem(key);
+            button?.classList.add('shake');
+            setTimeout(() => button?.classList.remove('shake'), 500);
+        }
+    };
+
+    const initializeLikeButton = () => {
+        const button = document.getElementById('like-btn');
+        if (!button) return;
+
+        const slug = button.dataset.slug || '';
         const key = 'likes:' + slug;
         const isLiked = localStorage.getItem(key) === 'true';
 
         updateLikeIcon(isLiked);
 
-        const button = document.getElementById('like-btn');
-        if (button) {
-            button.removeEventListener('click', () => {});
-            button.addEventListener('click', () => handleLikeButtonClick(slug, key));
-        }
+        button.onclick = () => handleLikeButtonClick(slug, key);
     };
 
-    handlePageLoad();
-    document.addEventListener('astro:after-preparation', handlePageLoad);
+    initializeLikeButton();
+
+    document.addEventListener('astro:page-load', initializeLikeButton);
 </script>

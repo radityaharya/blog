@@ -11,7 +11,6 @@ import PostHeader from '../../components/PostHeader.astro';
 import PostHeaderAlt from '../../components/PostHeaderAlt.astro';
 import ViewCounter from '../../components/ViewCounter.astro';
 import LikeButton from '../../components/LikeButton.astro';
-import LikeCount from '../../components/LikeCount.astro';
 
 export async function getStaticPaths() {
     const posts = (await getCollection('blog')).sort(sortItemsByDateDesc);
@@ -46,7 +45,6 @@ export const prerender = true;
             <ViewCounter slug={post.id} class="mt-4" server:defer />
             <div class="flex items-center gap-2 mt-4">
                 <LikeButton slug={post.id} />
-                <LikeCount slug={post.id} server:defer />
             </div>
         </div>
         <div class="mt-4 flex flex-wrap items-center gap-6 text-sm justify-between sm:text-base select-none">
