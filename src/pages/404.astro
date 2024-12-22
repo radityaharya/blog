@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-export const prerender = true;
+// TODO: https://github.com/withastro/astro/issues/12771
+// Server Islands are broken when using prerendered 404 pages
+// export const prerender = true;
 ---
-
 
 <BaseLayout title="404: Not Found" description="Page not found" showHeader={false}>
     <article class="mb-16 sm:mb-24">

@@ -17,8 +17,7 @@ seo:
 draft: false
 ---
 
-<img priority src="/ryo.gif" alt="Ryo"/>
-
+![Ryo](../assets/ryo.gif)
 
 Testing.. Testing... is this thing on? 🎤 It's been a while since I last posted, and my backlog of personal projects was starting to gather virtual dust. You know the feeling, right? Projects sitting there, quietly judging you for not giving them the attention they deserve. Well, I decided it was high time to break the cycle and create something new instead 😋😋
 
