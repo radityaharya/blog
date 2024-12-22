@@ -1,0 +1,140 @@
+---
+title: 'Astro: Static with Interactivity'
+excerpt: 'Astro is a new static site generator that's fast, flexible, and fun to use.'
+publishDate: '2024-12-22'
+tags: 
+  - astro
+  - frontend
+draft: false
+isFeatured: true
+---
+
+Astro is a new static site generator, and I've gotta say—it's pretty lit. If you're building content-heavy websites like blogs or docs and want them to be fast and efficient, this might just be your new best friend. Astro uses something called "islands architecture," which basically means you can mix and match frameworks like React, Vue, or Svelte, but only ship the JavaScript your site actually needs. The result? Lightning-fast load times and happy users.  
+
+One of my favorite features is Astro's *zero JavaScript by default* approach. You can go wild with your favorite framework, and Astro will turn it into static HTML and CSS. JavaScript only gets added if absolutely necessary. It's like having all the power of modern frameworks without the baggage.  
+
+### Why is Astro so intuitive?  
+
+Astro's file-based routing and component-driven setup make organizing your site a breeze. And if you're into writing Markdown or MDX for your content, it feels super smooth and natural.  
+
+A standout feature introduced in Astro 4.15 is server actions. These let you define backend functions that you can call directly from the frontend, with full type safety. Forget messy APIs—server actions make connecting your frontend and backend ridiculously simple.  
+
+---
+
+### Example: Building a Like Button with Astro  
+
+To show off server actions, let's make a simple like button that updates a counter in a database. First, make sure you've got server-side rendering enabled in your `astro.config.mjs`:  
+
+```typescript
+import { defineConfig } from 'astro/config'; 
+import mdx from '@astrojs/mdx'; 
+import sitemap from '@astrojs/sitemap'; 
+import tailwind from '@astrojs/tailwind'; 
+import cloudflare from '@astrojs/cloudflare'; 
+import icon from 'astro-icon';  
+
+export default defineConfig({ 
+  site: 'https://radityaharya.com', 
+  output: 'server', // Enable server-side rendering 
+  integrations: [ 
+    sitemap(), 
+    mdx(), 
+    tailwind({ applyBaseStyles: false }), 
+    icon(), 
+  ], 
+  adapter: cloudflare({ platformProxy: { enabled: true } }), 
+}); 
+```
+
+---
+
+### Setting Up the Server Action  
+
+Create a file in `src/actions/index.ts` for the backend logic:  
+
+```typescript
+import { defineAction } from 'astro:actions';  
+import { z } from 'astro:schema';  
+
+export const server = { 
+  likePage: defineAction({ 
+    input: z.object({ slug: z.string() }), 
+    handler: async (input, context) => { 
+      const { DB } = context.locals.runtime.env; 
+      const result = await DB.prepare(`
+        INSERT INTO likes (slug, count) 
+        VALUES (?, 1) 
+        ON CONFLICT (slug) 
+        DO UPDATE SET count = count + 1 
+        RETURNING slug, count as likes
+      `).bind(input.slug).first();  
+
+      return { slug: input.slug, likes: result?.likes || 0 }; 
+    }, 
+  }), 
+}; 
+```
+
+This code increments a "like" counter for a specific post in a Cloudflare D1 SQLite database.  
+
+---
+
+### Adding the Like Button  
+
+Now, create a `LikeButton.astro` component:  
+
+```tsx
+---
+interface Props { 
+  slug: string; 
+  class?: string; 
+} 
+
+const { slug, class: className } = Astro.props;  
+let likes = 0;  
+try { 
+  const result = await DB.prepare('SELECT count FROM likes WHERE slug = ?').bind(slug).first();  
+  likes = result?.count || 0;  
+} catch (error) { 
+  console.error('Error:', error); 
+} 
+---
+
+<button 
+  class:list={['button-styles', className]} 
+  id="like-btn" 
+  data-slug={slug} 
+  aria-label="Like this post"
+>
+  ❤️ <span id="like-count">{likes} like{likes === 1 ? '' : 's'}</span> 
+</button> 
+
+<script>
+  import { actions } from 'astro:actions';  
+
+  const handleLike = async (slug) => { 
+    const countElement = document.getElementById('like-count'); 
+    const currentCount = parseInt(countElement.textContent.split(' ')[0], 10) || 0; 
+    countElement.textContent = `${currentCount + 1} likes`;  
+
+    try { 
+      const { data } = await actions.likePage({ slug }); 
+      countElement.textContent = `${data.likes} likes`; 
+    } catch { 
+      countElement.textContent = `${currentCount} likes`; 
+    } 
+  };  
+
+  document.getElementById('like-btn').addEventListener('click', () => handleLike(document.getElementById('like-btn').dataset.slug)); 
+</script> 
+```
+
+This button updates the like count and syncs it with the server.  
+
+---
+
+### Why Astro Rocks  
+
+Astro's server actions bring backend logic and frontend interactivity closer together, making your workflow smoother than ever. Combined with features like islands architecture and zero JavaScript by default, Astro is perfect for building snappy, content-rich sites.  
+
+If you're working on a blog, e-commerce site, or even a dynamic app, Astro's got your back. It's fast, flexible, and just plain fun. Give it a try—you might never look back.
