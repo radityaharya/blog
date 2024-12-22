@@ -1,15 +1,16 @@
 ---
 title: 'Astro: Static with Interactivity'
-excerpt: 'Astro is a new static site generator that's fast, flexible, and fun to use.'
+excerpt: 'Astro is a new static site generator that''s fast, flexible, and fun to use.'
 publishDate: '2024-12-22'
-tags: 
+tags:
   - astro
-  - frontend
+  - web-development
+  - server-actions
 draft: false
 isFeatured: true
 ---
 
-Astro is a new static site generator, and I've gotta say—it's pretty lit. If you're building content-heavy websites like blogs or docs and want them to be fast and efficient, this might just be your new best friend. Astro uses something called "islands architecture," which basically means you can mix and match frameworks like React, Vue, or Svelte, but only ship the JavaScript your site actually needs. The result? Lightning-fast load times and happy users.  
+Astro is a new static site generator, and I've gotta say—it's pretty lit. In fact, I recently migrated this very blog from Next.js to Astro, and the experience has been fantastic. If you're building content-heavy websites like blogs or docs and want them to be fast and efficient, this might just be your new best friend. Astro uses something called "islands architecture," which basically means you can mix and match frameworks like React, Vue, or Svelte, but only ship the JavaScript your site actually needs. The result? Lightning-fast load times and happy users.  
 
 One of my favorite features is Astro's *zero JavaScript by default* approach. You can go wild with your favorite framework, and Astro will turn it into static HTML and CSS. JavaScript only gets added if absolutely necessary. It's like having all the power of modern frameworks without the baggage.  
 
@@ -46,11 +47,10 @@ export default defineConfig({
 }); 
 ```
 
----
-
 ### Setting Up the Server Action  
 
 Create a file in `src/actions/index.ts` for the backend logic:  
+
 
 ```typescript
 import { defineAction } from 'astro:actions';  
@@ -77,14 +77,12 @@ export const server = {
 
 This code increments a "like" counter for a specific post in a Cloudflare D1 SQLite database.  
 
----
 
 ### Adding the Like Button  
 
 Now, create a `LikeButton.astro` component:  
 
-```tsx
----
+```jsx
 interface Props { 
   slug: string; 
   class?: string; 
@@ -98,7 +96,6 @@ try {
 } catch (error) { 
   console.error('Error:', error); 
 } 
----
 
 <button 
   class:list={['button-styles', className]} 
@@ -131,7 +128,6 @@ try {
 
 This button updates the like count and syncs it with the server.  
 
----
 
 ### Why Astro Rocks  
 
