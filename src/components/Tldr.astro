@@ -1,0 +1,62 @@
+---
+import { getSecret } from 'astro:env/server';
+import { getEntry } from 'astro:content';
+
+interface Props {
+    pageId: string;
+    class?: string;
+}
+
+const { pageId, class: className = '' } = Astro.props;
+
+const apiKey = getSecret('OPENAI_API_KEY');
+const baseUrl = getSecret('OPENAI_BASE_URL') || 'https://api.openai.com/v1';
+const model = getSecret('OPENAI_MODEL') || 'gpt-4o-mini';
+
+let summary = '';
+try {
+    if (!apiKey) {
+        throw new Error('OpenAI API key is not configured');
+    }
+
+    const entry = await getEntry('blog', pageId);
+    if (!entry) {
+        throw new Error('Blog entry not found');
+    }
+
+    const prompt = 'Make a TL;DR summary of the following text in under 20 words; start with "TL;DR: "' + entry.body;
+
+    const response = await fetch(`${baseUrl}/chat/completions`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+            model,
+            messages: [{ role: 'user', content: prompt }],
+            max_tokens: 150,
+            temperature: 0.5
+        })
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`API error: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data = await response.json();
+    if (!data.choices?.[0]?.message?.content) {
+        throw new Error('Invalid API response format');
+    }
+
+    summary = data.choices[0].message.content;
+} catch (error) {
+    console.error('Error fetching summary:', error);
+    summary = 'Unable to generate summary at this time.';
+}
+---
+
+<article class:list={['mb-6 prose prose-theme sm:prose-lg', className]} aria-labelledby="tldr">
+    <p>{summary}</p>
+</article>

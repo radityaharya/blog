@@ -12,6 +12,7 @@ import PostHeaderAlt from '../../components/PostHeaderAlt.astro';
 import ViewCounter from '../../components/ViewCounter.astro';
 import LikeButton from '../../components/LikeButton.astro';
 import LikeButtonFallback from '../../components/LikeButtonFallback.astro';
+// import Tldr from '../../components/Tldr.astro';
 
 export async function getStaticPaths() {
     const posts = (await getCollection('blog')).sort(sortItemsByDateDesc);
@@ -39,6 +40,7 @@ export const prerender = true;
 <BaseLayout title={seo?.title ?? title} description={seo?.description ?? excerpt} image={seo?.image} pageType="article" showHeader={false}>
     <article class="mb-16 sm:mb-24">
         <PostHeaderAlt title={title} publishDate={publishDate} updatedDate={updatedDate} excerpt={excerpt} />
+        <!-- <Tldr pageId={post.id}/> -->
         <div class="max-w-none prose prose-theme sm:prose-lg">
             <Content />
         </div>
