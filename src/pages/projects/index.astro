@@ -1,11 +1,28 @@
 ---
-import { getProjectsData } from '../../data/projectsData';
+import { getProjectsData, type Project } from '../../data/projectsData';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Projects from '../../components/Projects.astro';
 
-export const prerender = true;
+const blogKV = Astro.locals.runtime.env.BLOG_KV;
+let projects: { projects: Project[]; timestamp: number } = { projects: [], timestamp: 0 };
 
-const projects = (await getProjectsData()).filter((d) => !d.fork);
+const projectsCache = await blogKV.get('projects');
+const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
+const currentTimestamp = Date.now();
+if (projectsCache) {
+    projects = JSON.parse(projectsCache);
+    if (currentTimestamp - projects.timestamp > CACHE_DURATION) {
+        projects = { projects: await getProjectsData(), timestamp: currentTimestamp };
+        await blogKV.put('projects', JSON.stringify(projects));
+        console.log('Projects data cache expired, updated at:', new Date(projects.timestamp).toLocaleString());
+    }
+    console.log('Using cached projects data, last updated:', new Date(projects.timestamp).toLocaleString());
+} else {
+    projects = { projects: await getProjectsData(), timestamp: currentTimestamp };
+    await blogKV.put('projects', JSON.stringify(projects));
+}
+
+projects.projects = projects.projects.filter((project: Project) => !project.fork);
 ---
 
 <BaseLayout title="Projects" description="Projects that I have worked on" showHeader={false}>
@@ -13,5 +30,5 @@ const projects = (await getProjectsData()).filter((d) => !d.fork);
     <p class="mb-12 text-sm leading-tight sm:mb-16">
         Sourced from <a href="https://github.com/radityaharya" target="_blank" rel="noopener noreferrer" class="undeline">my GitHub</a>.
     </p>
-    <Projects projects={projects} />
+    <Projects projects={projects.projects} />
 </BaseLayout>
