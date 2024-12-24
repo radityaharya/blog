@@ -3,23 +3,29 @@ import { getProjectsData, type Project } from '../../data/projectsData';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Projects from '../../components/Projects.astro';
 
+export const prerender = true;
+
 const blogKV = Astro.locals.runtime.env.BLOG_KV;
 let projects: { projects: Project[]; timestamp: number } = { projects: [], timestamp: 0 };
-
-const projectsCache = await blogKV.get('projects');
-const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
-const currentTimestamp = Date.now();
-if (projectsCache) {
-    projects = JSON.parse(projectsCache);
-    if (currentTimestamp - projects.timestamp > CACHE_DURATION) {
+try {
+    const projectsCache = await blogKV.get('projects');
+    const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
+    const currentTimestamp = Date.now();
+    if (projectsCache) {
+        projects = JSON.parse(projectsCache);
+        if (currentTimestamp - projects.timestamp > CACHE_DURATION) {
+            projects = { projects: await getProjectsData(), timestamp: currentTimestamp };
+            await blogKV.put('projects', JSON.stringify(projects));
+            console.log('Projects data cache expired, updated at:', new Date(projects.timestamp).toLocaleString());
+        }
+        console.log('Using cached projects data, last updated:', new Date(projects.timestamp).toLocaleString());
+    } else {
         projects = { projects: await getProjectsData(), timestamp: currentTimestamp };
         await blogKV.put('projects', JSON.stringify(projects));
-        console.log('Projects data cache expired, updated at:', new Date(projects.timestamp).toLocaleString());
     }
-    console.log('Using cached projects data, last updated:', new Date(projects.timestamp).toLocaleString());
-} else {
-    projects = { projects: await getProjectsData(), timestamp: currentTimestamp };
-    await blogKV.put('projects', JSON.stringify(projects));
+} catch (error) {
+    console.error('Error fetching projects data:', error);
+    projects = { projects: await getProjectsData(), timestamp: Date.now() };
 }
 
 projects.projects = projects.projects.filter((project: Project) => !project.fork);
