@@ -29,7 +29,7 @@ Meet Ryo – the Discord bot that's not your average chat buddy. Powered by Clou
 
 The choice of Hono.js and Cloudflare Workers for Ryo's development was driven by specific technical requirements, particularly the need for Cloudflare’s email integration. Let's dive into the rationale behind each choice:
 
-### Hono.js
+## Hono.js
 
 Why Hono? Well, the decision to go with Hono was driven by a combination of curiosity and practicality. I simply wanted to give it a spin, and as it turns out, it's an excellent fit for Cloudflare Workers.
 
@@ -37,17 +37,17 @@ Hono, represented by the character [炎], meaning flame 🔥 in Japanese, is mor
 
 What sets Hono apart is its dedication to compatibility with edge runtimes. It's tailored to seamlessly integrate with these environments, ensuring a smooth and efficient performance across different JavaScript runtimes. Plus, for those familiar with Express, Hono brings a sense of déjà vu, as its syntax is strikingly similar to the widely used Express framework. So, in short, I wanted to try it out, and Hono seemed like the perfect tool for the job.
 
-### Cloudflare Workers
+## Cloudflare Workers
 
 Why Cloudflare Workers? well, it's free... but seriously 
 
 What makes Cloudflare Workers particularly enticing is their serverless nature. This means Ryo can dynamically scale based on demand without the headache of managing complex server setups. So, yes, it's free, but it's also the key to unlocking a world of low-latency, high-performance, and hassle-free scalability for Ryo. Quite the power combo, don't you think?
 
-### Email Integration with Cloudflare Email Routing
+## Email Integration with Cloudflare Email Routing
 
 The standout feature that influenced the choice of Cloudflare Workers was the need for email integration. Cloudflare Email Routing allows Ryo to forward emails to Discord channels effortlessly. By setting up the worker as an Email Routing rule, Ryo acts as a bridge between email communication and Discord channels, seamlessly bringing external communication into the Discord ecosystem. This integration offers a unique and powerful way to centralize communication channels within Discord.
 
-### Benefits of the Combined Stack
+## Benefits of the Combined Stack
 
 1. **Scalability:** Cloudflare Workers provide the ability to scale dynamically based on demand, ensuring optimal performance during peak usage periods.
 2. **Low Latency:** With Cloudflare's global edge network, users experience low-latency interactions, enhancing the responsiveness of Ryo's features.
@@ -56,7 +56,7 @@ The standout feature that influenced the choice of Cloudflare Workers was the ne
 
 In essence, the combination of Hono.js and Cloudflare Workers was a strategic decision to create a powerful, responsive, and globally scalable Discord bot with the unique ability to integrate email communication, enhancing the overall versatility and utility of Ryo.
 
-### **The Why Behind Ryo**
+## **The Why Behind Ryo**
 
 Sure, creating a bot is cool, but why Ryo? Here's the breakdown of the motivations behind bringing this thing to life:
 

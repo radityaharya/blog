@@ -12,14 +12,23 @@ const { showHeader = true, ...head } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="antialiased break-words selection:bg-orange-400/50">
+<html lang="en" class="antialiased break-words selection:bg-orange-400/50 dark">
     <head>
-        <BaseHead {...head} />
-        <script>
-            if (localStorage.theme === 'dark') {
-                document.documentElement.classList.add('dark');
-            }
+        <script is:inline>
+            (function() {
+                const theme = localStorage.theme === 'light' ? 'light' : 'dark';
+                document.documentElement.className = theme;
+                document.documentElement.style.colorScheme = theme;
+            })();
         </script>
+        <style is:inline>
+            /* Prevent FOUC */
+            html.dark {
+                background: #0a0a0a;
+                color: #F2F1EC;
+            }
+        </style>
+        <BaseHead {...head} />
         <ClientRouter />
     </head>
     <body class="bg-main text-main font-mono">

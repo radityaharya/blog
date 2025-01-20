@@ -12,6 +12,7 @@ import PostHeaderAlt from '../../components/PostHeaderAlt.astro';
 import ViewCounter from '../../components/ViewCounter.astro';
 import LikeButton from '../../components/LikeButton.astro';
 import LikeButtonFallback from '../../components/LikeButtonFallback.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
 // import Tldr from '../../components/Tldr.astro';
 
 export async function getStaticPaths() {
@@ -32,15 +33,16 @@ type Props = { post: CollectionEntry<'blog'>; prevPost: CollectionEntry<'blog'>;
 const { href } = Astro.url;
 const { post, prevPost, nextPost } = Astro.props;
 const { title, publishDate, updatedDate, excerpt, tags = [], seo } = post.data;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
 export const prerender = true;
 ---
 
 <BaseLayout title={seo?.title ?? title} description={seo?.description ?? excerpt} image={seo?.image} pageType="article" showHeader={false}>
     <article class="mb-16 sm:mb-24">
-        <PostHeaderAlt title={title} publishDate={publishDate} updatedDate={updatedDate} excerpt={excerpt} />
-        <!-- <Tldr pageId={post.id}/> -->
+        <PostHeader title={title} publishDate={publishDate} updatedDate={updatedDate} excerpt={excerpt} />
+        <TableOfContents headings={headings} />
+        <div class="border-t border-black/10 dark:border-white/20 my-8 sm:my-12"></div>
         <div class="max-w-none prose prose-theme sm:prose-lg">
             <Content />
         </div>

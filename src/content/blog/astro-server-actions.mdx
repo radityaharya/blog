@@ -14,7 +14,7 @@ Astro is a new static site generator, and I've gotta say—it's pretty lit. In f
 
 One of my favorite features is Astro's *zero JavaScript by default* approach. You can go wild with your favorite framework, and Astro will turn it into static HTML and CSS. JavaScript only gets added if absolutely necessary. It's like having all the power of modern frameworks without the baggage.  
 
-### Why is Astro so intuitive?  
+## Why is Astro so intuitive?  
 
 Astro's file-based routing and component-driven setup make organizing your site a breeze. And if you're into writing Markdown or MDX for your content, it feels super smooth and natural.  
 
@@ -22,7 +22,7 @@ A standout feature introduced in Astro 4.15 is server actions. These let you def
 
 ---
 
-### Example: Building a Like Button with Astro  
+## Example: Building a Like Button with Astro  
 
 To show off server actions, let's make a simple like button that updates a counter in a database. First, make sure you've got server-side rendering enabled in your `astro.config.mjs`:  
 
@@ -47,7 +47,7 @@ export default defineConfig({
 }); 
 ```
 
-### Setting Up the Server Action  
+## Setting Up the Server Action  
 
 Create a file in `src/actions/index.ts` for the backend logic:  
 
@@ -78,7 +78,7 @@ export const server = {
 This code increments a "like" counter for a specific post in a Cloudflare D1 SQLite database.  
 
 
-### Adding the Like Button  
+## Adding the Like Button  
 
 Now, create a `LikeButton.astro` component:  
 
@@ -129,7 +129,7 @@ try {
 This button updates the like count and syncs it with the server.  
 
 
-### Why Astro Rocks  
+## Why Astro Rocks  
 
 Astro's server actions bring backend logic and frontend interactivity closer together, making your workflow smoother than ever. Combined with features like islands architecture and zero JavaScript by default, Astro is perfect for building snappy, content-rich sites.  
 

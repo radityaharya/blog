@@ -9,7 +9,7 @@ export type Props = {
     pageType?: 'website' | 'article';
 };
 
-const { description = '', image = siteConfig.image, pageType = 'website' } = Astro.props;
+const { description = siteConfig.description, image = siteConfig.image, pageType = 'website' } = Astro.props;
 const title = [Astro.props.title, siteConfig.title].filter(Boolean).join(' | ');
 const resolvedImage = image?.src
     ? {
@@ -47,7 +47,7 @@ function formatCanonicalURL(url: string | URL) {
 
 <!-- Analytics -->
 {
-  import.meta.env.NODE_ENV === 'production' && (
+    import.meta.env.NODE_ENV === 'production' && (
         <script defer src="https://analytics.radityaharya.com/script.js" data-website-id="4a3a90bf-7d63-409f-862a-9bbff871fb03" />
     )
 }

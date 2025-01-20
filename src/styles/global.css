@@ -238,7 +238,7 @@ img {
   color: var(--text-color-alt);
 }
 
-details {
+/* details {
   border: var(--border-thickness) solid var(--text-color);
   padding: calc(var(--line-height) - var(--border-thickness)) 1ch;
   margin-bottom: var(--line-height);
@@ -263,7 +263,7 @@ details[open] ::marker {
 
 details :last-child {
   margin-bottom: 0;
-}
+} */
 
 pre {
   white-space: pre;
