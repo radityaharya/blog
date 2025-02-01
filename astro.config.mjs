@@ -1,9 +1,10 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import tailwind from '@astrojs/tailwind';
+// import tailwind from '@astrojs/tailwind';
 import cloudflare from '@astrojs/cloudflare';
 import icon from 'astro-icon';
+import tailwindcss from '@tailwindcss/vite';
 
 import playformInline from '@playform/inline';
 
@@ -11,6 +12,7 @@ import playformInline from '@playform/inline';
 export default defineConfig({
     site: 'https://radityaharya.com',
     output: 'server',
+    vite: { plugins: [tailwindcss()] },
     markdown: {
         shikiConfig: {
             themes: {
@@ -19,12 +21,16 @@ export default defineConfig({
             }
         }
     },
-    integrations: [sitemap(), mdx(), sitemap(), tailwind({
-        applyBaseStyles: false
-    }), 
-    icon(), 
-    // playformInline()
-  ],
+    integrations: [
+        sitemap(),
+        mdx(),
+        sitemap(),
+        // tailwind({
+        //     applyBaseStyles: false
+        // }),
+        icon()
+        // playformInline()
+    ],
 
     adapter: cloudflare({
         platformProxy: {

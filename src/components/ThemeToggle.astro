@@ -3,13 +3,13 @@
 ---
 
 <button id="theme-toggle" class="w-8 h-8 -mr-2 flex items-center justify-center" aria-label="Change color scheme">
-    <div class="w-4 h-4 relative border border-orange-500 rounded-sm">
+    <div class="w-4 h-4 relative border border-orange-500 rounded-xs">
         {' '}
     </div>
 </button>
 
 <script>
-    function setTheme(theme) {
+    function setTheme(theme: string) {
         const isDark = theme === 'dark';
         document.documentElement.className = theme;
         document.documentElement.style.colorScheme = theme;

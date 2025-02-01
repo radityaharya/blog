@@ -37,25 +37,13 @@ function buildToc(headings: Heading[]) {
 }
 ---
 
-<details open class="border border-black/15 dark:border-white/20">
-    <summary>Table of Contents</summary>
+<details open class="border border-black/15 dark:border-white/20 toc">
+    <summary class="cursor-pointer px-4 py-2 font-medium tracking-wide transition-colors hover:bg-black/10 dark:hover:bg-white/10">
+        Table of Contents
+    </summary>
     <nav class="text-sm">
         <ul class="py-3">
             {toc.map((heading) => <TableOfContentsHeading heading={heading} />)}
         </ul>
     </nav>
 </details>
-
-<style>
-    summary {
-        @apply cursor-pointer px-4 py-2 font-medium tracking-wide transition-colors;
-    }
-
-    summary:hover {
-        @apply bg-black/10 dark:bg-white/10;
-    }
-
-    details[open] summary {
-        @apply border-b border-black/15 bg-black/5 dark:border-white/20 dark:bg-white/5;
-    }
-</style>

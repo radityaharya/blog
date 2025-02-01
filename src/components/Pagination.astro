@@ -1,7 +1,7 @@
 ---
 import ArrowLeft from '../icons/ArrowLeft.astro';
 import ArrowRight from '../icons/ArrowRight.astro';
-import IconButton from './IconButton.astro';
+import Button from './Button.astro';
 
 const { page, class: className } = Astro.props;
 ---
@@ -9,25 +9,25 @@ const { page, class: className } = Astro.props;
 <nav aria-label="Pagination" class:list={['px-12 py-2 relative text-center', className]}>
     {
         page.url.prev && (
-            <IconButton
+            <Button
                 class="absolute left-0 top-1/2 -translate-y-1/2"
                 href={page.url.prev}
                 aria-label={`Go to page ${page.currentPage - 1} of ${page.lastPage}`}
             >
                 <ArrowLeft class="w-5 h-5 fill-current" />
-            </IconButton>
+            </Button>
         )
     }
     <span class="text-sm" aria-current="page">Page {page.currentPage} of {page.lastPage}</span>
     {
         page.url.next && (
-            <IconButton
+            <Button
                 class="absolute right-0 top-1/2 -translate-y-1/2"
                 href={page.url.next}
                 aria-label={`Go to page ${page.currentPage + 1} of ${page.lastPage}`}
             >
                 <ArrowRight class="w-5 h-5 fill-current" />
-            </IconButton>
+            </Button>
         )
     }
 </nav>
