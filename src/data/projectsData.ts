@@ -1,3 +1,4 @@
+import { cachedFetch } from '../utils/cached-fetch';
 import { getSecret } from 'astro:env/server';
 
 export interface Project {
@@ -15,116 +16,83 @@ export interface Project {
     archived: boolean;
 }
 
-interface RawProject {
-    title: any;
-    description: any;
-    href: any;
-    imgSrc: string;
-    stargazers_count: any;
-    language: any;
-    topics: any;
-    fork: any;
-    fork_parent: any;
-    languages: string[];
-    isFeatured: boolean;
-    archived: boolean;
-}
-
-const API_BASE_URL = 'https://api.github.com';
-
-async function fetchWithCache(url: string, headers?: HeadersInit): Promise<any> {
-
-    const response = await fetch(url, { headers });
-    if (!response.ok) {
-        throw new Error(`API request failed: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data;
-}
-
-async function getRepoLanguages(url: string, headers?: HeadersInit): Promise<string[]> {
-    try {
-        const languages = await fetchWithCache(url, headers);
-        return Object.keys(languages).sort((a, b) => languages[b] - languages[a]);
-    } catch (error) {
-        console.error('Error fetching languages:', error);
-        return [];
-    }
-}
-
-async function getForkDetails(username: string, repoName: string, headers?: HeadersInit) {
-    try {
-        const detailData = await fetchWithCache(`${API_BASE_URL}/repos/${username}/${repoName}`, headers);
-        const parentData = await fetchWithCache(detailData.parent.url, headers);
-        const languages = await getRepoLanguages(parentData.languages_url, headers);
-
-        return {
-            fork_parent: parentData.html_url,
-            languages,
-            topics: parentData.topics
-        };
-    } catch (error) {
-        console.error(`Error processing fork details for ${repoName}:`, error);
-        return null;
-    }
-}
-
-function processRepo(repo: any, forkDetails: any | null, isFeatured: boolean): Project {
-    return {
-        title: repo.name,
-        description: repo.description || '',
-        href: repo.html_url,
-        imgSrc: '/static/images/github.png',
-        stargazers_count: repo.stargazers_count || 0,
-        language: forkDetails?.languages[0] || repo.language || 'Unknown',
-        topics: forkDetails?.topics || repo.topics || [],
-        fork: repo.fork,
-        fork_parent: forkDetails?.fork_parent || null,
-        languages: forkDetails?.languages || [],
-        isFeatured,
-        archived: repo.archived
-    };
-}
-
-export async function getProjectsData(): Promise<Project[]> {
+export async function getProjectsData(env: Record<string, any>): Promise<Project[]> {
     try {
         const accessToken = getSecret('GITHUB_ACCESS_TOKEN');
-        const githubUsername = 'radityaharya';
-        const headers = accessToken ? { Authorization: `token ${accessToken}` } : undefined;
-        const perPage = accessToken ? '100' : '30';
-
-        const repos = await fetchWithCache(
-            `${API_BASE_URL}/users/${githubUsername}/repos?per_page=${perPage}`,
-            headers
-        );
-
-        if (!Array.isArray(repos) || repos.length === 0) {
-            throw new Error('Invalid response from GitHub API');
+        if (!accessToken) {
+            throw new Error('GITHUB_ACCESS_TOKEN not set');
         }
-
-        const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-
-        const projects = await Promise.all(
-            repos.map(async (repo) => {
-                try {
-                    const isFeatured = new Date(repo.pushed_at) > thirtyDaysAgo;
-                    const forkDetails = repo.fork && accessToken
-                        ? await getForkDetails(githubUsername, repo.name, headers)
-                        : { languages: await getRepoLanguages(repo.languages_url, headers) };
-
-                    return processRepo(repo, forkDetails, isFeatured);
-                } catch (error) {
-                    console.error(`Error processing repo ${repo.name}:`, error);
-                    return null;
+        const githubUsername = 'radityaharya';
+        const headers = {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        };
+        const query = `
+          query {
+            user(login: "${githubUsername}") {
+              repositories(first: 100, orderBy: { field: STARGAZERS, direction: DESC }) {
+                nodes {
+                  name
+                  description
+                  url
+                  isFork
+                  pushedAt
+                  stargazerCount
+                  primaryLanguage { name }
+                  languages(first: 10) { nodes { name } }
+                  repositoryTopics(first: 10) { nodes { topic { name } } }
+                  isArchived
+                  parent {
+                    url
+                    languages(first: 5) { nodes { name } }
+                    repositoryTopics(first: 5) { nodes { topic { name } } }
+                  }
                 }
-            })
-        );
-
-        return projects
-            .filter((project): project is Project => project !== null)
-            .sort((a, b) => b.stargazers_count - a.stargazers_count);
-
+              }
+            }
+          }
+        `;
+        const response = await cachedFetch('https://api.github.com/graphql', {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ query })
+        }, env);
+        console.log('GitHub API rate limit:', response.headers?.get ? response.headers.get('X-RateLimit-Remaining') : 'unknown');
+        if (!response.data || !response.data.user) {
+            throw new Error('Invalid GraphQL response: missing data.user');
+        }
+        const repos = response.data.user.repositories.nodes;
+        const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+        const projects = repos.map((repo: any) => {
+            const isFeatured = new Date(repo.pushedAt) > thirtyDaysAgo;
+            let languages: string[] = [];
+            let topics: string[] = [];
+            if (repo.isFork && repo.parent) {
+                languages = repo.parent.languages.nodes.map((node: any) => node.name);
+                topics = repo.parent.repositoryTopics.nodes.map((node: any) => node.topic.name);
+            } else {
+                languages = repo.languages.nodes.map((node: any) => node.name);
+                if (repo.primaryLanguage && !languages.includes(repo.primaryLanguage.name)) {
+                    languages.unshift(repo.primaryLanguage.name);
+                }
+                topics = repo.repositoryTopics.nodes.map((node: any) => node.topic.name);
+            }
+            return {
+                title: repo.name,
+                description: repo.description || '',
+                href: repo.url,
+                imgSrc: '/static/images/github.png',
+                stargazers_count: repo.stargazerCount || 0,
+                language: languages[0] || 'Unknown',
+                topics,
+                fork: repo.isFork,
+                fork_parent: repo.isFork && repo.parent ? repo.parent.url : null,
+                languages,
+                isFeatured,
+                archived: repo.isArchived
+            };
+        });
+        return projects.filter((project: Project) => !project.archived);
     } catch (error) {
         console.error('Fatal error in getProjectsData:', error);
         return [];

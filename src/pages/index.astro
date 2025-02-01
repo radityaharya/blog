@@ -9,13 +9,15 @@ import { sortItemsByDateDesc } from '../utils/data-utils';
 import { getProjectsData } from '../data/projectsData';
 import Projects from '../components/Projects.astro';
 
+const { env } = Astro.locals.runtime;
+
 export const prerender = true;
 
 const posts = (await getCollection('blog')).sort(sortItemsByDateDesc);
 const featuredPosts = posts.filter(({ data }) => data.isFeatured);
 
 const featuredProjectsTitles = ['uptime-kuma-rn', 'flowify'];
-const projects = (await getProjectsData()).filter((d) => !d.fork);
+const projects = (await getProjectsData(env)).filter((d) => !d.fork);
 const featuredProjects = projects
     .filter((project) => featuredProjectsTitles.includes(project.title))
     .sort((a, b) => featuredProjectsTitles.indexOf(a.title) - featuredProjectsTitles.indexOf(b.title));
