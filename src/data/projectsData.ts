@@ -56,7 +56,7 @@ export async function getProjectsData(env: Record<string, any>): Promise<Project
             method: 'POST',
             headers,
             body: JSON.stringify({ query })
-        }, env);
+        }, env, 'github-projects');
         console.log('GitHub API rate limit:', response.headers?.get ? response.headers.get('X-RateLimit-Remaining') : 'unknown');
         if (!response.data || !response.data.user) {
             throw new Error('Invalid GraphQL response: missing data.user');

@@ -1,18 +1,11 @@
-import crypto from 'crypto';
-
-
-export async function cachedFetch(url: string, options?: RequestInit, env?: Record<string, any>): Promise<any> {
+export async function cachedFetch(url: string, options?: RequestInit, env?: Record<string, any>, cacheKey?: string): Promise<any> {
     const blogKV = env?.BLOG_KV;
-    let keySource = url;
-    if (options?.body) {
-        keySource += JSON.stringify(options.body);
-    }
-    const hash = crypto.createHash('sha256').update(keySource).digest('hex');
+    const key = cacheKey || url;
     
     if (blogKV) {
-        const cached = await blogKV.get(hash);
+        const cached = await blogKV.get(key);
         if (cached) {
-            console.log('Using cached data for', url);
+            console.log('Using cached data for', key);
             return JSON.parse(cached);
         }
     }
@@ -24,7 +17,7 @@ export async function cachedFetch(url: string, options?: RequestInit, env?: Reco
     const data = await response.json();
     
     if (blogKV) {
-        await blogKV.put(hash, JSON.stringify(data), { expirationTtl: 3600 });
+        await blogKV.put(key, JSON.stringify(data), { expirationTtl: 3600 });
     }
     return data;
 }

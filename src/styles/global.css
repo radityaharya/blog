@@ -135,7 +135,7 @@
     width: calc(1ch / 0.75);
     font-size: .75rem;
   }
-  table {
+  /* table {
     position: relative;
     top: calc(var(--line-height) / 2);
     width: calc(round(down, 100%, 1ch));
@@ -165,7 +165,7 @@
   }
   .header tr td:last-child {
     text-align: right;
-  }
+  } */
   p {
     word-break: break-word;
     word-wrap: break-word;

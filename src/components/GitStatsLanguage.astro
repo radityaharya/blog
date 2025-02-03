@@ -1,0 +1,123 @@
+---
+import { getLanguageCommitStats } from '../data/commitStats';
+
+const username = 'radityaharya';
+const stats = await getLanguageCommitStats(username, Astro.locals.runtime.env);
+const maxCount = Math.max(...Object.values(stats));
+const barMaxLength = 20;
+
+function buildBar(count: number): string {
+    const length = Math.round((count / maxCount) * barMaxLength);
+    return '█'.repeat(length) + '░'.repeat(barMaxLength - length);
+}
+---
+
+<style>
+    .lang {
+        font-weight: bold;
+    }
+    .stats-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+    }
+    td, th {
+        padding: 0.35rem 0;
+        vertical-align: middle;
+    }
+    .bar-container {
+        position: relative;
+        height: 1em;
+        background: rgba(var(--color-text-main), 0.1);
+        border-radius: 2px;
+        margin: 0 0.5rem;
+    }
+    .bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background: rgb(var(--color-text-main));
+        transition: width 0.2s ease-out;
+        border-radius: 2px;
+    }
+    .lang-cell {
+        width: 100px;
+        white-space: nowrap;
+    }
+    .count-cell {
+        width: 60px;
+        text-align: right;
+        white-space: nowrap;
+    }
+</style>
+
+<div class="stats-container" role="region" aria-label="Programming Language Statistics">
+    <h3 class="font-bold text-xl mb-4" id="language-stats">Top Languages (30 days)</h3>
+    <table aria-labelledby="language-stats">
+        <thead class="sr-only">
+            <tr>
+                <th scope="col">Language</th>
+                <th scope="col">Commit Distribution</th>
+                <th scope="col">Commit Count</th>
+            </tr>
+        </thead>
+        <tbody class="font-mono">
+            {Object.entries(stats)
+                .sort((a, b) => b[1] - a[1])
+                .map(([lang, count]) => {
+                    const percentage = Math.round((count / maxCount) * 100);
+                    return (
+                        <tr>
+                            <th scope="row" class="lang-cell text-left">{lang}</th>
+                            <td class="bar-cell">
+                                <div class="bar-container">
+                                    <div 
+                                        class="bar" 
+                                        style={`width: ${percentage}%`}
+                                        data-percentage={percentage}
+                                    />
+                                </div>
+                                <span class="sr-only">{percentage}% of commits</span>
+                            </td>
+                            <td class="count-cell tabular-nums">{count}</td>
+                        </tr>
+                    );
+                })
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function updateBars() {
+        const container = document.querySelector('.stats-container');
+        if (!container) return;
+
+        const containerWidth = container.clientWidth;
+        const minBarWidth = 100;
+        const maxBarWidth = containerWidth - 200;
+
+        const bars = container.querySelectorAll('.bar');
+        bars.forEach(bar => {
+            const percentage = parseInt(bar.getAttribute('data-percentage') || '0', 10);
+            const width = Math.max(minBarWidth, Math.min(maxBarWidth, (maxBarWidth * percentage) / 100));
+            (bar as HTMLElement).style.width = `${percentage}%`;
+        });
+    }
+
+    const observer = new ResizeObserver(() => {
+        requestAnimationFrame(updateBars);
+    });
+
+    const container = document.querySelector('.stats-container');
+    if (container) {
+        observer.observe(container);
+    }
+
+    updateBars();
+</script>
