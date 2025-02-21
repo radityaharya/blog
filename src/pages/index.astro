@@ -8,6 +8,7 @@ import siteConfig from '../data/site-config';
 import { sortItemsByDateDesc } from '../utils/data-utils';
 import { getProjectsData } from '../data/projectsData';
 import Projects from '../components/Projects.astro';
+import GitCommitHistory from '../components/GitCommitHistory.astro';
 
 const { env } = Astro.locals.runtime;
 
@@ -49,4 +50,5 @@ const featuredProjects = projects
             </div>
         )
     }
+    <GitCommitHistory />
 </BaseLayout>

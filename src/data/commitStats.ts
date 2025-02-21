@@ -2,7 +2,7 @@ import { getSecret } from 'astro:env/server';
 import { cachedFetch } from '../utils/cached-fetch';
 
 interface LanguageStats {
-	[language: string]: number;
+    [language: string]: number;
 }
 
 interface TimeStats {
@@ -20,14 +20,24 @@ interface StreakStats {
     avgPerDay: number;
 }
 
+interface CommitInfo {
+    date: string;
+    count: number;
+    commits: Array<{
+        message: string;
+        repo: string;
+        sha: string;
+    }>;
+}
+
 export async function getLanguageCommitStats(username: string, env: Record<string, any>): Promise<LanguageStats> {
-  const accessToken = getSecret('GITHUB_ACCESS_TOKEN');
-  if (!accessToken) throw new Error('GITHUB_ACCESS_TOKEN not set');
+    const accessToken = getSecret('GITHUB_ACCESS_TOKEN');
+    if (!accessToken) throw new Error('GITHUB_ACCESS_TOKEN not set');
 
-  const to = new Date().toISOString();
-  const from = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    const to = new Date().toISOString();
+    const from = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
 
-  const query = `
+    const query = `
   query($username: String!, $from: DateTime!, $to: DateTime!) {
     user(login: $username) {
       contributionsCollection(from: $from, to: $to) {
@@ -42,38 +52,44 @@ export async function getLanguageCommitStats(username: string, env: Record<strin
     }
   }`;
 
-  const variables = { username, from, to };
+    const variables = { username, from, to };
 
-  const response = await cachedFetch('https://api.github.com/graphql', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query, variables })
-  }, env, 'github-language-stats');
-  const json = response;
-  if (!json) {
-    throw new Error('Invalid GraphQL response');
-  }
-  const items = json.data.user.contributionsCollection.commitContributionsByRepository;
-
-  const stats: LanguageStats = {};
-  for (const item of items) {
-    const commitCount = item.contributions.totalCount;
-    const languages = (item.repository.languages.nodes.length > 0)
-      ? item.repository.languages.nodes.map((node: any) => node.name)
-      : item.repository.primaryLanguage 
-        ? [item.repository.primaryLanguage.name]
-        : ['Unknown'];
-          
-    for (const lang of new Set(languages)) {
-      if (typeof lang === 'string') {
-        stats[lang] = (stats[lang] || 0) + commitCount;
-      }
+    const response = await cachedFetch(
+        'https://api.github.com/graphql',
+        {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query, variables })
+        },
+        env,
+        'github-language-stats'
+    );
+    const json = response;
+    if (!json) {
+        throw new Error('Invalid GraphQL response');
     }
-  }
-  return stats;
+    const items = json.data.user.contributionsCollection.commitContributionsByRepository;
+
+    const stats: LanguageStats = {};
+    for (const item of items) {
+        const commitCount = item.contributions.totalCount;
+        const languages =
+            item.repository.languages.nodes.length > 0
+                ? item.repository.languages.nodes.map((node: any) => node.name)
+                : item.repository.primaryLanguage
+                  ? [item.repository.primaryLanguage.name]
+                  : ['Unknown'];
+
+        for (const lang of new Set(languages)) {
+            if (typeof lang === 'string') {
+                stats[lang] = (stats[lang] || 0) + commitCount;
+            }
+        }
+    }
+    return stats;
 }
 
 export async function getCommitTimeStats(username: string, env: Record<string, any>): Promise<TimeStats> {
@@ -93,32 +109,37 @@ export async function getCommitTimeStats(username: string, env: Record<string, a
         }
     }`;
 
-    const response = await cachedFetch('https://api.github.com/graphql', {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
+    const response = await cachedFetch(
+        'https://api.github.com/graphql',
+        {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query, variables: { username } })
         },
-        body: JSON.stringify({ query, variables: { username } })
-    }, env, 'github-time-stats');
+        env,
+        'github-time-stats'
+    );
 
     const commits = response.data.user.contributionsCollection.commitContributionsByRepository
         .flatMap((repo: any) => repo.contributions)
         .map((commit: any) => new Date(commit.occurredAt));
 
     const timeStats: TimeStats = {
-        "Morning (6-12)": 0,
-        "Afternoon (12-18)": 0,
-        "Evening (18-24)": 0,
-        "Night (0-6)": 0
+        'Morning (6-12)': 0,
+        'Afternoon (12-18)': 0,
+        'Evening (18-24)': 0,
+        'Night (0-6)': 0
     };
 
     commits.forEach((date: Date) => {
         const hour = date.getHours();
-        if (hour >= 6 && hour < 12) timeStats["Morning (6-12)"]++;
-        else if (hour >= 12 && hour < 18) timeStats["Afternoon (12-18)"]++;
-        else if (hour >= 18) timeStats["Evening (18-24)"]++;
-        else timeStats["Night (0-6)"]++;
+        if (hour >= 6 && hour < 12) timeStats['Morning (6-12)']++;
+        else if (hour >= 12 && hour < 18) timeStats['Afternoon (12-18)']++;
+        else if (hour >= 18) timeStats['Evening (18-24)']++;
+        else timeStats['Night (0-6)']++;
     });
 
     return timeStats;
@@ -148,14 +169,19 @@ export async function getTopRepos(username: string, env: Record<string, any>): P
         }
     }`;
 
-    const response = await cachedFetch('https://api.github.com/graphql', {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
+    const response = await cachedFetch(
+        'https://api.github.com/graphql',
+        {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query, variables: { username } })
         },
-        body: JSON.stringify({ query, variables: { username } })
-    }, env, 'github-top-repos');
+        env,
+        'github-top-repos'
+    );
 
     const json = response;
     if (!json?.data?.user) {
@@ -172,4 +198,140 @@ export async function getTopRepos(username: string, env: Record<string, any>): P
     });
 
     return repoStats;
+}
+
+export async function getDailyCommits(username: string, env: Record<string, any>): Promise<CommitInfo[]> {
+    const accessToken = getSecret('GITHUB_ACCESS_TOKEN');
+    if (!accessToken) throw new Error('GITHUB_ACCESS_TOKEN not set');
+
+    try {
+        const query = `
+        query UserContributions($username: String!) {
+            user(login: $username) {
+                contributionsCollection {
+                    commitContributionsByRepository {
+                        repository {
+                            name
+                        }
+                        contributions(first: 100) {
+                            nodes {
+                                occurredAt
+                                commit {
+                                    message
+                                    oid
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }`;
+
+        const response = await cachedFetch(
+            'https://api.github.com/graphql',
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    query,
+                    variables: { username }
+                })
+            },
+            env,
+            'github-daily-commits'
+        );
+
+        // Validate GraphQL response
+        if (response.errors) {
+            console.error('GraphQL Errors:', response.errors);
+            return [];
+        }
+
+        if (!response.data?.user) {
+            console.error('Invalid response structure:', response);
+            return [];
+        }
+
+        const repositories = response.data.user.contributionsCollection?.commitContributionsByRepository || [];
+        
+        const commits = repositories.flatMap(repo => {
+            if (!repo?.repository?.name || !repo?.contributions?.nodes) return [];
+            
+            return repo.contributions.nodes
+                .filter(node => node?.commit && node?.occurredAt)
+                .map(node => ({
+                    date: node.occurredAt,
+                    message: node.commit.message || '',
+                    repo: repo.repository.name,
+                    sha: node.commit.oid || ''
+                }));
+        });
+
+        // Group by date
+        const groupedCommits = commits.reduce((acc: Record<string, CommitInfo>, commit) => {
+            const date = commit.date.split('T')[0];
+            if (!acc[date]) {
+                acc[date] = { date, count: 0, commits: [] };
+            }
+            acc[date].count++;
+            acc[date].commits.push({
+                message: commit.message,
+                repo: commit.repo,
+                sha: commit.sha
+            });
+            return acc;
+        }, {});
+
+        return Object.values(groupedCommits)
+            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+    } catch (error) {
+        console.error('Error in getDailyCommits:', error);
+        return [];
+    }
+}
+
+export async function getCalendarCommits(username: string, env: Record<string, any>): Promise<number[][]> {
+    const accessToken = getSecret('GITHUB_ACCESS_TOKEN');
+    if (!accessToken) throw new Error('GITHUB_ACCESS_TOKEN not set');
+
+    const query = `
+    query($username: String!) {
+        user(login: $username) {
+            contributionsCollection {
+                contributionCalendar {
+                    weeks {
+                        contributionDays {
+                            contributionCount
+                        }
+                    }
+                }
+            }
+        }
+    }`;
+
+    const response = await cachedFetch(
+        'https://api.github.com/graphql',
+        {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query, variables: { username } })
+        },
+        env,
+        'github-calendar-commits'
+    );
+
+    if (!response?.data?.user?.contributionsCollection?.contributionCalendar?.weeks) {
+        throw new Error('Invalid GraphQL response');
+    }
+
+    return response.data.user.contributionsCollection.contributionCalendar.weeks.map((week: any) =>
+        week.contributionDays.map((day: any) => day.contributionCount)
+    );
 }
