@@ -16,7 +16,7 @@ Alright, so I built a little tool, mostly for myself, but I figured I'd share it
 
 I'm a big fan of Cloudflare Tunnels. They let me expose my Dockerized apps to the internet without opening ports on my router or dealing with dynamic DNS. It's a secure and convenient way to access my projects from anywhere. The problem? Setting up tunnels manually for each container got *really* tedious, *really* fast. I'm all about automating repetitive tasks, so I decided to scratch my own itch.
 
-**The Problem (My Problem, Specifically)**
+## The Problem (My Problem, Specifically)
 
 I frequently spin up new containers, test different configurations, and generally tinker with my setup. Each time, I'd have to go through this annoying process:
 
@@ -28,7 +28,7 @@ I frequently spin up new containers, test different configurations, and generall
 
 It was a time-sink and, frankly, a pain. Plus, i wanted to make something anyway..
 
-**TunnelDock: My Solution**
+## TunnelDock: My Solution
 
 TunnelDock is my answer to this problem. It's a small, self-contained application that automates the whole Cloudflare Tunnel configuration process for my Docker containers. It's like a tiny, personal DevOps assistant that lives on my server. It's *very* much tailored to *my* workflow, but I think the core idea is useful.
 
@@ -38,7 +38,7 @@ Here's what it does:
 *   **DNS Record Management:** It also handles creating and updating the CNAME records in Cloudflare DNS, so my chosen hostnames point to the right tunnel.
 *   **Automatic Cleanup:** When I remove a container, it removes it's associated tunnel config and DNS records, keeping things tidy.
 
-**How It Works (Under the Hood)**
+### How It Works (Under the Hood)
 
 I built TunnelDock with a few of my favorite tools:
 
@@ -57,7 +57,7 @@ The basic flow is:
 4.  **Remember Stuff:** It keeps track of what it's done in a local JSON file, so it knows the current state.
 5.  **Clean Up:** Removes stale configurations for removed containers.
 
-**Getting It Running**
+### Getting It Running
 
 Because I built this primarily for myself, the setup is pretty straightforward (and assumes you're comfortable with Docker Compose):
 
@@ -68,7 +68,7 @@ Because I built this primarily for myself, the setup is pretty straightforward (
 2.  **`.env` File:** Create a `.env` file with your Cloudflare API credentials. *Important:* You need to have *already* created a Cloudflare Tunnel. This tool manages the *configuration* of an existing tunnel.
 3.  **`docker compose up -d`:** And it's running!
 
-**Configuring My Containers**
+### Configuring My Containers
 
 The key to making this work is adding specific Docker labels to the containers *I* want to expose. Here's what I use:
 
@@ -78,6 +78,8 @@ The key to making this work is adding specific Docker labels to the containers *
 *   **`tunneldock.service.port`:** The port my app uses *inside* the container.
 *   **`tunneldock.service.path`:** (Optional) For apps served from a specific path (like `/blog`).
 *   **`tunneldock.originRequest.*`:** Advanced configuration for the tunnel. See the README.md file in the codebase.
+
+### Example Configuration
 
 **Example (in my `docker-compose.yml`):**
 
