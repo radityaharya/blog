@@ -14,7 +14,7 @@
         "db:migrate:remote": "wrangler d1 migrations apply --remote DB"
     },
     "dependencies": {
-        "@astrojs/cloudflare": "^12.2.1",
+        "@astrojs/cloudflare": "^12.6.6",
         "@astrojs/mdx": "^4.0.8",
         "@astrojs/rss": "^4.0.11",
         "@astrojs/sitemap": "^3.2.1",
