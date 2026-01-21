@@ -31,6 +31,6 @@
         "@tailwindcss/typography": "^0.5.16",
         "prettier": "^3.4.2",
         "prettier-plugin-tailwindcss": "^0.6.11",
-        "wrangler": "^3.107.2"
+        "wrangler": "^3.114.17"
     }
 }
