@@ -51,7 +51,7 @@
     "@vercel/speed-insights": "^1.0.1",
     "async-sema": "^3.1.1",
     "axios": "^1.6.4",
-    "canvas": "^2.11.0",
+    "canvas": "^3.0.0",
     "clsx": "^1.2.1",
     "dayjs": "^1.11.7",
     "fathom-client": "^3.5.0",
